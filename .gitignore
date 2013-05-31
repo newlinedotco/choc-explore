@@ -1,0 +1,12 @@
+.DS_Store
+node_modules
+*.sock
+test/fixtures/tmp/
+dist
+\#*
+.\#*
+.emacs.desktop.lock
+.emacs.desktop
+logs/*.log
+.sass-cache/
+Gemfile.lock

@@ -1,0 +1,113 @@
+extends layout
+
+block content
+  :coffeescript
+    $(document).ready () ->
+
+      requestEditor = CodeMirror $("#request")[0], {
+        value: $("#default-request").text()
+        mode:  "coffeescript"
+        viewportMargin: Infinity
+        tabMode: "spaces"
+        }
+
+      requestContextEditor = CodeMirror $("#request-context")[0], {
+        value: $("#default-context").text()
+        mode:  "coffeescript"
+        viewportMargin: Infinity
+        tabMode: "spaces"
+        }
+
+      resultsEditor = CodeMirror $("#results")[0], {
+        value: "Run to see results"
+        mode:  "javascript"
+        viewportMargin: Infinity
+        tabMode: "spaces"
+        }
+
+      httpRequestEditor = CodeMirror $("#http-request")[0], {
+        value: ""
+        mode:  "http"
+        viewportMargin: Infinity
+        tabMode: "spaces"
+        }
+
+      httpResponseEditor = CodeMirror $("#http-response")[0], {
+        value: ""
+        mode:  "http"
+        viewportMargin: Infinity
+        tabMode: "spaces"
+        }
+
+      $("#run-button").click () ->
+        $("#run-button").text("RUNNING")
+        args = 
+          request: requestEditor.getValue()
+          context: requestContextEditor.getValue()  
+
+        resultsEditor.setValue("")
+        httpRequestEditor.setValue("")
+        httpResponseEditor.setValue("")
+
+        $.ajax("/request", {
+            data : JSON.stringify(args),
+            contentType : 'application/json',
+            type : 'POST'
+            }).fail((xhr) ->
+              response = JSON.parse(xhr.responseText)
+              console.log(response)
+              resultsEditor.setValue(response.msg)
+              httpRequestEditor.setValue(response.requestString)
+              httpResponseEditor.setValue(response.responseString)
+              $("#run-button").text("RUN")
+              ).done((xhr) ->
+              console.log(xhr)
+              resultsEditor.setValue(xhr.recordsString)
+              httpRequestEditor.setValue(xhr.requestString)
+              httpResponseEditor.setValue(xhr.responseString)
+              $("#run-button").text("RUN")
+              )
+
+
+
+  div(class="row")
+    div(class="large-12 large-centered columns")
+      div(class="row")
+        div(class="large-10 columns")
+          h1#title
+            img#choc-icon(src="/images/choc.svg")
+            = title 
+
+        div(class="large-2 columns top-buttons")
+          .run
+            a#run-button.ubutton(href="#") RUN
+
+      div(class="row")
+        div(class="large-12 columns")
+          .section-header Request
+
+      div(class="row")
+        div(class="large-6 columns")
+          #request
+
+        div(class="large-6 columns")
+          #request-context
+          #http-request 
+
+      div(class="row")
+        div(class="large-12 columns")
+          .section-header Response
+
+      div(class="row")
+        div(class="large-6 columns")
+          #results
+
+        div(class="large-6 columns")
+          #http-response
+
+    div(class="large-12 large-centered columns hidden")
+      #default-request
+        = thunderRequest
+      #default-context
+        = thunderContext
+
