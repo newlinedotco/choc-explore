@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  font-family: "source-code-pro", "Helvetica", Georgia, Times New Roman, serif;
+  font-size: 1.125em;
+  line-height: 20px;
+  color: #333333;
+  background-color: #f1f1f1; }
+
+.row {
+  max-width: 90%; }
+
+.CodeMirror {
+  background-color: #f1f1f1;
+  line-height: 1.575em;
+  height: auto; }
+
+.CodeMirror-scroll {
+  height: auto;
+  overflow-x: auto;
+  overflow-y: hidden; }
+
+.ubutton {
+  background-color: gainsboro;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  display: inline-block;
+  color: #777777;
+  font-family: Courier New;
+  font-size: 23px;
+  font-weight: bold;
+  padding: 12px 23px;
+  text-decoration: none; }
+  .ubutton:hover {
+    background-color: gainsboro; }
+  .ubutton:active {
+    position: relative;
+    top: 1px; }
+
+.top-buttons {
+  text-align: right; }
+
+.run {
+  margin-top: 1.2em;
+  margin-bottom: 0.5em; }
+
+.hidden {
+  display: none; }
+
+#title {
+  position: relative;
+  left: -1.15em; }
+
+#choc-icon {
+  margin-right: 0.2em;
+  height: 1em;
+  top: 0.1em;
+  position: relative; }
+
+.section-header {
+  background-color: gainsboro;
+  color: #777777;
+  padding: 0.4em 0em; }
+
+.section-header {
+  color: #f1f1f1;
+  padding: 0.4em 0.5em;
+  text-transform: uppercase;
+  font-family: courier;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; }
