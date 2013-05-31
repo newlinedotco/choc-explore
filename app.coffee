@@ -37,9 +37,8 @@ app.configure ->
     res.send 500, { error: err, msg: "#{err.message}\n#{err.stack}" }
 
 app.get "/", (req, res) ->
-
   res.render('index', {
-    title: 'Umbrella'
+    title: 'Choc'
     thunderRequest: req.session?['thunderRequest']
     thunderContext: req.session?['thunderContext']
   })
