@@ -15,43 +15,18 @@ block content
 
       boilerplate = (drawCode) -> """
         two = pad;
+ 
+        #{drawCode}
 
-        // two has convenience methods to create shapes.
-        var circle = two.makeCircle(72, 100, 50);
-        var rect = two.makeRectangle(213, 100, 100, 100);
-
-        // The object returned has many stylable properties:
-        circle.fill = '#FF8000';
-        circle.stroke = 'orangered'; // Accepts all valid css color
-        circle.linewidth = 5;
-
-        rect.fill = 'rgb(0, 200, 255)';
-        rect.opacity = 0.75;
-        rect.noStroke();
         pad.update();
       """
 
       pad = new Two({ 
         width: 200
         height: 200 
-        type: Two.Types.canvas
+        type: Two.Types.svg
         })
         .appendTo(document.getElementById('targetcanvas'))
-      two = pad
-
-      # two has convenience methods to create shapes.
-      circle = two.makeCircle(72, 100, 50)
-      rect = two.makeRectangle(213, 100, 100, 100)
-
-      # The object returned has many stylable properties:
-      circle.fill = "#FF8000"
-      circle.stroke = "orangered" # Accepts all valid css color
-      circle.linewidth = 5
-      rect.fill = "rgb(0, 200, 255)"
-      rect.opacity = 0.75
-      rect.noStroke()
-
-      pad.update();  
 
       delay = null
       editor = CodeMirror $("#editor")[0], {
@@ -63,6 +38,8 @@ block content
       editor.on "change", () ->
         clearTimeout(delay)
         delay = setTimeout(updatePreview, 300)
+
+      slider = $("#slider").slider();
 
       sourceRewrite = () ->
         options = 
@@ -86,7 +63,7 @@ block content
       updatePreview = () ->
         drawCode = boilerplate(editor.getValue())
         try
-          # `eval(drawCode)`
+          `eval(drawCode)`
           $("#messages").text("")
         catch e
           console.log(e)
@@ -108,6 +85,15 @@ block content
     div(class="large-12 large-centered columns")
       div(class="row")
         div(class="large-6 columns")
+          #slider
+
+        div(class="large-6 columns x-canvas")
+          &nbsp;
+
+    div(class="large-12 large-centered columns")
+      div(class="row")
+        div(class="large-6 columns")
+          #slider
           #editor
 
         div(class="large-6 columns x-canvas")
