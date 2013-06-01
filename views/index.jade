@@ -1,27 +1,26 @@
 extends layout
 
 block scripts
-  script(type="text/processing", data-processing-target="targetcanvas").
-    void setup() {
-      size(200, 200);
-      stroke(0);
-      fill(0);
-      noLoop();
-    }
-
-    void draw() {
-      background(#FFFFFF);
-      var shift = 0;
-      while (shift <= 200) {
-        line(shift, 0, 200, shift);
-        shift += 14;
-      }
-    }
 
 block content
   :coffeescript
     $(document).ready () ->
-      requestEditor = CodeMirror $("#editor")[0], {
+      boilerplate = (drawCode) -> """    
+        void setup() {
+          size(200, 200);
+          stroke(1);
+          fill(0);
+          noLoop();
+        }
+
+        void draw() {
+          background(#FFFFFF);
+          #{drawCode}   
+        }
+      """
+
+      delay = null
+      editor = CodeMirror $("#editor")[0], {
         value: """
           var shift = 0;
           while (shift <= 200) {
@@ -29,10 +28,29 @@ block content
             shift += 14;
           }
         """
-        mode:  "coffeescript"
+        mode:  "javascript"
         viewportMargin: Infinity
         tabMode: "spaces"
         }
+      editor.on "change", () ->
+        clearTimeout(delay)
+        delay = setTimeout(updatePreview, 300)
+
+      editor.on "cursorActivity", () ->
+        console.log editor.getCursor().line
+        # var cur = editor.getLineHandle(editor.getCursor().line)
+        # if (cur != hlLine)
+        #   editor.removeLineClass(hlLine, "background", "activeline")
+        #   hlLine = editor.addLineClass(cur, "background", "activeline")
+
+      updatePreview = () ->
+        pdeCode = boilerplate(editor.getValue())
+        # jsCode = Processing.compile(pdeCode).sourceCode
+        canvas = document.getElementById("targetcanvas");
+        instance = new Processing(canvas, pdeCode)
+
+      setTimeout(updatePreview, 300)
+
 
   div(class="row")
     div(class="large-12 large-centered columns")
@@ -49,7 +67,7 @@ block content
         div(class="large-6 columns")
           #editor
 
-        div(class="large-6 columns top-buttons")
+        div(class="large-6 columns canvas")
           canvas(id="targetcanvas")
 
 
