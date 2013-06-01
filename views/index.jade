@@ -24,7 +24,7 @@ block content
       pad = new Two({ 
         width: 200
         height: 200 
-        type: Two.Types.svg
+        type: Two.Types.canvas
         })
         .appendTo(document.getElementById('targetcanvas'))
 
@@ -39,7 +39,9 @@ block content
         clearTimeout(delay)
         delay = setTimeout(updatePreview, 300)
 
-      slider = $("#slider").slider();
+      slider = $("#slider").slider {
+        slide: (event, ui) -> $( "#amount" ).val( ui.value )
+        }
 
       sourceRewrite = () ->
         options = 

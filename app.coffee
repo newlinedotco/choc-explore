@@ -12,6 +12,7 @@ _ = require("underscore")
 {puts,inspect} = require("util")
 coffee = require("coffee-script")
 moment = require("moment")
+connectCoffeeScript = require("connect-coffee-script")
 
 app = express()
 app.configure ->
@@ -29,6 +30,12 @@ app.configure ->
   # app.use assets({src: path.join(__dirname, "assets"), build: true})
   # app.use assets({src: "assets", build: true})
   app.use assets()
+  app.use connectCoffeeScript({ 
+    src: __dirname + "/src" 
+    dest: __dirname + "/public/javascripts"
+    prefix: "/javascripts"
+    bare: true 
+    })
   app.use express.static(path.join(__dirname, "public"))
   app.use app.router
 
