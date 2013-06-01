@@ -5,29 +5,26 @@ block scripts
 block content
   :coffeescript
     $(document).ready () ->
-      boilerplate = (drawCode) -> """    
-        void setup() {
-          size(200, 200);
-          stroke(1);
-          fill(0);
-          noLoop();
-        }
-
-        void draw() {
-          background(#FFFFFF);
-          #{drawCode}   
+      parabola = """
+        var shift = 0;
+        while (shift <= 200) {
+          two.makeLine(shift, 0, 200, shift);
+          shift += 14;
         }
       """
 
+      boilerplate = (drawCode) -> """
+        two.clear();
+        #{drawCode}
+        two.update();
+      """
+
+      two = new Two({ width: 200, height: 200 })
+        .appendTo(document.getElementById('targetcanvas'));
+
       delay = null
       editor = CodeMirror $("#editor")[0], {
-        value: """
-          var shift = 0;
-          while (shift <= 200) {
-            line(shift, 0, 200, shift);
-            shift += 14;
-          }
-        """
+        value: parabola
         mode:  "javascript"
         viewportMargin: Infinity
         tabMode: "spaces"
@@ -37,17 +34,10 @@ block content
         delay = setTimeout(updatePreview, 300)
 
       editor.on "cursorActivity", () ->
-        console.log editor.getCursor().line
-        # var cur = editor.getLineHandle(editor.getCursor().line)
-        # if (cur != hlLine)
-        #   editor.removeLineClass(hlLine, "background", "activeline")
-        #   hlLine = editor.addLineClass(cur, "background", "activeline")
 
       updatePreview = () ->
-        pdeCode = boilerplate(editor.getValue())
-        # jsCode = Processing.compile(pdeCode).sourceCode
-        canvas = document.getElementById("targetcanvas");
-        instance = new Processing(canvas, pdeCode)
+        drawCode = boilerplate(editor.getValue())
+        `eval(drawCode)`
 
       setTimeout(updatePreview, 300)
 
@@ -68,6 +58,6 @@ block content
           #editor
 
         div(class="large-6 columns canvas")
-          canvas(id="targetcanvas")
+          #targetcanvas
 
 
