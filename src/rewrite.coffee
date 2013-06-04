@@ -42,6 +42,7 @@ collectUnits = (code, tree) ->
   traverse tree, (node, path) ->
     if isStatement(node.type) || isExpression(node.type)
       puts node.type
+      puts inspect node
       units.push { node: node }
   units
 
