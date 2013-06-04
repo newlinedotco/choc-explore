@@ -9,22 +9,44 @@ var answer = 6 * 7;
 var foo = "bar";
 console.log(answer);
 console.log(foo);
+
+var shift = 0;
+while (shift <= 200) {
+  console.log(shift);
+  shift += 14;
+}
   """
 
 isStatement = (thing) ->
-  statements = ['BlockStatement', 'BreakStatement', 'ContinueStatement', 'DoWhileStatement',
-  'DebuggerStatement', 'EmptyStatement', 'ExpressionStatement', 'ForStatement',
-  'ForInStatement', 'IfStatement', 'LabeledStatement', 'ReturnStatement',
-  'SwitchStatement', 'ThrowStatement', 'TryStatement', 'WhileStatement',
-  'WithStatement']
+
+  # 'BlockStatement',
+
+  statements = [
+    'BreakStatement', 'ContinueStatement', 'DoWhileStatement',
+    'DebuggerStatement', 'EmptyStatement', 'ExpressionStatement', 'ForStatement',
+    'ForInStatement', 'IfStatement', 'LabeledStatement', 'ReturnStatement',
+    'SwitchStatement', 'ThrowStatement', 'TryStatement', 'WhileStatement',
+    'WithStatement',
+
+    'VariableDeclaration'
+  ]
   _.contains(statements, thing)
 
 isExpression = (thing) ->
-  expressions = ['AssignmentExpression', 'ArrayExpression', 'BinaryExpression',
-  'CallExpression', 'ConditionalExpression', 'FunctionExpression',
-  'LogicalExpression', 'MemberExpression', 'NewExpression', 'ObjectExpression',
-  'SequenceExpression', 'ThisExpression', 'UnaryExpression', 'UpdateExpression']
+  expressions = [
+    'AssignmentExpression', 'ArrayExpression', 'BinaryExpression',
+    'CallExpression', 'ConditionalExpression', 'FunctionExpression',
+    'LogicalExpression', 'MemberExpression', 'NewExpression', 'ObjectExpression',
+    'SequenceExpression', 'ThisExpression', 'UnaryExpression', 'UpdateExpression'
+  ]
   _.contains(expressions, thing)
+
+isStatementish = (thing) ->
+  interesting = [
+    'VariableDeclaration', 'ExpressionStatement', 'WhileStatement'
+  ]
+  _.contains(interesting, thing)
+
 
 # Executes visitor on the object and its children (recursively).
 traverse = (object, visitor, path) ->
@@ -40,10 +62,10 @@ traverse = (object, visitor, path) ->
 collectUnits = (code, tree) ->
   units = []
   traverse tree, (node, path) ->
-    if isStatement(node.type) || isExpression(node.type)
-      puts node.type
-      puts inspect node
-      units.push { node: node }
+    if isStatement(node.type)
+     puts node.type
+     puts inspect node, null, 10
+     units.push { node: node }
   units
 
 sourceRewrite = (code)->
