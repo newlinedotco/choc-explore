@@ -15,9 +15,9 @@ $(document).ready () ->
     pad.update();
   """
 
-  pad = new Two({ 
+  pad = new Two({
     width: 200
-    height: 200 
+    height: 200
     type: Two.Types.canvas
     })
     .appendTo(document.getElementById('targetcanvas'))
@@ -38,7 +38,7 @@ $(document).ready () ->
     }
 
   sourceRewrite = () ->
-    options = 
+    options =
       comment: true
       format:
         quotes: "double"
