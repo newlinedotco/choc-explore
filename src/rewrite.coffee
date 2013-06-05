@@ -3,6 +3,10 @@ esprima = require("esprima")
 escodegen = require("escodegen")
 _ = require("underscore")
 
+# In this file, I'm using "statement" in a general sense and not in the
+# particular javascript-syntax sense. A statement, seen as a variable name,
+# simply means a unit of interest
+
 source = """
 // Life, Universe, and Everything
 var answer = 6 * 7;
@@ -10,10 +14,11 @@ var foo = "bar";
 console.log(answer);
 console.log(foo);
 
+// parabolas
 var shift = 0;
 while (shift <= 200) {
   console.log(shift);
-  shift += 14;
+  shift += 14; // increment
 }
   """
 
@@ -47,7 +52,6 @@ isStatementish = (thing) ->
   ]
   _.contains(interesting, thing)
 
-
 # Executes visitor on the object and its children (recursively).
 traverse = (object, visitor, path) ->
   key = undefined
@@ -59,14 +63,14 @@ traverse = (object, visitor, path) ->
       child = object[key]
       traverse child, visitor, [object].concat(path) if typeof child is "object" and child isnt null
 
-collectUnits = (code, tree) ->
-  units = []
+collectStatements = (code, tree) ->
+  statements = []
   traverse tree, (node, path) ->
     if isStatement(node.type)
-     puts node.type
-     puts inspect node, null, 10
-     units.push { node: node }
-  units
+      # puts node.type
+      # puts inspect node, null, 10
+      statements.push { node: node, path: path }
+  statements
 
 sourceRewrite = (code)->
   option =
@@ -80,14 +84,19 @@ sourceRewrite = (code)->
     loc: true
     raw: true
     tokens: true
-    range: false
+    range: true
     comment: true
   )
-  # syntax = escodegen.attachComments(syntax, syntax.comments, syntax.tokens)
-  # puts inspect syntax.body, null, 10
-  collectUnits code, syntax
+  syntax = escodegen.attachComments(syntax, syntax.comments, syntax.tokens)
+
+  statements = collectStatements code, syntax
+  statements[0].node.interesting = "foo"
+
+  puts inspect syntax, null, 5
 
   code = escodegen.generate(syntax, option)
+  puts "\n======="
+  puts "Statements: #{statements.length}\n"
   puts code
 
 sourceRewrite(source)
