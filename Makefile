@@ -10,3 +10,7 @@ sass-watch:
 sass:
 	sass sass:public/stylesheets
 
+develop:
+	npm link  
+	npm link choc
+  cd public/javascripts && ln -s ../../node_modules/choc/choc.browser.js choc.browser.js
