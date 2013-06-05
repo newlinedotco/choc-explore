@@ -8,6 +8,10 @@ _ = require("underscore")
 # particular javascript-syntax sense. A statement, seen as a variable name,
 # simply means a unit of interest
 
+# TODOs 
+# return a + b in a function ReturnStatement placement
+# While statement placement - ending part
+
 isStatement = (thing) ->
   statements = [
     'BreakStatement', 'ContinueStatement', 'DoWhileStatement',
@@ -82,16 +86,18 @@ tracers =
 preamble = 
   trace: (opts) ->
     __choc_count = 0
-    () =>
+    (info) =>
       __choc_count = __choc_count + 1
-      console.log("count:  #{__choc_count}")
+      console.log("count:  #{__choc_count}/#{opts.count} type: #{info.type}")
+      if __choc_count >= opts.count
+        throw new Error("__choc_pause")
 
-chocify = (source) ->
+chocify = (source, count) ->
   modifiers = [ tracers.postStatement("__choc_trace") ]
   morphed = esmorph.modify(source, modifiers)
 
   chocified = """
-    __choc_trace = (#{preamble.trace.toString()})()
+    __choc_trace = (#{preamble.trace.toString()})({count: #{count}})
     #{morphed}
   """
   
@@ -111,8 +117,8 @@ while (shift <= 200) {
 }
   """
 
-puts chocify(source)
-
-eval chocify(source)
+new_source = chocify(source, 10)
+puts new_source
+eval new_source
 
 
