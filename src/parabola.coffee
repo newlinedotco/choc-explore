@@ -33,36 +33,29 @@ $(document).ready () ->
     clearTimeout(delay)
     delay = setTimeout(updatePreview, 300)
 
+  sliderValue = 0
+
   slider = $("#slider").slider {
-    slide: (event, ui) -> $( "#amount" ).val( ui.value )
+    min: 0
+    max: 50
+    slide: (event, ui) -> 
+      $( "#amount" ).text( ui.value ) 
+      console.log(ui.value)
+      sliderValue = ui.value
+      updatePreview()
     }
 
-  sourceRewrite = () ->
-    options =
-      comment: true
-      format:
-        quotes: "double"
-        indent:
-          style: "  "
-
-    try
-      code = editor.getValue()
-      syntax = window.esprima.parse(code, raw: true, tokens: true, range: true, comment: true)
-      syntax = window.escodegen.attachComments(syntax, syntax.comments, syntax.tokens)
-      code = window.escodegen.generate(syntax, options)
-      editor.setValue code
-      $("#messages").text("")
-    catch e
-      console.log(e)
-      $("#messages").text(e.toString())
-
   updatePreview = () ->
-    drawCode = boilerplate(editor.getValue())
+    scrubNotify = (info) ->
+        console.log(info)
+
     try
-      `eval(drawCode)`
+      # `eval(drawCode)`
+      window.choc.scrub editor.getValue(), sliderValue, notify: scrubNotify, wrapper: boilerplate, scope: this
       $("#messages").text("")
     catch e
       console.log(e)
+      console.log(e.stack)
       $("#messages").text(e.toString())
 
   setTimeout(updatePreview, 300)
