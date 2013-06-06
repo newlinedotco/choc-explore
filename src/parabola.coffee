@@ -7,14 +7,6 @@ $(document).ready () ->
     }
   """
 
-  boilerplate = (drawCode) -> """
-    two = pad;
-
-    #{drawCode}
-
-    pad.update();
-  """
-
   pad = new Two({
     width: 200
     height: 200
@@ -40,18 +32,19 @@ $(document).ready () ->
     max: 50
     slide: (event, ui) -> 
       $( "#amount" ).text( ui.value ) 
-      console.log(ui.value)
       sliderValue = ui.value
       updatePreview()
     }
 
+  beforeScrub = () -> pad.clear()
+  afterScrub  = () -> pad.update()
+
   updatePreview = () ->
     scrubNotify = (info) ->
-        console.log(info)
+        # console.log(info)
 
     try
-      # `eval(drawCode)`
-      window.choc.scrub editor.getValue(), sliderValue, notify: scrubNotify, wrapper: boilerplate, scope: this
+      window.choc.scrub editor.getValue(), sliderValue, notify: scrubNotify, before: beforeScrub, after: afterScrub, locals: { pad: pad }
       $("#messages").text("")
     catch e
       console.log(e)
@@ -59,6 +52,4 @@ $(document).ready () ->
       $("#messages").text(e.toString())
 
   setTimeout(updatePreview, 300)
-
-  console.log("free bird")
 
