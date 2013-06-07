@@ -13,4 +13,4 @@ sass:
 develop:
 	npm link  
 	npm link choc
-  cd public/javascripts && ln -s ../../node_modules/choc/choc.browser.js choc.browser.js
+	cd public/javascripts && ln -s ../../node_modules/choc/choc.browser.js choc.browser.js
