@@ -26,43 +26,36 @@ $(document).ready () ->
 
   updateActiveLine = (cm, lineNumber) ->
     line = cm.getLineHandle(lineNumber)
-    console.log line
+    # console.log line
     return if cm.state.activeLine is line
     clearActiveLine cm
     cm.addLineClass line, "wrap", WRAP_CLASS
     cm.addLineClass line, "background", BACK_CLASS
     cm.state.activeLine = line
 
-  # CodeMirror.defineOption "styleActiveLine", false, (cm, val, old) ->
-  #   prev = old and old isnt CodeMirror.Init
-  #   if val and not prev
-  #     updateActiveLine cm
-  #     cm.on "cursorActivity", updateActiveLine
-  #   else if not val and prev
-  #     cm.off "cursorActivity", updateActiveLine
-  #     clearActiveLine cm
-  #     delete cm.state.activeLine
-
   editor = CodeMirror $("#editor")[0], {
     value: parabola
     mode:  "javascript"
     viewportMargin: Infinity
     tabMode: "spaces"
-    # styleActiveLine: true
     }
   editor.on "change", () ->
     clearTimeout(delay)
-    delay = setTimeout(updatePreview, 300)
+    # delay = setTimeout(updatePreview, 300)
+    delay = setTimeout(calculateIterations, 300)
 
   sliderValue = 0
+
+  onSliderChange = (event, ui) ->
+    $( "#amount" ).text( ui.value ) 
+    sliderValue = ui.value
+    updatePreview()
 
   slider = $("#slider").slider {
     min: 0
     max: 50
-    slide: (event, ui) -> 
-      $( "#amount" ).text( ui.value ) 
-      sliderValue = ui.value
-      updatePreview()
+    change: onSliderChange
+    slide: onSliderChange
     }
 
   beforeScrub = () -> pad.clear()
@@ -75,12 +68,46 @@ $(document).ready () ->
 
   updatePreview = () ->
     try
-      window.choc.scrub editor.getValue(), sliderValue, notify: onScrub, beforeEach: beforeScrub, afterEach: afterScrub, locals: { pad: pad }
+      window.choc.scrub editor.getValue(), sliderValue, 
+        notify: onScrub
+        beforeEach: beforeScrub
+        afterEach: afterScrub
+        locals: { pad: pad }
       $("#messages").text("")
     catch e
       console.log(e)
       console.log(e.stack)
       $("#messages").text(e.toString())
 
-  setTimeout(updatePreview, 300)
+  # setTimeout(updatePreview, 300)
+
+  calculateIterations = (first=false) ->
+    inf = 1000000
+
+    afterAll = \ 
+      if first 
+        (info) ->
+          count = info.step_count
+          slider.slider('option', 'max', count)
+          slider.slider('value', count)
+      else
+        (info) ->
+          count = info.step_count
+          slider.slider('option', 'max', count)
+          max = slider.slider('option', 'max')
+          if (sliderValue > max)
+            sliderValue = max
+            slider.slider('value', max)
+            # $( "#amount" ).text( sliderValue ) 
+            #console.log(sliderValue)
+
+    window.choc.scrub editor.getValue(), inf, 
+      beforeEach: beforeScrub
+      afterEach: afterScrub
+      afterAll: afterAll
+      locals: { pad: pad }
+    updatePreview()
+
+  # first time 
+  calculateIterations(true)
 
