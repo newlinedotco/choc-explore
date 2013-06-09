@@ -19,8 +19,6 @@ body {
   overflow-x: auto;
   overflow-y: hidden; }
 
-.CodeMirror-activeline-background {background: #FFF8B1 !important;}
-
 .ubutton {
   background-color: gainsboro;
   -moz-border-radius: 5px;
@@ -75,3 +73,9 @@ body {
 
 .canvas {
   text-align: center; }
+
+#amount {
+  font-size: 0.55em; }
+
+.CodeMirror-activeline-background {
+  background: #fff8b1 !important; }

@@ -47,7 +47,7 @@ $(document).ready () ->
   sliderValue = 0
 
   onSliderChange = (event, ui) ->
-    $( "#amount" ).text( ui.value ) 
+    $( "#amount" ).text( "step #{ui.value}" ) 
     sliderValue = ui.value
     updatePreview()
 
@@ -82,7 +82,7 @@ $(document).ready () ->
   # setTimeout(updatePreview, 300)
 
   calculateIterations = (first=false) ->
-    inf = 1000000
+    inf = 1000
 
     afterAll = \ 
       if first 
