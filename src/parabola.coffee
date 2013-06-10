@@ -73,18 +73,48 @@ $(document).ready () ->
   onMessages = (messages) ->
     firstMessage = messages[0]?.message
     if firstMessage
-      console.log(firstMessage)
+      # console.log(firstMessage)
       _.map messages, (message) ->
         line = editor.getLineHandle(message.lineNumber - 1)
         widgetHtml = $("<div class='line-messages'>" + message.message + "</div>")
         widget = editor.addLineWidget(line, widgetHtml[0])
         lineWidgets.push(widget)
 
+  onTimeline = (timeline) ->
+    tdiv = $("#timeline")
+    tableString = "<table>\n"
+
+    row = 0
+    while row < (timeline.maxLines + 1)
+      tableString += "<tr>\n"
+      column = 0
+      while column < timeline.steps.length
+        tableString += "<td>hello</td>\n"
+        column += 1
+
+      tableString += "</tr>\n"
+      row += 1
+
+    tableString += "</table>\n"
+
+    # build a table where the number of rows is
+    #   rows: timeline.maxLines
+    #   columns: number of elements in 
+    # <table>
+    #   <tr>
+    #     <td>
+    #       x
+    #     </td>
+    #   </tr>
+    # </table> 
+    tdiv.html(tableString)
+    console.log(timeline)
+
   updatePreview = () ->
 
     # ew. clear the lineWidgets
     _.map lineWidgets, (widget) ->
-      console.log(widget)
+      # console.log(widget)
       widget.clear()
 
     try
@@ -124,6 +154,7 @@ $(document).ready () ->
             #console.log(sliderValue)
 
     window.choc.scrub editor.getValue(), inf, 
+      onTimeline: onTimeline
       beforeEach: beforeScrub
       afterEach: afterScrub
       afterAll: afterAll
