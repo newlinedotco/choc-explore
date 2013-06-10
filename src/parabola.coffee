@@ -39,9 +39,13 @@ $(document).ready () ->
     viewportMargin: Infinity
     tabMode: "spaces"
     }
+
+  lineWidgets = []
+
   editor.on "change", () ->
     clearTimeout(delay)
     # delay = setTimeout(updatePreview, 300)
+
     delay = setTimeout(calculateIterations, 300)
 
   sliderValue = 0
@@ -66,12 +70,30 @@ $(document).ready () ->
     updateActiveLine editor, info.lineNumber - 1
     # console.log(info)
 
+  onMessages = (messages) ->
+    firstMessage = messages[0]?.message
+    if firstMessage
+      console.log(firstMessage)
+      _.map messages, (message) ->
+        line = editor.getLineHandle(message.lineNumber - 1)
+        widgetHtml = $("<div class='line-messages'>" + message.message + "</div>")
+        widget = editor.addLineWidget(line, widgetHtml[0])
+        lineWidgets.push(widget)
+
   updatePreview = () ->
+
+    # ew. clear the lineWidgets
+    _.map lineWidgets, (widget) ->
+      console.log(widget)
+      widget.clear()
+
     try
+
       window.choc.scrub editor.getValue(), sliderValue, 
         notify: onScrub
         beforeEach: beforeScrub
         afterEach: afterScrub
+        onMessages: onMessages
         locals: { pad: pad }
       $("#messages").text("")
     catch e
