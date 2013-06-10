@@ -89,7 +89,8 @@ $(document).ready () ->
       tableString += "<tr>\n"
       column = 0
       while column < timeline.steps.length
-        tableString += "<td>hello</td>\n"
+        value = "x"
+        tableString += "<td>#{value}</td>\n"
         column += 1
 
       tableString += "</tr>\n"
