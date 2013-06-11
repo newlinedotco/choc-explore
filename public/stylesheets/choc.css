@@ -104,5 +104,27 @@ body {
 .choc-value {
   font-weight: bold; }
 
+#editor {
+  margin-top: 26px; }
+
 #timeline {
   overflow-x: scroll; }
+  #timeline table {
+    border: none;
+    margin-top: 7px; }
+    #timeline table tr.active {
+      background-color: #fff8b1 !important; }
+    #timeline table th {
+      padding: 0px;
+      color: #949494;
+      background: #f1f1f1;
+      font-weight: normal;
+      font-size: 0.5em;
+      height: 23px; }
+    #timeline table td {
+      height: 23px;
+      padding: 0px;
+      text-align: center; }
+      #timeline table td .cell {
+        width: 13px;
+        color: #949494; }

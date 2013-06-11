@@ -1,4 +1,5 @@
 $bg: #f1f1f1
+$active-yellow: #FFF8B1
 
 body
   margin: 0
@@ -81,7 +82,7 @@ body
   color: rgb(148, 148, 148)
 
 .CodeMirror-activeline-background
-  background: #FFF8B1 !important
+  background: $active-yellow !important
 
 .CodeMirror-linewidget
   position: absolute
@@ -106,5 +107,34 @@ body
 .choc-value
   font-weight: bold
 
+#editor
+  margin-top: 26px
+
 #timeline
   overflow-x: scroll
+
+  // cheater styles just for now
+  table
+    border: none
+    margin-top: 7px
+
+    tr.active
+      background-color: $active-yellow !important
+
+    th
+      padding: 0px
+      color: rgb(148, 148, 148)
+      background: #f1f1f1
+      font-weight: normal
+      font-size: 0.5em
+      height: 23px
+      
+    td 
+      height: 23px   
+      padding: 0px
+      text-align: center
+
+      .cell
+        width: 13px
+        color: rgb(148, 148, 148)
+

@@ -19,10 +19,14 @@ $(document).ready () ->
   WRAP_CLASS = "CodeMirror-activeline"
   BACK_CLASS = "CodeMirror-activeline-background"
 
+  timelineState = {}
+
   clearActiveLine = (cm) ->
     if "activeLine" of cm.state
       cm.removeLineClass cm.state.activeLine, "wrap", WRAP_CLASS
       cm.removeLineClass cm.state.activeLine, "background", BACK_CLASS
+    if "activeLine" of timelineState  
+      $(timelineState.activeLine).removeClass("active")
 
   updateActiveLine = (cm, lineNumber) ->
     line = cm.getLineHandle(lineNumber)
@@ -32,6 +36,10 @@ $(document).ready () ->
     cm.addLineClass line, "wrap", WRAP_CLASS
     cm.addLineClass line, "background", BACK_CLASS
     cm.state.activeLine = line
+    timelineState.activeLine = $($("#timeline table tr")[lineNumber + 1])
+    if timelineState.activeLine
+      timelineState.activeLine.addClass("active")
+    
 
   editor = CodeMirror $("#editor")[0], {
     value: parabola
@@ -83,14 +91,24 @@ $(document).ready () ->
   onTimeline = (timeline) ->
     tdiv = $("#timeline")
     tableString = "<table>\n"
+    
+    # header
+    tableString += "<tr>\n"
+    for column in [0..(timeline.steps.length-1)] by 1
+      value = ""
+      if (column % 10) == 0
+        value = column
+      tableString += "<th><div class='cell'>#{value}</div></th>\n"
+    tableString += "</tr>\n"
 
-    row = 0
-    while row < (timeline.maxLines + 1)
+    row  = 0
+    while row < timeline.maxLines + 1
       tableString += "<tr>\n"
       column = 0
       while column < timeline.steps.length
-        value = "x"
-        tableString += "<td>#{value}</td>\n"
+        idx = row * column
+        value = if timeline.stepMap[column][row] then "&#8226;" else ""
+        tableString += "<td><div class='cell'>#{value}</div></td>\n"
         column += 1
 
       tableString += "</tr>\n"
