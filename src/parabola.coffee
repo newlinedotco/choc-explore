@@ -174,12 +174,12 @@ $(document).ready () ->
     afterAll = \ 
       if first 
         (info) ->
-          count = info.step_count
+          count = info.frameCount
           slider.slider('option', 'max', count)
           slider.slider('value', count)
       else
         (info) ->
-          count = info.step_count
+          count = info.frameCount
           slider.slider('option', 'max', count)
           max = slider.slider('option', 'max')
           if (sliderValue > max)
