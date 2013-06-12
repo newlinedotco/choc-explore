@@ -155,7 +155,7 @@ $(document).ready () ->
     try
 
       window.choc.scrub editor.getValue(), sliderValue, 
-        notify: onScrub
+        onFrame: onScrub
         beforeEach: beforeScrub
         afterEach: afterScrub
         onMessages: onMessages
