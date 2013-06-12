@@ -81,6 +81,9 @@ body
   font-size: 0.55em
   color: rgb(148, 148, 148)
 
+.CodeMirror-activeline
+  z-index: 10
+
 .CodeMirror-activeline-background
   background: $active-yellow !important
 
@@ -137,4 +140,25 @@ body
       .cell
         width: 13px
         color: rgb(148, 148, 148)
+
+      .active
+        color: red
+        font-size: 2em
+
+#timeline-container
+  overflow: hidden
+
+#tlmark
+  background-color: red
+  position: absolute
+  width: 1px
+
+.CodeMirror-lines pre:nth-child(odd)
+  background: #f9f9f9
+
+.CodeMirror-lines pre:nth-child(even)
+  background: #ffffff
+
+.CodeMirror-activeline > pre
+  background: none !important
 

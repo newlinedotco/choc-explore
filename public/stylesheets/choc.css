@@ -78,6 +78,9 @@ body {
   font-size: 0.55em;
   color: #949494; }
 
+.CodeMirror-activeline {
+  z-index: 10; }
+
 .CodeMirror-activeline-background {
   background: #fff8b1 !important; }
 
@@ -128,3 +131,23 @@ body {
       #timeline table td .cell {
         width: 13px;
         color: #949494; }
+      #timeline table td .active {
+        color: red;
+        font-size: 2em; }
+
+#timeline-container {
+  overflow: hidden; }
+
+#tlmark {
+  background-color: red;
+  position: absolute;
+  width: 1px; }
+
+.CodeMirror-lines pre:nth-child(odd) {
+  background: #f9f9f9; }
+
+.CodeMirror-lines pre:nth-child(even) {
+  background: white; }
+
+.CodeMirror-activeline > pre {
+  background: none !important; }

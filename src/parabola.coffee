@@ -27,8 +27,10 @@ $(document).ready () ->
       cm.removeLineClass cm.state.activeLine, "background", BACK_CLASS
     if "activeLine" of timelineState  
       $(timelineState.activeLine).removeClass("active")
+    if "activeFrame" of timelineState  
+      $(timelineState.activeFrame).removeClass("active")
 
-  updateActiveLine = (cm, lineNumber) ->
+  updateActiveLine = (cm, lineNumber, frameNumber) ->
     line = cm.getLineHandle(lineNumber)
     # console.log line
     return if cm.state.activeLine is line
@@ -39,6 +41,19 @@ $(document).ready () ->
     timelineState.activeLine = $($("#timeline table tr")[lineNumber + 1])
     if timelineState.activeLine
       timelineState.activeLine.addClass("active")
+    
+    # update active frame
+    #                                                            plus one for header, plus one for 1-indexed css selector
+    timelineState.activeFrame = $("#timeline table tr:nth-child(#{lineNumber + 1 + 1}) td:nth-child(#{frameNumber + 1}) .cell")
+    if timelineState.activeFrame
+      $(timelineState.activeFrame).addClass("active")
+
+  updateTimelineMarker = (cm, lineNumber, frameNumber) ->
+    marker = $("#tlmark")
+    xpos = 0
+    if timelineState.activeFrame
+      xpos = $(timelineState.activeFrame).position()?.left + 6
+    marker.css({"top": "30px", "left": "#{xpos}px", "height": $('#editor').height() - 8}) # todo
     
 
   editor = CodeMirror $("#editor")[0], {
@@ -75,7 +90,8 @@ $(document).ready () ->
   onScrub = (info) ->
     # editor.setCursor info.lineNumber - 1, 0
     # clearActiveLine editor
-    updateActiveLine editor, info.lineNumber - 1
+    updateActiveLine editor, info.lineNumber - 1, info.frameNumber
+    updateTimelineMarker editor, info.lineNumber - 1, info.frameNumber
     # console.log(info)
 
   onMessages = (messages) ->
