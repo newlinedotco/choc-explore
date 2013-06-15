@@ -14,21 +14,27 @@ $(document).ready () ->
     })
     .appendTo(document.getElementById('targetcanvas'))
 
-  delay = null
-
   WRAP_CLASS = "CodeMirror-activeline"
   BACK_CLASS = "CodeMirror-activeline-background"
 
-  timelineState = {}
+  state = 
+    delay: null
+    lineWidgets: []
+    timeline:
+      activeLine: null
+      activeFrame: null
+    slider:
+      value: 0
 
   clearActiveLine = (cm) ->
     if "activeLine" of cm.state
       cm.removeLineClass cm.state.activeLine, "wrap", WRAP_CLASS
       cm.removeLineClass cm.state.activeLine, "background", BACK_CLASS
-    if "activeLine" of timelineState  
-      $(timelineState.activeLine).removeClass("active")
-    if "activeFrame" of timelineState  
-      $(timelineState.activeFrame).removeClass("active")
+
+    if state.timeline.activeLine
+      $(state.timeline.activeLine).removeClass("active")
+    if state.timeline.activeFrame
+      $(state.timeline.activeFrame).removeClass("active")
 
   updateActiveLine = (cm, lineNumber, frameNumber) ->
     line = cm.getLineHandle(lineNumber)
@@ -38,21 +44,20 @@ $(document).ready () ->
     cm.addLineClass line, "wrap", WRAP_CLASS
     cm.addLineClass line, "background", BACK_CLASS
     cm.state.activeLine = line
-    timelineState.activeLine = $($("#timeline table tr")[lineNumber + 1])
-    if timelineState.activeLine
-      timelineState.activeLine.addClass("active")
+
+    state.timeline.activeLine = $($("#timeline table tr")[lineNumber + 1])
+    state.timeline.activeLine.addClass("active") if state.timeline.activeLine
     
     # update active frame
     #                                                            plus one for header, plus one for 1-indexed css selector
-    timelineState.activeFrame = $("#timeline table tr:nth-child(#{lineNumber + 1 + 1}) td:nth-child(#{frameNumber + 1}) .cell")
-    if timelineState.activeFrame
-      $(timelineState.activeFrame).addClass("active")
+    state.timeline.activeFrame = $("#timeline table tr:nth-child(#{lineNumber + 1 + 1}) td:nth-child(#{frameNumber + 1}) .cell")
+    $(state.timeline.activeFrame).addClass("active") if state.timeline.activeFrame
 
   updateTimelineMarker = (cm, lineNumber, frameNumber) ->
     marker = $("#tlmark")
     xpos = 0
-    if timelineState.activeFrame
-      xpos = $(timelineState.activeFrame).position()?.left + 6
+    if state.timeline.activeFrame
+      xpos = $(state.timeline.activeFrame).position()?.left + 6
     marker.css({"top": "30px", "left": "#{xpos}px", "height": $('#editor').height() - 8}) # todo
     
 
@@ -63,19 +68,13 @@ $(document).ready () ->
     tabMode: "spaces"
     }
 
-  lineWidgets = []
-
   editor.on "change", () ->
-    clearTimeout(delay)
-    # delay = setTimeout(updatePreview, 300)
-
-    delay = setTimeout(calculateIterations, 300)
-
-  sliderValue = 0
+    clearTimeout(state.delay)
+    state.delay = setTimeout(calculateIterations, 300)
 
   onSliderChange = (event, ui) ->
     $( "#amount" ).text( "step #{ui.value}" ) 
-    sliderValue = ui.value
+    state.slider.value = ui.value
     updatePreview()
 
   slider = $("#slider").slider {
@@ -88,23 +87,21 @@ $(document).ready () ->
   beforeScrub = () -> pad.clear()
   afterScrub  = () -> pad.update()
   onScrub = (info) ->
-    # editor.setCursor info.lineNumber - 1, 0
-    # clearActiveLine editor
     updateActiveLine editor, info.lineNumber - 1, info.frameNumber
     updateTimelineMarker editor, info.lineNumber - 1, info.frameNumber
-    # console.log(info)
 
+  # When given an array of messages, add CodeMirror lineWidgets to each line
   onMessages = (messages) ->
     firstMessage = messages[0]?.message
     if firstMessage
-      # console.log(firstMessage)
       _.map messages, (message) ->
         line = editor.getLineHandle(message.lineNumber - 1)
         widgetHtml = $("<div class='line-messages'>" + message.message + "</div>")
         widget = editor.addLineWidget(line, widgetHtml[0])
-        lineWidgets.push(widget)
+        state.lineWidgets.push(widget)
 
-  onTimeline = (timeline) ->
+  # Generate the HTML view of the timeline data structure
+  generateTimelineTable = (timeline) ->
     tdiv = $("#timeline")
     tableString = "<table>\n"
     
@@ -117,6 +114,9 @@ $(document).ready () ->
       tableString += "<th><div class='cell'>#{value}</div></th>\n"
     tableString += "</tr>\n"
 
+    # build a table where the number of rows is
+    #   rows: timeline.maxLines
+    #   columns: number of elements in 
     row  = 0
     while row < timeline.maxLines + 1
       tableString += "<tr>\n"
@@ -131,30 +131,17 @@ $(document).ready () ->
       row += 1
 
     tableString += "</table>\n"
-
-    # build a table where the number of rows is
-    #   rows: timeline.maxLines
-    #   columns: number of elements in 
-    # <table>
-    #   <tr>
-    #     <td>
-    #       x
-    #     </td>
-    #   </tr>
-    # </table> 
     tdiv.html(tableString)
-    console.log(timeline)
+
+  onTimeline = (timeline) ->
+    generateTimelineTable(timeline)
 
   updatePreview = () ->
-
-    # ew. clear the lineWidgets
-    _.map lineWidgets, (widget) ->
-      # console.log(widget)
-      widget.clear()
+    # clear the lineWidgets (e.g. the text description)
+    _.map state.lineWidgets, (widget) -> widget.clear()
 
     try
-
-      window.choc.scrub editor.getValue(), sliderValue, 
+      window.choc.scrub editor.getValue(), state.slider.value, 
         onFrame: onScrub
         beforeEach: beforeScrub
         afterEach: afterScrub
@@ -165,8 +152,6 @@ $(document).ready () ->
       console.log(e)
       console.log(e.stack)
       $("#messages").text(e.toString())
-
-  # setTimeout(updatePreview, 300)
 
   calculateIterations = (first=false) ->
     inf = 1000
@@ -182,11 +167,9 @@ $(document).ready () ->
           count = info.frameCount
           slider.slider('option', 'max', count)
           max = slider.slider('option', 'max')
-          if (sliderValue > max)
-            sliderValue = max
+          if (state.slider.value > max)
+            state.slider.value = max
             slider.slider('value', max)
-            # $( "#amount" ).text( sliderValue ) 
-            #console.log(sliderValue)
 
     window.choc.scrub editor.getValue(), inf, 
       onTimeline: onTimeline
