@@ -54,11 +54,24 @@ $(document).ready () ->
     $(state.timeline.activeFrame).addClass("active") if state.timeline.activeFrame
 
   updateTimelineMarker = (cm, lineNumber, frameNumber) ->
-    marker = $("#tlmark")
     xpos = 0
     if state.timeline.activeFrame
       xpos = $(state.timeline.activeFrame).position()?.left + 6
-    marker.css({"top": "30px", "left": "#{xpos}px", "height": $('#editor').height() - 8}) # todo
+    try
+      relativeX = $("#timeline").offset().left - $(state.timeline.activeFrame).offset().left
+      scrollTo = if relativeX == 0 then 0 else Math.max(relativeX * -1, 0)
+
+      # $("#my_div").position({
+      #     my:        "left top",
+      #     at:        "left bottom",
+      #     of:        this, // or $("#otherdiv)
+      #     collision: "fit"
+      # })
+      $("#timeline").scrollTo(scrollTo, { axis: 'x' });
+    catch e
+      # 
+    # marker = $("#tlmark")
+    # marker.css({"top": "30px", "left": "#{xpos}px", "height": $('#editor').height() - 8}) # todo
     
 
   editor = CodeMirror $("#editor")[0], {
@@ -102,6 +115,7 @@ $(document).ready () ->
 
   # Generate the HTML view of the timeline data structure
   generateTimelineTable = (timeline) ->
+    console.log("generateTimelineTable")
     tdiv = $("#timeline")
     tableString = "<table>\n"
     

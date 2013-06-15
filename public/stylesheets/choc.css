@@ -81,6 +81,9 @@ body {
 .CodeMirror-activeline {
   z-index: 10; }
 
+.CodeMirror div.CodeMirror-cursor {
+  z-index: 20; }
+
 .CodeMirror-activeline-background {
   background: #fff8b1 !important; }
 
