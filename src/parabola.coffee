@@ -55,24 +55,22 @@ $(document).ready () ->
 
   updateTimelineMarker = (cm, lineNumber, frameNumber) ->
     xpos = 0
+    scrollTo = 0
     if state.timeline.activeFrame
-      xpos = $(state.timeline.activeFrame).position()?.left + 6
-    try
-      relativeX = $("#timeline").offset().left - $(state.timeline.activeFrame).offset().left
-      scrollTo = if relativeX == 0 then 0 else Math.max(relativeX * -1, 0)
+      try
+        relativeX = $("#timeline").offset().left - $(state.timeline.activeFrame).offset().left
+        scrollTo = if relativeX == 0 then 0 else Math.max(relativeX * -1, 0)
+        $("#timeline").scrollLeft(scrollTo)
 
-      # $("#my_div").position({
-      #     my:        "left top",
-      #     at:        "left bottom",
-      #     of:        this, // or $("#otherdiv)
-      #     collision: "fit"
-      # })
-      $("#timeline").scrollTo(scrollTo, { axis: 'x' });
-    catch e
-      # 
-    # marker = $("#tlmark")
-    # marker.css({"top": "30px", "left": "#{xpos}px", "height": $('#editor').height() - 8}) # todo
-    
+        xpos = $("#timeline").scrollLeft() + $(state.timeline.activeFrame).position().left + 6
+      catch e
+        # console.log(e)
+
+      marker = $("#tlmark")
+      height = $('#timeline table tbody').height()
+
+      rowHeight = 23 # todo read this dynamically - this is for the header row
+      marker.css({"top": "-#{height}px", "left": "#{xpos}px", "height": height - rowHeight}) # todo
 
   editor = CodeMirror $("#editor")[0], {
     value: parabola
@@ -145,6 +143,7 @@ $(document).ready () ->
       row += 1
 
     tableString += "</table>\n"
+    tableString += "<div id='tlmark'></div>"
     tdiv.html(tableString)
 
   onTimeline = (timeline) ->
