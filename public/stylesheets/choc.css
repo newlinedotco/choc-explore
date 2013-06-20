@@ -79,7 +79,17 @@ body {
   color: #949494; }
 
 .CodeMirror-activeline {
-  z-index: 10; }
+  z-index: 10;
+  background: #fff8b1 !important; }
+
+.CodeMirror-lines pre:nth-child(odd) {
+  background: #f9f9f9; }
+
+.CodeMirror-lines pre:nth-child(even) {
+  background: white; }
+
+.CodeMirror-activeline > pre {
+  background: none !important; }
 
 .CodeMirror div.CodeMirror-cursor {
   z-index: 20; }
@@ -147,12 +157,3 @@ body {
   background-color: red;
   position: relative;
   width: 1px; }
-
-.CodeMirror-lines pre:nth-child(odd) {
-  background: #f9f9f9; }
-
-.CodeMirror-lines pre:nth-child(even) {
-  background: white; }
-
-.CodeMirror-activeline > pre {
-  background: none !important; }
