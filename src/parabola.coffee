@@ -6,6 +6,17 @@ $(document).ready () ->
       shift += 14;
     }
   """
+  
+  parabola2 = """
+    var shift = 0;
+    while (shift <= 200) {
+      pad.makeLine(shift, 0, 200, shift);
+      if(shift % 7 == 0) {
+        pad.makeCircle(200 - 5, shift, 5);
+      }
+      shift += 3;
+    }
+  """
 
   pad = new Two({
     width: 200
@@ -20,6 +31,8 @@ $(document).ready () ->
   state = 
     delay: null
     lineWidgets: []
+    editor:
+      activeLine: null
     timeline:
       activeLine: null
       activeFrame: null
@@ -27,31 +40,39 @@ $(document).ready () ->
       value: 0
 
   clearActiveLine = (cm) ->
-    if "activeLine" of cm.state
-      cm.removeLineClass cm.state.activeLine, "wrap", WRAP_CLASS
-      cm.removeLineClass cm.state.activeLine, "background", BACK_CLASS
-
+    # if "activeLine" of cm.state
+      # cm.removeLineClass cm.state.activeLine, "wrap", WRAP_CLASS
+      # cm.removeLineClass cm.state.activeLine, "background", BACK_CLASS
+    if state.editor.activeLine
+      state.editor.activeLine.removeClass(WRAP_CLASS)
     if state.timeline.activeLine
-      $(state.timeline.activeLine).removeClass("active")
+      state.timeline.activeLine.removeClass("active")
     if state.timeline.activeFrame
-      $(state.timeline.activeFrame).removeClass("active")
+      state.timeline.activeFrame.removeClass("active")
 
   updateActiveLine = (cm, lineNumber, frameNumber) ->
-    line = cm.getLineHandle(lineNumber)
-    # console.log line
+    # line = cm.getLineHandle(lineNumber)
+    line = $($(".CodeMirror-lines pre")[lineNumber])
     return if cm.state.activeLine is line
     clearActiveLine cm
-    cm.addLineClass line, "wrap", WRAP_CLASS
-    cm.addLineClass line, "background", BACK_CLASS
-    cm.state.activeLine = line
+    line.addClass(WRAP_CLASS) if line
+    # cm.addLineClass line, "wrap", WRAP_CLASS
+    # cm.addLineClass line, "background", BACK_CLASS
+    #cm.state.activeLine = line
+    state.editor.activeLine = line
 
     state.timeline.activeLine = $($("#timeline table tr")[lineNumber + 1])
     state.timeline.activeLine.addClass("active") if state.timeline.activeLine
     
     # update active frame
     #                                                            plus one for header, plus one for 1-indexed css selector
-    state.timeline.activeFrame = $("#timeline table tr:nth-child(#{lineNumber + 1 + 1}) td:nth-child(#{frameNumber + 1}) .cell")
-    $(state.timeline.activeFrame).addClass("active") if state.timeline.activeFrame
+    # state.timeline.activeFrame = $("#timeline table tr:nth-child(#{lineNumber + 1 + 1}) td:nth-child(#{frameNumber + 1}) .cell")
+    # splitting this up into three 'queries' is a lot faster than one giant query (in my profiling in Chrome)
+    activeRow   = $("#timeline table tr")[lineNumber + 1]
+    activeTd    = $(activeRow).find("td")[frameNumber]
+    activeFrame = $(activeTd).find(".cell")
+    state.timeline.activeFrame = activeFrame
+    state.timeline.activeFrame.addClass("active") if state.timeline.activeFrame
 
   updateTimelineScroll = () ->
     scrollTo = 0
@@ -78,7 +99,7 @@ $(document).ready () ->
       marker.css({"top": "-#{height}px", "left": "#{xpos}px", "height": height - rowHeight}) # todo
 
   editor = CodeMirror $("#editor")[0], {
-    value: parabola
+    value: parabola2
     mode:  "javascript"
     viewportMargin: Infinity
     tabMode: "spaces"
@@ -103,7 +124,7 @@ $(document).ready () ->
   beforeScrub = () -> pad.clear()
   afterScrub  = () -> pad.update()
   onScrub = (info,opts={}) ->
-    # updateActiveLine editor, info.lineNumber - 1, info.frameNumber
+    updateActiveLine editor, info.lineNumber - 1, info.frameNumber
     # updateTimelineMarker()
     unless opts.noScroll
       updateTimelineScroll()
