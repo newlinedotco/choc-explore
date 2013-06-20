@@ -102,7 +102,8 @@ body {
   font-size: 0.65em;
   line-height: 1.3em;
   padding-right: 0.3em;
-  padding-top: 0.3em; }
+  padding-top: 0.3em;
+  min-height: 23px; }
 
 .choc-variable {
   font-family: "source-code-pro", "monaco", "courier"; }
@@ -137,7 +138,7 @@ body {
         color: #949494; }
       #timeline table td .active {
         color: red;
-        font-size: 2em; }
+        font-size: 41px; }
 
 #timeline-container {
   overflow: hidden; }
