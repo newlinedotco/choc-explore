@@ -53,16 +53,21 @@ $(document).ready () ->
     state.timeline.activeFrame = $("#timeline table tr:nth-child(#{lineNumber + 1 + 1}) td:nth-child(#{frameNumber + 1}) .cell")
     $(state.timeline.activeFrame).addClass("active") if state.timeline.activeFrame
 
-  updateTimelineMarker = (cm, lineNumber, frameNumber) ->
-    xpos = 0
+  updateTimelineScroll = () ->
     scrollTo = 0
     if state.timeline.activeFrame
       try
-        relativeX = $("#timeline").offset().left - $(state.timeline.activeFrame).offset().left
-        scrollTo = if relativeX == 0 then 0 else Math.max(relativeX * -1, 0)
-        $("#timeline").scrollLeft(scrollTo)
+        # relativeX = $("#timeline").offset().left - $(state.timeline.activeFrame).offset().left
+        # scrollTo = if relativeX == 0 then 0 else Math.max(relativeX * -1, 0)
+        # $("#timeline").scrollLeft(scrollTo)
+      catch e
+        # console.log(e)
 
-        xpos = $("#timeline").scrollLeft() + $(state.timeline.activeFrame).position().left + 6
+  updateTimelineMarker = () ->
+    xpos = 0
+    if state.timeline.activeFrame
+      try
+        xpos = $("#timeline").scrollLeft() + $(state.timeline.activeFrame).position().left + 7
       catch e
         # console.log(e)
 
@@ -97,19 +102,21 @@ $(document).ready () ->
 
   beforeScrub = () -> pad.clear()
   afterScrub  = () -> pad.update()
-  onScrub = (info) ->
-    updateActiveLine editor, info.lineNumber - 1, info.frameNumber
-    updateTimelineMarker editor, info.lineNumber - 1, info.frameNumber
+  onScrub = (info,opts={}) ->
+    # updateActiveLine editor, info.lineNumber - 1, info.frameNumber
+    # updateTimelineMarker()
+    unless opts.noScroll
+      updateTimelineScroll()
 
   # When given an array of messages, add CodeMirror lineWidgets to each line
   onMessages = (messages) ->
     firstMessage = messages[0]?.message
-    if firstMessage
-      _.map messages, (message) ->
-        line = editor.getLineHandle(message.lineNumber - 1)
-        widgetHtml = $("<div class='line-messages'>" + message.message + "</div>")
-        widget = editor.addLineWidget(line, widgetHtml[0])
-        state.lineWidgets.push(widget)
+    # if firstMessage
+    #   _.map messages, (message) ->
+    #     line = editor.getLineHandle(message.lineNumber - 1)
+    #     widgetHtml = $("<div class='line-messages'>" + message.message + "</div>")
+    #     widget = editor.addLineWidget(line, widgetHtml[0])
+    #     state.lineWidgets.push(widget)
 
   # Generate the HTML view of the timeline data structure
   generateTimelineTable = (timeline) ->
@@ -135,8 +142,14 @@ $(document).ready () ->
       column = 0
       while column < timeline.steps.length
         idx = row * column
-        value = if timeline.stepMap[column][row] then "&#8226;" else ""
-        tableString += "<td><div class='cell'>#{value}</div></td>\n"
+
+        if timeline.stepMap[column][row]
+          info = timeline.stepMap[column][row]
+          display = "&#8226;"
+          tableString += "<td><div class='cell content-cell' data-frame-number='#{info.frameNumber}' data-line-number='#{info.lineNumber}'>#{display}</div></td>\n"
+        else
+          value = ""
+          tableString += "<td><div class='cell'>#{value}</div></td>\n"
         column += 1
 
       tableString += "</tr>\n"
@@ -145,13 +158,29 @@ $(document).ready () ->
     tableString += "</table>\n"
     tableString += "<div id='tlmark'></div>"
     tdiv.html(tableString)
+    
+    for cell in $("#timeline .content-cell")
+      ((cell) -> 
+        $(cell).mouseover () ->
+          # TODO - this doesn't work very well
+          cell = $(cell)
+          frameNumber = cell.data('frame-number')
+          info = {lineNumber: cell.data('line-number'), frameNumber: frameNumber}
+          # console.log(info)
+          # onScrub(info, {noScroll: true})
+          # state.slider.value = frameNumber + 1
+          # slider.slider('value', frameNumber + 1)
+          # updatePreview()
+      )(cell)
+    
 
   onTimeline = (timeline) ->
     generateTimelineTable(timeline)
 
   updatePreview = () ->
     # clear the lineWidgets (e.g. the text description)
-    _.map state.lineWidgets, (widget) -> widget.clear()
+
+    # _.map state.lineWidgets, (widget) -> widget.clear()
 
     try
       window.choc.scrub editor.getValue(), state.slider.value, 
@@ -191,6 +220,11 @@ $(document).ready () ->
       afterAll: afterAll
       locals: { pad: pad }
     updatePreview()
+
+    # if first
+      # updateTimelineScroll() 
+      # updateTimelineMarker() 
+
 
   # first time 
   calculateIterations(true)
