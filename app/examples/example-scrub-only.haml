@@ -25,7 +25,10 @@
     %script{:src => "/scripts/vendor/modes/javascript/javascript.js"}
     %script{:src => "/scripts/vendor/modes/coffeescript/coffeescript.js"}
     %script{:src => "/scripts/vendor/two.js"}
+    %script{:src => "/scripts/libs/require.js"}
     %script{:src => "/scripts/choc.browser.js?d=1373775961496"}
+    %script{:src => "/scripts/choc-editor.js?d=1373775961496"}
+
   %body
     %header
       %h1#title 
@@ -57,4 +60,5 @@
     .row
       .large-12.large-centered.columns
         #messages
-    %script{:src => "/scripts/parabola.js?d=1373775961496"}
+    / %script{"data-main" => "/scripts/parabola-client.js", :src => "/scripts/libs/require.js"}
+    %script{:src => "/scripts/parabola-client.js"}
