@@ -15,6 +15,7 @@ module.exports = function (grunt) {
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
     grunt.loadNpmTasks('grunt-generator');
     grunt.loadNpmTasks('grunt-haml');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // configurable paths
     var yeomanConfig = {
@@ -39,12 +40,11 @@ module.exports = function (grunt) {
             },
             haml: {
                 files: ['<%= yeoman.app %>/{,*/}*.haml'],
-                tasks: ['haml:dist']
+                tasks: ['haml', 'livereload']
             },
             livereload: {
                 files: [
                     '<%= yeoman.app %>/*.html',
-                    '<%= yeoman.app %>/*.haml',
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.html',
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
