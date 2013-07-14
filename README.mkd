@@ -1,0 +1,11 @@
+# choc-explore
+
+A sample project and tutorial using choc. 
+
+## Installation
+
+Download `choc` into a sibling directory
+
+    npm install
+    make develop
+    make server
