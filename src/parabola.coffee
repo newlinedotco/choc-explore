@@ -40,9 +40,6 @@ $(document).ready () ->
       value: 0
 
   clearActiveLine = (cm) ->
-    # if "activeLine" of cm.state
-      # cm.removeLineClass cm.state.activeLine, "wrap", WRAP_CLASS
-      # cm.removeLineClass cm.state.activeLine, "background", BACK_CLASS
     if state.editor.activeLine
       state.editor.activeLine.removeClass(WRAP_CLASS)
     if state.timeline.activeLine
@@ -51,14 +48,10 @@ $(document).ready () ->
       state.timeline.activeFrame.removeClass("active")
 
   updateActiveLine = (cm, lineNumber, frameNumber) ->
-    # line = cm.getLineHandle(lineNumber)
     line = $($(".CodeMirror-lines pre")[lineNumber])
     return if cm.state.activeLine is line
     clearActiveLine cm
     line.addClass(WRAP_CLASS) if line
-    # cm.addLineClass line, "wrap", WRAP_CLASS
-    # cm.addLineClass line, "background", BACK_CLASS
-    #cm.state.activeLine = line
     state.editor.activeLine = line
 
     state.timeline.activeLine = $($("#timeline table tr")[lineNumber + 1])
@@ -99,7 +92,7 @@ $(document).ready () ->
       marker.css({"top": "-#{height}px", "left": "#{xpos}px", "height": height - rowHeight}) # todo
 
   editor = CodeMirror $("#editor")[0], {
-    value: parabola2
+    value: parabola
     mode:  "javascript"
     viewportMargin: Infinity
     tabMode: "spaces"
@@ -132,12 +125,12 @@ $(document).ready () ->
   # When given an array of messages, add CodeMirror lineWidgets to each line
   onMessages = (messages) ->
     firstMessage = messages[0]?.message
-    # if firstMessage
-    #   _.map messages, (message) ->
-    #     line = editor.getLineHandle(message.lineNumber - 1)
-    #     widgetHtml = $("<div class='line-messages'>" + message.message + "</div>")
-    #     widget = editor.addLineWidget(line, widgetHtml[0])
-    #     state.lineWidgets.push(widget)
+    if firstMessage
+      _.map messages, (message) ->
+        line = editor.getLineHandle(message.lineNumber - 1)
+        widgetHtml = $("<div class='line-messages'>" + message.message + "</div>")
+        widget = editor.addLineWidget(line, widgetHtml[0])
+        state.lineWidgets.push(widget)
 
   # Generate the HTML view of the timeline data structure
   generateTimelineTable = (timeline) ->
@@ -200,8 +193,7 @@ $(document).ready () ->
 
   updatePreview = () ->
     # clear the lineWidgets (e.g. the text description)
-
-    # _.map state.lineWidgets, (widget) -> widget.clear()
+    _.map state.lineWidgets, (widget) -> widget.clear()
 
     try
       window.choc.scrub editor.getValue(), state.slider.value, 
