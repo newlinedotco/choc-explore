@@ -1,1 +1,1 @@
-rvm use 1.9.3@choc --create
+rvm use ruby-1.9.3@choc-yo --create

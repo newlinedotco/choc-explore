@@ -1,3 +1,5 @@
+temp
+dist
 .DS_Store
 node_modules
 *.sock
@@ -8,5 +10,6 @@ dist
 .emacs.desktop.lock
 .emacs.desktop
 logs/*.log
-.sass-cache/
-Gemfile.lock
+log/*.log
+.sass-cache
+.tmp

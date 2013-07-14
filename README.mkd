@@ -1,3 +1,0 @@
-# Choc
-
-Choc is a web-based environment for interacting with programs in time

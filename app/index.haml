@@ -1,0 +1,87 @@
+!!!
+/[if IE 8] <html class="no-js lt-ie9" lang="en">
+/ [if gt IE 8]><!
+%html.no-js{:lang => "en"}
+  / <![endif]
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width", :name => "viewport"}/
+    %title Choc - Learnable Programming
+
+    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800", :rel => "stylesheet", :type => "text/css"}
+
+    %link{:href => "styles/normalize.css", :rel => "stylesheet"}/
+    %link{:href => "styles/ui-lightness/jquery-ui-1.10.3.custom.css", :rel => "stylesheet"}/
+    %link{:href => "styles/codemirror.css", :rel => "stylesheet"}/
+    %link{:href => "styles/foundation.css", :rel => "stylesheet"}/
+    %link{:href => "styles/choc.css", :rel => "stylesheet"}/
+
+    %script{:src => "scripts/vendor/jquery.js"}
+    %script{:src => "scripts/vendor/jquery-ui-1.10.3.custom.js"}
+    %script{:src => "scripts/vendor/custom.modernizr.js"}
+    %script{:src => "scripts/foundation/foundation.js"}
+    %script{:src => "scripts/vendor/codemirror.js"}
+    %script{:src => "scripts/vendor/modes/javascript/javascript.js"}
+    %script{:src => "scripts/vendor/modes/coffeescript/coffeescript.js"}
+    %script{:src => "scripts/vendor/two.js"}
+    %script{:src => "scripts/choc.browser.js?d=1373775961496"}
+  %body
+    / img#choc-icon(src="/images/choc.svg", width="80")
+    %header
+      %h1#title 
+        Choc
+    .row
+      .large-1.columns
+        &nbsp;
+      .large-10.columns
+        %p
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      .large-1.columns
+        &nbsp;
+
+    .row
+      .large-12.large-centered.columns
+        .row
+          .large-9.columns
+
+            .row.collapse
+              .large-1.columns
+                #amount
+              .large-5.columns
+                #slider
+              .large-6.columns
+                .space
+
+            .row.collapse
+              .large-6.columns
+                #editor
+              #timeline-container.large-6.columns
+                #timeline
+
+          .large-3.columns.x-canvas
+            #targetcanvas
+
+
+    .row
+      .large-1.columns
+        &nbsp;
+      .large-10.columns
+        %p
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      .large-1.columns
+        &nbsp;
+
+    .row
+      .large-1.columns
+        &nbsp;
+      .large-10.columns
+        %p
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      .large-1.columns
+        &nbsp;
+
+
+    .row
+      .large-12.large-centered.columns
+        #messages
+    %script{:src => "scripts/parabola.js?d=1373775961496"}
