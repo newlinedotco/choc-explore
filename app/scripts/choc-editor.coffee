@@ -1,6 +1,5 @@
 class ChocEditor
   WRAP_CLASS = "CodeMirror-activeline"
-  BACK_CLASS = "CodeMirror-activeline-background"
 
   constructor: (options) ->
     @options = options
@@ -48,21 +47,50 @@ class ChocEditor
   afterScrub: () ->
     @options.afterScrub()
 
+  clearActiveLine: () ->
+    if @state.editor.activeLine
+      @state.editor.activeLine.removeClass(WRAP_CLASS)
+    # if @state.timeline.activeLine
+    #   @state.timeline.activeLine.removeClass("active")
+    # if @state.timeline.activeFrame
+    #   @state.timeline.activeFrame.removeClass("active")
+
+  updateActiveLine: (cm, lineNumber, frameNumber) ->
+    line = @$(@$(".CodeMirror-lines pre")[lineNumber])
+    return if cm.state.activeLine is line
+    @clearActiveLine()
+    line.addClass(WRAP_CLASS) if line
+    @state.editor.activeLine = line
+
+    # state.timeline.activeLine = $($("#timeline table tr")[lineNumber + 1])
+    # state.timeline.activeLine.addClass("active") if state.timeline.activeLine
+    
+    # update active frame
+    #                                                            plus one for header, plus one for 1-indexed css selector
+    # state.timeline.activeFrame = $("#timeline table tr:nth-child(#{lineNumber + 1 + 1}) td:nth-child(#{frameNumber + 1}) .cell")
+    # splitting this up into three 'queries' is a lot faster than one giant query (in my profiling in Chrome)
+    # activeRow   = @$("#timeline table tr")[lineNumber + 1]
+    # activeTd    = @$(activeRow).find("td")[frameNumber]
+    # activeFrame = @$(activeTd).find(".cell")
+    # state.timeline.activeFrame = activeFrame
+    # state.timeline.activeFrame.addClass("active") if state.timeline.activeFrame
+
   onScrub: (info,opts={}) ->
-    # updateActiveLine @codemirror, info.lineNumber - 1, info.frameNumber
+    console.log(info)
+    @updateActiveLine @codemirror, info.lineNumber - 1, info.frameNumber
     # updateTimelineMarker()
     # unless opts.noScroll
     #   updateTimelineScroll()
 
   # When given an array of messages, add CodeMirror lineWidgets to each line
   onMessages: (messages) ->
-    # firstMessage = messages[0]?.message
-    # if firstMessage
-    #   _.map messages, (message) ->
-    #     line = @codemirror.getLineHandle(message.lineNumber - 1)
-    #     widgetHtml = $("<div class='line-messages'>" + message.message + "</div>")
-    #     widget = @codemirror.addLineWidget(line, widgetHtml[0])
-    #     @state.lineWidgets.push(widget)
+    firstMessage = messages[0]?.message
+    if firstMessage
+      _.map messages, (message) =>
+        line = @codemirror.getLineHandle(message.lineNumber - 1)
+        widgetHtml = $("<div class='line-messages'>" + message.message + "</div>")
+        widget = @codemirror.addLineWidget(line, widgetHtml[0])
+        @state.lineWidgets.push(widget)
 
   updatePreview: () ->
     # clear the lineWidgets (e.g. the text description)
@@ -70,10 +98,10 @@ class ChocEditor
 
     try
       window.choc.scrub @codemirror.getValue(), @state.slider.value, 
-        onFrame: () => @onScrub()
-        beforeEach: () => @beforeScrub()
-        afterEach: () => @afterScrub()
-        onMessages: () => @onMessages()
+        onFrame:    (args...) => @onScrub.apply(@, args)
+        beforeEach: (args...) => @beforeScrub.apply(@, args)
+        afterEach:  (args...) => @afterScrub.apply(@, args)
+        onMessages: (args...) => @onMessages.apply(@, args)
         locals: @options.locals
       @$("#messages").text("")
     catch e
