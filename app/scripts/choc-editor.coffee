@@ -184,7 +184,6 @@ $(document).ready () ->
   updatePreview = () ->
     # clear the lineWidgets (e.g. the text description)
     _.map state.lineWidgets, (widget) -> widget.clear()
-    console.log editor.getValue()
 
     try
       window.choc.scrub editor.getValue(), state.slider.value, 
@@ -201,7 +200,6 @@ $(document).ready () ->
 
   calculateIterations = (first=false) ->
     inf = 1000
-    console.log editor.getValue()
 
     afterAll = \ 
       if first 
