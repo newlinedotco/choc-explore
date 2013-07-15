@@ -2,7 +2,10 @@ class ChocEditor
   WRAP_CLASS = "CodeMirror-activeline"
 
   constructor: (options) ->
-    @options = options
+    defaults =
+      maxIterations: 1000
+
+    @options = _.extend(defaults, options)
     @$ = options.$
     @state = 
       delay: null
@@ -27,7 +30,7 @@ class ChocEditor
 
     @codemirror.on "change", () =>
       clearTimeout(@state.delay)
-      # @state.delay = setTimeout(@calculateIterations, 300)
+      @state.delay = setTimeout((() => @calculateIterations()), 300)
 
     onSliderChange = (event, ui) =>
       @$( "#amount" ).text( "step #{ui.value}" ) 
@@ -50,10 +53,10 @@ class ChocEditor
   clearActiveLine: () ->
     if @state.editor.activeLine
       @state.editor.activeLine.removeClass(WRAP_CLASS)
-    # if @state.timeline.activeLine
-    #   @state.timeline.activeLine.removeClass("active")
-    # if @state.timeline.activeFrame
-    #   @state.timeline.activeFrame.removeClass("active")
+    if @state.timeline.activeLine
+      @state.timeline.activeLine.removeClass("active")
+    if @state.timeline.activeFrame
+      @state.timeline.activeFrame.removeClass("active")
 
   updateActiveLine: (cm, lineNumber, frameNumber) ->
     line = @$(@$(".CodeMirror-lines pre")[lineNumber])
@@ -62,21 +65,20 @@ class ChocEditor
     line.addClass(WRAP_CLASS) if line
     @state.editor.activeLine = line
 
-    # state.timeline.activeLine = $($("#timeline table tr")[lineNumber + 1])
-    # state.timeline.activeLine.addClass("active") if state.timeline.activeLine
+    @state.timeline.activeLine = @$(@$("#timeline table tr")[lineNumber + 1])
+    @state.timeline.activeLine.addClass("active") if @state.timeline.activeLine
     
     # update active frame
     #                                                            plus one for header, plus one for 1-indexed css selector
-    # state.timeline.activeFrame = $("#timeline table tr:nth-child(#{lineNumber + 1 + 1}) td:nth-child(#{frameNumber + 1}) .cell")
+    @state.timeline.activeFrame = @$("#timeline table tr:nth-child(#{lineNumber + 1 + 1}) td:nth-child(#{frameNumber + 1}) .cell")
     # splitting this up into three 'queries' is a lot faster than one giant query (in my profiling in Chrome)
-    # activeRow   = @$("#timeline table tr")[lineNumber + 1]
-    # activeTd    = @$(activeRow).find("td")[frameNumber]
-    # activeFrame = @$(activeTd).find(".cell")
-    # state.timeline.activeFrame = activeFrame
-    # state.timeline.activeFrame.addClass("active") if state.timeline.activeFrame
+    activeRow   = @$("#timeline table tr")[lineNumber + 1]
+    activeTd    = @$(activeRow).find("td")[frameNumber]
+    activeFrame = @$(activeTd).find(".cell")
+    @state.timeline.activeFrame = activeFrame
+    @state.timeline.activeFrame.addClass("active") if @state.timeline.activeFrame
 
   onScrub: (info,opts={}) ->
-    console.log(info)
     @updateActiveLine @codemirror, info.lineNumber - 1, info.frameNumber
     # updateTimelineMarker()
     # unless opts.noScroll
@@ -91,6 +93,64 @@ class ChocEditor
         widgetHtml = $("<div class='line-messages'>" + message.message + "</div>")
         widget = @codemirror.addLineWidget(line, widgetHtml[0])
         @state.lineWidgets.push(widget)
+
+  # Generate the HTML view of the timeline data structure
+  # TODO: this is a bit ugly
+  generateTimelineTable: (timeline) ->
+    tdiv = $("#timeline")
+    tableString = "<table>\n"
+    
+    # header
+    tableString += "<tr>\n"
+    for column in [0..(timeline.steps.length-1)] by 1
+      value = ""
+      if (column % 10) == 0
+        value = column
+      tableString += "<th><div class='cell'>#{value}</div></th>\n"
+    tableString += "</tr>\n"
+
+    # build a table where the number of rows is
+    #   rows: timeline.maxLines
+    #   columns: number of elements in 
+    row  = 0
+    while row < timeline.maxLines + 1
+      tableString += "<tr>\n"
+      column = 0
+      while column < timeline.steps.length
+        idx = row * column
+
+        if timeline.stepMap[column][row]
+          info = timeline.stepMap[column][row]
+          display = "&#8226;"
+          tableString += "<td><div class='cell content-cell' data-frame-number='#{info.frameNumber}' data-line-number='#{info.lineNumber}'>#{display}</div></td>\n"
+        else
+          value = ""
+          tableString += "<td><div class='cell'>#{value}</div></td>\n"
+        column += 1
+
+      tableString += "</tr>\n"
+      row += 1
+
+    tableString += "</table>\n"
+    tableString += "<div id='tlmark'></div>"
+    tdiv.html(tableString)
+    
+    for cell in $("#timeline .content-cell")
+      ((cell) -> 
+        $(cell).mouseover () ->
+          # TODO - this doesn't work very well
+          cell = $(cell)
+          frameNumber = cell.data('frame-number')
+          info = {lineNumber: cell.data('line-number'), frameNumber: frameNumber}
+          # console.log(info)
+          # onScrub(info, {noScroll: true})
+          # state.slider.value = frameNumber + 1
+          # slider.slider('value', frameNumber + 1)
+          # updatePreview()
+      )(cell)
+    
+  onTimeline: (timeline) ->
+    @generateTimelineTable(timeline)
 
   updatePreview: () ->
     # clear the lineWidgets (e.g. the text description)
@@ -110,8 +170,6 @@ class ChocEditor
       @$("#messages").text(e.toString())
 
   calculateIterations: (first=false) ->
-    inf = 1000
-
     afterAll = \
       if first
         (info) =>
@@ -127,10 +185,10 @@ class ChocEditor
             @state.slider.value = max
             @slider.slider('value', max)
 
-    window.choc.scrub @codemirror.getValue(), inf, 
-      # onTimeline: () => @onTimeline()
-      beforeEach: () => @beforeScrub()
-      afterEach: () => @afterScrub()
+    window.choc.scrub @codemirror.getValue(), @options.maxIterations, 
+      onTimeline: (args...) => @onTimeline.apply(@, args)
+      beforeEach: (args...) => @beforeScrub.apply(@, args)
+      afterEach:  (args...) => @afterScrub.apply(@, args)
       afterAll: afterAll
       locals: @options.locals
 
@@ -139,9 +197,6 @@ class ChocEditor
     # if first
     #   updateTimelineScroll() 
     #   updateTimelineMarker() 
-
-    # first time 
-    # calculateIterations(true)
 
   start: () ->
     @calculateIterations(true)
