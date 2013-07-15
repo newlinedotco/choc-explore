@@ -1,5 +1,4 @@
 $(document).ready () ->
-  console.log("cats")
 
   parabola = """
     var shift = 0;
@@ -8,6 +7,7 @@ $(document).ready () ->
       shift += 14;
     }
   """
+
   pad = new Two({
     width: 200
     height: 200
@@ -16,6 +16,13 @@ $(document).ready () ->
     .appendTo(document.getElementById('targetcanvas'))
  
   editor = new window.choc.Editor({
+    $: $
     code: parabola
+    beforeScrub: () -> pad.clear()
+    afterScrub: () ->  pad.update()
+    locals: { pad: pad }
     })
+
+  console.log("cats")
+  editor.start()
 
