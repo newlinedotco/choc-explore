@@ -23,6 +23,5 @@ $(document).ready () ->
     locals: { pad: pad }
     })
 
-  console.log("cats")
   editor.start()
 
