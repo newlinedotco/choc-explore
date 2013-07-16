@@ -1,4 +1,5 @@
 $(document).ready () ->
+  # readable = require("./readable")
 
   parabola = """
     var shift = 0;
@@ -16,7 +17,9 @@ $(document).ready () ->
     .appendTo(document.getElementById('targetcanvas'))
 
   pad.makeLine.__choc_annotation = (args) ->
-    "make a line"
+    expanded = _.map args, (arg) -> 1 # readable.generateReadableExpression(arg)
+    [x1, y1, x2, y2] = expanded
+    "make a line from #{x1},#{y1} to #{x2},#{y2}"
 
   # is there a way to set it on prototypes of things?
   # that would be better, e.g. if we set the stroke of a line - what is that object?
