@@ -69,8 +69,6 @@ class ChocEditor
     @state.timeline.activeLine.addClass("active") if @state.timeline.activeLine
     
     # update active frame
-    #                                                            plus one for header, plus one for 1-indexed css selector
-    @state.timeline.activeFrame = @$("#timeline table tr:nth-child(#{lineNumber + 1 + 1}) td:nth-child(#{frameNumber + 1}) .cell")
     # splitting this up into three 'queries' is a lot faster than one giant query (in my profiling in Chrome)
     activeRow   = @$("#timeline table tr")[lineNumber + 1]
     activeTd    = @$(activeRow).find("td")[frameNumber]
@@ -202,5 +200,4 @@ class ChocEditor
     @calculateIterations(true)
 
 root = exports ? this
-# root.choc ||= {}
 root.choc.Editor = ChocEditor

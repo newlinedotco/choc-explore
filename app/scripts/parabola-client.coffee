@@ -14,6 +14,13 @@ $(document).ready () ->
     type: Two.Types.canvas
     })
     .appendTo(document.getElementById('targetcanvas'))
+
+  pad.makeLine.__choc_annotation = (args) ->
+    "make a line"
+
+  # is there a way to set it on prototypes of things?
+  # that would be better, e.g. if we set the stroke of a line - what is that object?
+  # e.g. lets set a private setting on the prototype of objects. this way we can read from that object what the language should be
  
   editor = new window.choc.Editor({
     $: $
