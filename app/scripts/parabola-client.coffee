@@ -1,5 +1,5 @@
 $(document).ready () ->
-  # readable = require("./readable")
+  choc = window.choc
 
   parabola = """
     var shift = 0;
@@ -7,6 +7,19 @@ $(document).ready () ->
       pad.makeLine(shift, 0, 200, shift);
       shift += 14;
     }
+  """
+
+  parabola = """
+  function add(a, b) {
+    var c = 3;
+    return a + b;
+  }
+
+  var shift = 0;
+  while (shift <= 200) {
+    var x = add(1, shift) + add(1, 2);
+    shift += 14; // increment
+  }
   """
 
   pad = new Two({
@@ -17,9 +30,8 @@ $(document).ready () ->
     .appendTo(document.getElementById('targetcanvas'))
 
   pad.makeLine.__choc_annotation = (args) ->
-    expanded = _.map args, (arg) -> 1 # readable.generateReadableExpression(arg)
-    [x1, y1, x2, y2] = expanded
-    "make a line from #{x1},#{y1} to #{x2},#{y2}"
+    [x1, y1, x2, y2] = _.map args, (arg) -> choc.readable.generateReadableExpression(arg)
+    "'draw a line from (' + #{x1} + ',' + #{y1} + ') to (' + #{x2} + ',' + #{y2} + ')'"
 
   # is there a way to set it on prototypes of things?
   # that would be better, e.g. if we set the stroke of a line - what is that object?
