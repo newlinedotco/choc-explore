@@ -9,6 +9,7 @@ $(document).ready () ->
     }
   """
 
+  # parabola = """
   calling_functions = """
   function add(a, b) {
     var c = 3;
