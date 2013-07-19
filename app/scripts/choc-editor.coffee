@@ -140,7 +140,7 @@ class ChocEditor
     updateSlider = (frameNumber) ->
       self.$( "#amount" ).text( "step #{frameNumber}" ) 
       self.state.slider.value = frameNumber
-      console.log self.state.slider.value
+      # console.log self.state.slider.value
       updatePreview.apply(self)
     for cell in $("#timeline .content-cell")
       ((cell) -> 
