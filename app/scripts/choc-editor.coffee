@@ -96,6 +96,7 @@ class ChocEditor
   # TODO: this is a bit ugly
   generateTimelineTable: (timeline) ->
     tdiv = $("#timeline")
+    execLine = $("#executionLine")
     tableString = "<table>\n"
     
     # header
@@ -133,20 +134,31 @@ class ChocEditor
     tableString += "<div id='tlmark'></div>"
     tdiv.html(tableString)
     
+    slider = @slider
+    updatePreview = @updatePreview
+    self = @
+    updateSlider = (frameNumber) ->
+      self.$( "#amount" ).text( "step #{frameNumber}" ) 
+      self.state.slider.value = frameNumber
+      console.log self.state.slider.value
+      updatePreview.apply(self)
     for cell in $("#timeline .content-cell")
       ((cell) -> 
-        $(cell).mouseover () ->
+        $(cell).on 'mouseover', () ->
           # TODO - this doesn't work very well
           cell = $(cell)
           frameNumber = cell.data('frame-number')
           info = {lineNumber: cell.data('line-number'), frameNumber: frameNumber}
+          # @$( "#amount" ).text( "step #{ui.value}" ) 
+          # @$( "#amount" ).text( "step #{ui.value}" ) 
+          updateSlider info.frameNumber + 1
           # console.log(info)
           # onScrub(info, {noScroll: true})
           # state.slider.value = frameNumber + 1
           # slider.slider('value', frameNumber + 1)
           # updatePreview()
       )(cell)
-    
+
   onTimeline: (timeline) ->
     @generateTimelineTable(timeline)
 

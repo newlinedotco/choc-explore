@@ -9,20 +9,6 @@ $(document).ready () ->
     }
   """
 
-  # parabola = """
-  calling_functions = """
-  function add(a, b) {
-    var c = 3;
-    return a + b;
-  }
-
-  var shift = 0;
-  while (shift <= 200) {
-    var x = add(1, shift) + add(1, 2);
-    shift += 14; // increment
-  }
-  """
-
   pad = new Two({
     width: 200
     height: 200
