@@ -131,7 +131,7 @@ class ChocEditor
       row += 1
 
     tableString += "</table>\n"
-    tableString += "<div id='tlmark'></div>"
+    tableString += "<div id='tlmark'>&nbsp;</div>"
     tdiv.html(tableString)
     
     slider = @slider
@@ -158,6 +158,17 @@ class ChocEditor
           # slider.slider('value', frameNumber + 1)
           # updatePreview()
       )(cell)
+
+    self.$("#timeline").on 'mouseenter', () ->
+      $("#tlmark").show()
+      $("#tlmark").height($(this).parent().height())
+      $("#tlmark").css('top', '0')
+      self.$("#timeline").on 'mousemove', (evt) ->
+        parentOffset = $(this).parent().offset()
+        relX = evt.pageX - parentOffset.left
+        $("#tlmark").css('left', relX)
+    self.$("#timeline").on 'mouseleave', () ->
+      $("#tlmark").hide();
 
   onTimeline: (timeline) ->
     @generateTimelineTable(timeline)
