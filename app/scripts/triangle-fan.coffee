@@ -5,11 +5,11 @@ $(document).ready () ->
     var i = 0;
     while (i <= 20) {
       var scaleFactor = 1 + (20 - i)/20;
-      var triangle = pad.makePolygon(0, 0, 100, -20, 95, 40, false);
+      var triangle = pad.makePolygon(0, 0, 200, -20, 195, 40, false);
       triangle.fill("rgb(" + i * 30 + ", " + i * 18 + ", 0)");
       triangle.scale(scaleFactor);
-      triangle.rotation(i * 0.15);
-      triangle.translation.set(50, 50);
+      triangle.rotation(i * 0.07);
+      triangle.translation.set(-20, 40);
       i += 1;
     }
   """
