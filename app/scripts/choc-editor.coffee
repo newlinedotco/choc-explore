@@ -120,7 +120,12 @@ class ChocEditor
 
         if timeline.stepMap[column][row]
           info = timeline.stepMap[column][row]
+          # console.log(info)
+
           display = "&#8226;"
+
+          # if info.messages?[0].timeline? 
+          #   display = info.messages[0].timeline
           tableString += "<td><div class='cell content-cell' data-frame-number='#{info.frameNumber}' data-line-number='#{info.lineNumber}'>#{display}</div></td>\n"
         else
           value = ""

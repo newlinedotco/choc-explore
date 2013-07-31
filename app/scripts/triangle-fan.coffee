@@ -2,10 +2,15 @@ $(document).ready () ->
   choc = window.choc
 
   parabola = """
-    var shift = 0;
-    while (shift <= 200) {
-      pad.makeLine(shift, 0, 200, shift);
-      shift += 14;
+    var i = 0;
+    while (i <= 20) {
+      var scaleFactor = 1 + (20 - i)/20;
+      var triangle = pad.makePolygon(0, 0, 100, -20, 95, 40, false);
+      triangle.fill("rgb(" + i * 30 + ", " + i * 18 + ", 0)");
+      triangle.scale(scaleFactor);
+      triangle.rotation(i * 0.15);
+      triangle.translation.set(50, 50);
+      i += 1;
     }
   """
 
@@ -16,9 +21,9 @@ $(document).ready () ->
     })
     .appendTo(document.getElementById('targetcanvas'))
 
-  pad.makeLine.__choc_annotation = (args) ->
-    [x1, y1, x2, y2] = _.map args, (arg) -> choc.readable.generateReadableExpressionPlus(arg)
-    "draw a line from (#{x1},#{y1}) to (#{x2},#{y2})"
+  # pad.makeLine.__choc_annotation = (args) ->
+  #   [x1, y1, x2, y2] = _.map args, (arg) -> choc.readable.generateReadableExpressionPlus(arg)
+  #   "draw a line from (#{x1},#{y1}) to (#{x2},#{y2})"
 
   # is there a way to set it on prototypes of things?
   # that would be better, e.g. if we set the stroke of a line - what is that object?
