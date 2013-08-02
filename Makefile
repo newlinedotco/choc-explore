@@ -4,7 +4,7 @@ server:
 	grunt server
 
 develop:
-	pushd ../choc && npm link
+	pushd ../choc && make develop
 	npm link
 	npm link choc
 	rm app/scripts/choc.browser.js
