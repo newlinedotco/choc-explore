@@ -17,7 +17,11 @@ $(document).ready () ->
     .appendTo(document.getElementById('targetcanvas'))
 
   pad.makeLine.__choc_annotation = (args) ->
-    [x1, y1, x2, y2] = _.map args, (arg) -> choc.readable.generateReadableExpressionPlus(arg)
+    [x1, y1, x2, y2] = _.map args, (arg) -> 
+      choc.readable.generateReadableExpression(arg, {want: "name"})
+      # eval(choc.readable.generateReadableExpression(arg, {want: "name"}))
+      #`(1,eval)(choc.readable.generateReadableExpression(arg, {want: "name"}));`
+    console.log( [x1, y1, x2, y2] )
     "draw a line from (#{x1},#{y1}) to (#{x2},#{y2})"
 
   # is there a way to set it on prototypes of things?

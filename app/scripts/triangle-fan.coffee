@@ -14,6 +14,14 @@ $(document).ready () ->
     }
   """
 
+
+  parabolax = """
+    var i = 0;
+    while (i <= 20) {
+      i += 1;
+    }
+  """
+
   pad = new Two({
     width: 200
     height: 200
