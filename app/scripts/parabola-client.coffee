@@ -1,17 +1,6 @@
 $(document).ready () ->
   choc = window.choc
 
-  override = (target, originalName, newfn) ->
-    originalFn = target[originalName]
-    target[originalName] = (args...) ->
-      me = this
-      newfn(me, originalFn, args...)
-
-  override Two.prototype, "makeLine", (me, originalFn, args...) ->
-    line = originalFn.apply(me, args)
-    line.toString = () -> "this line"
-    line
-
   parabola = """
     var shift = 0;
     while (shift <= 200) {
@@ -27,10 +16,6 @@ $(document).ready () ->
     type: Two.Types.canvas
     })
     .appendTo(document.getElementById('targetcanvas'))
-
-  choc.annotate pad.makeLine, (args) ->
-    [x1, y1, x2, y2] = args
-    "draw a line from (#{x1},#{y1}) to (#{x2},#{y2})"
 
   # choc.annotate Two.Polygon.prototype.linewidth, (args) ->
   #  # [x1, y1, x2, y2] = args
