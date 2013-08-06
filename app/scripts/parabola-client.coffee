@@ -1,10 +1,22 @@
 $(document).ready () ->
   choc = window.choc
 
+  override = (target, originalName, newfn) ->
+    originalFn = target[originalName]
+    target[originalName] = (args...) ->
+      me = this
+      newfn(me, originalFn, args...)
+
+  override Two.prototype, "makeLine", (me, originalFn, args...) ->
+    line = originalFn.apply(me, args)
+    line.toString = () -> "this line"
+    line
+
   parabola = """
     var shift = 0;
     while (shift <= 200) {
-      pad.makeLine(shift, 0, 200, shift);
+      line = pad.makeLine(shift, 0, 200, shift);
+      line.linewidth = 2;
       shift += 14;
     }
   """
@@ -19,6 +31,11 @@ $(document).ready () ->
   choc.annotate pad.makeLine, (args) ->
     [x1, y1, x2, y2] = args
     "draw a line from (#{x1},#{y1}) to (#{x2},#{y2})"
+
+  # choc.annotate Two.Polygon.prototype.linewidth, (args) ->
+  #  # [x1, y1, x2, y2] = args
+  #  "im a line width!"
+
 
   # is there a way to set it on prototypes of things?
   # that would be better, e.g. if we set the stroke of a line - what is that object?
