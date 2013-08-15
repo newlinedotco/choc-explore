@@ -18,6 +18,7 @@ $(document).ready () ->
     override target, originalName, (me, originalFn, args...) ->
       ret = originalFn.apply(me, args)
       ret.toString = () -> newString
+      ret._choc_timeline = () -> "&#8226;"
       ret
 
   overrides = 
@@ -50,7 +51,11 @@ $(document).ready () ->
 
     rotation: (args) ->
       [rot] = args
-      "set the rotation to #{strVar(rot)}"
+      {
+        inline: "set the rotation to #{strVar(rot)}"
+        timeline: (elem) ->
+          "o"
+      }
 
   choc.annotate Two.prototype.makeLine, (args) ->
     [x1, y1, x2, y2] = _.map args, (arg) -> strVar(arg)

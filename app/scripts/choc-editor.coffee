@@ -75,6 +75,23 @@ class ChocEditor
     activeFrame = @$(activeTd).find(".cell")
     @state.timeline.activeFrame = activeFrame
     @state.timeline.activeFrame.addClass("active") if @state.timeline.activeFrame
+    @updateTimelineMarker(activeFrame)
+
+  updateTimelineMarker: (activeFrame) ->
+    # TODO figure out the positioning below
+    # if activeFrame?.position()?
+    #   $("#tlmark").show()
+    #   $("#tlmark").height($("#tlmark").parent().height())
+    #   $("#tlmark").css('top', '0')
+    #   parentOffset = $("#tlmark").parent().offset()
+    #   if parentOffset?
+    #     # console.log("updateTimelineMarker")
+    #     # console.log(parentOffset)
+    #     # console.log(activeFrame.offset().left)
+    #     relX = activeFrame.position().left - parentOffset.left
+    #     console.log(relX)
+    #     $("#tlmark").css('left', relX)
+
 
   onScrub: (info,opts={}) ->
     @updateActiveLine @codemirror, info.lineNumber - 1, info.frameNumber
@@ -86,9 +103,18 @@ class ChocEditor
   onMessages: (messages) ->
     firstMessage = messages[0]?.message
     if firstMessage
-      _.map messages, (message) =>
-        line = @codemirror.getLineHandle(message.lineNumber - 1)
-        widgetHtml = $("<div class='line-messages'>" + message.message + "</div>")
+      _.map messages, (messageInfo) =>
+        messageString = ""
+
+        # to make the annotations API cleaner, we allow either a string to be
+        # returned or an object with the keys 'message' or 'timeline'
+        if _.isObject(messageInfo.message)
+          messageString = messageInfo.message.inline
+        else
+          messageString = messageInfo.message
+
+        line = @codemirror.getLineHandle(messageInfo.lineNumber - 1)
+        widgetHtml = $("<div class='line-messages'>" + messageString + "</div>")
         widget = @codemirror.addLineWidget(line, widgetHtml[0])
         @state.lineWidgets.push(widget)
 
@@ -122,11 +148,22 @@ class ChocEditor
           info = timeline.stepMap[column][row]
           # console.log(info)
 
-          display = "&#8226;"
+          message = info.messages?[0]
 
-          # if info.messages?[0].timeline? 
-          #   display = info.messages[0].timeline
-          tableString += "<td><div class='cell content-cell' data-frame-number='#{info.frameNumber}' data-line-number='#{info.lineNumber}'>#{display}</div></td>\n"
+          display = "&#8226;"
+          frameId = "data-frame-#{info.frameNumber}"
+
+          if message.message?.timeline?
+            timelineCreator = message.message.timeline
+            if _.isFunction(timelineCreator)
+              display = timelineCreator(frameId)
+
+          else if message.timeline? 
+            display = message.timeline
+            if display.hasOwnProperty("_choc_timeline")
+              display = display._choc_timeline()
+
+          tableString += "<td><div class='cell content-cell' id='#{frameId}' data-frame-number='#{info.frameNumber}' data-line-number='#{info.lineNumber}'>#{display}</div></td>\n"
         else
           value = ""
           tableString += "<td><div class='cell'>#{value}</div></td>\n"
@@ -150,30 +187,11 @@ class ChocEditor
     for cell in $("#timeline .content-cell")
       ((cell) -> 
         $(cell).on 'mouseover', () ->
-          # TODO - this doesn't work very well
           cell = $(cell)
           frameNumber = cell.data('frame-number')
           info = {lineNumber: cell.data('line-number'), frameNumber: frameNumber}
-          # @$( "#amount" ).text( "step #{ui.value}" ) 
-          # @$( "#amount" ).text( "step #{ui.value}" ) 
           updateSlider info.frameNumber + 1
-          # console.log(info)
-          # onScrub(info, {noScroll: true})
-          # state.slider.value = frameNumber + 1
-          # slider.slider('value', frameNumber + 1)
-          # updatePreview()
       )(cell)
-
-    self.$("#timeline").on 'mouseenter', () ->
-      $("#tlmark").show()
-      $("#tlmark").height($(this).parent().height())
-      $("#tlmark").css('top', '0')
-      self.$("#timeline").on 'mousemove', (evt) ->
-        parentOffset = $(this).parent().offset()
-        relX = evt.pageX - parentOffset.left
-        $("#tlmark").css('left', relX)
-    self.$("#timeline").on 'mouseleave', () ->
-      $("#tlmark").hide();
 
   onTimeline: (timeline) ->
     @generateTimelineTable(timeline)
