@@ -123,58 +123,78 @@ class ChocEditor
   generateTimelineTable: (timeline) ->
     tdiv = $("#timeline")
     execLine = $("#executionLine")
-    tableString = "<table>\n"
+
+    table = $('<table></table>')
+
+    # tableString = "<table>\n"
+
+    # onFinish = []
     
     # header
-    tableString += "<tr>\n"
+    headerRow = $("<tr></tr>")
+
+    # tableString += "<tr>\n"
     for column in [0..(timeline.steps.length-1)] by 1
       value = ""
       if (column % 10) == 0
         value = column
-      tableString += "<th><div class='cell'>#{value}</div></th>\n"
-    tableString += "</tr>\n"
+      headerRow.append("<th><div class='cell'>#{value}</div></th>")
+    table.append(headerRow)
 
     # build a table where the number of rows is
     #   rows: timeline.maxLines
     #   columns: number of elements in 
-    row  = 0
-    while row < timeline.maxLines + 1
-      tableString += "<tr>\n"
+    rowidx  = 0
+    while rowidx < timeline.maxLines + 1
+      row = $('<tr></tr>')
+      #tableString += "<tr>\n"
       column = 0
       while column < timeline.steps.length
-        idx = row * column
+        idx = rowidx * column
 
-        if timeline.stepMap[column][row]
-          info = timeline.stepMap[column][row]
+        if timeline.stepMap[column][rowidx]
+          info = timeline.stepMap[column][rowidx]
           # console.log(info)
 
           message = info.messages?[0]
 
           display = "&#8226;"
           frameId = "data-frame-#{info.frameNumber}"
+          cell = $("<td></td>")
+          innerCell = $("<div></div>")
+            .addClass("cell content-cell")
+            .attr("id", frameId)
+            .attr("data-frame-number", info.frameNumber)
+            .attr("data-line-number", info.lineNumber)
+          cell.append(innerCell)
 
           if message.message?.timeline?
             timelineCreator = message.message.timeline
             if _.isFunction(timelineCreator)
-              display = timelineCreator(frameId)
+              display = timelineCreator("#" + frameId) # the table hasn't been created yet
 
           else if message.timeline? 
             display = message.timeline
             if display.hasOwnProperty("_choc_timeline")
               display = display._choc_timeline()
 
-          tableString += "<td><div class='cell content-cell' id='#{frameId}' data-frame-number='#{info.frameNumber}' data-line-number='#{info.lineNumber}'>#{display}</div></td>\n"
+          innerCell.html(display)
+         
+          row.append(cell)
         else
           value = ""
-          tableString += "<td><div class='cell'>#{value}</div></td>\n"
+          cell = $("<td><div class='cell'>#{value}</div></td>")
+          row.append(cell)
         column += 1
+      rowidx += 1
+      table.append(row)
 
-      tableString += "</tr>\n"
-      row += 1
+    # tableString += "<div id='tlmark'>&nbsp;</div>"
+    # tdiv.html(tableString)
+    tdiv.append(table)
 
-    tableString += "</table>\n"
-    tableString += "<div id='tlmark'>&nbsp;</div>"
-    tdiv.html(tableString)
+    console.log("setup the table")
+    #onf() for onf in onFinish
     
     slider = @slider
     updatePreview = @updatePreview

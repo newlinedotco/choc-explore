@@ -53,8 +53,9 @@ $(document).ready () ->
       [rot] = args
       {
         inline: "set the rotation to #{strVar(rot)}"
-        timeline: (elem) ->
-          "o"
+        timeline: (elemId) ->
+          $(elemId).text("hi")
+          console.log($(elemId).text())
       }
 
   choc.annotate Two.prototype.makeLine, (args) ->
