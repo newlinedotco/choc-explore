@@ -47,16 +47,37 @@ $(document).ready () ->
 
     fill: (args) ->
       [fill] = args
-      "set the fill to <div class='line-swatch' style='background-color: #{fill};'>&nbsp</div>"
+      {
+        inline: "set the fill to <div class='line-swatch' style='background-color: #{fill};'>&nbsp</div>"
+        timeline: (elem) ->
+          swatch = $("<div></div>").addClass("line-swatch").css("background-color", fill)
+          elem.append(swatch)
+      }
 
     rotation: (args) ->
       [rot] = args
       {
         inline: "set the rotation to #{strVar(rot)}"
-        timeline: (elemId) ->
-          $(elemId).text("hi")
-          console.log($(elemId).text())
+        timeline: (elem) ->
+          elem.css("width", "16px")
+          elem.css("height", "16px")
+
+          two = new Two({
+            width: 16
+            height: 16
+            type: Two.Types.canvas
+            }).appendTo(elem[0])
+         
+          circle = two.makeCircle(0, 0, 6)
+          line = two.makeLine(0, 0, -8, 0)
+          
+          group = two.makeGroup(circle, line)
+          group.translation.set(two.width / 2, two.height / 2)
+          group.rotation = rot
+
+          two.update()
       }
+
 
   choc.annotate Two.prototype.makeLine, (args) ->
     [x1, y1, x2, y2] = _.map args, (arg) -> strVar(arg)

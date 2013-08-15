@@ -171,14 +171,16 @@ class ChocEditor
           if message.message?.timeline?
             timelineCreator = message.message.timeline
             if _.isFunction(timelineCreator)
-              display = timelineCreator("#" + frameId) # the table hasn't been created yet
+              # display = timelineCreator("#" + frameId) # the table hasn't been created yet
+              timelineCreator(innerCell)
 
           else if message.timeline? 
             display = message.timeline
             if display.hasOwnProperty("_choc_timeline")
               display = display._choc_timeline()
-
-          innerCell.html(display)
+            innerCell.html(display)
+          else
+            innerCell.html(display)
          
           row.append(cell)
         else
