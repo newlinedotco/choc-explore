@@ -1,5 +1,6 @@
 $(document).ready () ->
   choc = window.choc
+  map = _.map
 
   parabola = """
     var shift = 0;
