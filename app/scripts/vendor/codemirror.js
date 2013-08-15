@@ -1277,7 +1277,7 @@ window.CodeMirror = (function() {
     if (op.updateMaxLine) computeMaxLength(cm);
     if (display.maxLineChanged && !cm.options.lineWrapping) {
       var width = measureLineWidth(cm, display.maxLine);
-      display.sizer.style.minWidth = Math.max(0, width + 3 + scrollerCutOff) + "px";
+      // display.sizer.style.minWidth = Math.max(0, width + 3 + scrollerCutOff) + "px";
       display.maxLineChanged = false;
       var maxScrollLeft = Math.max(0, display.sizer.offsetLeft + display.sizer.offsetWidth - display.scroller.clientWidth);
       if (maxScrollLeft < doc.scrollLeft && !op.updateScrollPos)
