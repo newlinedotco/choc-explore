@@ -36,24 +36,25 @@
 
     .row
       .large-12.large-centered.columns
-        .row
-          .large-9.columns
 
-            .row.collapse
-              .large-1.columns
-                #amount
-              .large-5.columns
-                #slider
-              .large-6.columns
-                .space
+        .canvas-container.x-canvas
+          #targetcanvas
 
-            .row.collapse
-              .large-12.columns
-                #editor-header
-                #editor
+        .canvas-editor
+          .row
+            .large-12.columns
+              .row.slider-container
+                .large-1.columns
+                  #amount
+                .large-5.columns
+                  #slider
+                .large-6.columns
+                  .space
 
-          .large-3.columns.x-canvas
-            #targetcanvas
+              .row
+                .large-12.columns
+                  #editor-header
+                  #editor
 
     .row
       .large-12.large-centered.columns
