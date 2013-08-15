@@ -4,8 +4,7 @@ $(document).ready () ->
   parabola = """
     var shift = 0;
     while (shift <= 200) {
-      line = pad.makeLine(shift, 0, 200, shift);
-      line.linewidth = 2;
+      pad.makeLine(shift, 0, 200, shift);
       shift += 14;
     }
   """
@@ -17,15 +16,6 @@ $(document).ready () ->
     })
     .appendTo(document.getElementById('targetcanvas'))
 
-  # choc.annotate Two.Polygon.prototype.linewidth, (args) ->
-  #  # [x1, y1, x2, y2] = args
-  #  "im a line width!"
-
-
-  # is there a way to set it on prototypes of things?
-  # that would be better, e.g. if we set the stroke of a line - what is that object?
-  # e.g. lets set a private setting on the prototype of objects. this way we can read from that object what the language should be
- 
   editor = new choc.Editor({
     $: $
     code: parabola
