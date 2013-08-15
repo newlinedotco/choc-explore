@@ -34,9 +34,7 @@ $(document).ready () ->
   strVar = (v) -> "<span class='choc-variable'>#{v}</span>"
 
   Two.Polygon.prototype.__choc_annotations = 
-
-    # doesn't work quite yet
-    linewidth: (args) ->
+    linewidth: (args) -> # doesn't work quite yet because we don't have readable assignment
       "im a line width"
 
     scale: (args) ->
@@ -48,10 +46,8 @@ $(document).ready () ->
 
     fill: (args) ->
       [fill] = args
-      "set the fill to <div style='width: 17px; height; 17px; background-color: #{fill}; border: 1px solid rgba(68, 67, 67, 0.68); display: inline-block; top: -1px; position: relative;'>&nbsp</div>"
+      "set the fill to <div class='line-swatch' style='background-color: #{fill};'>&nbsp</div>"
 
-
-    # TODO - the args that are passed in here aren't usable
     rotation: (args) ->
       [rot] = args
       "set the rotation to #{strVar(rot)}"
