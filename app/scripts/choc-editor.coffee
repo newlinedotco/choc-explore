@@ -25,8 +25,7 @@ class ChocEditor
         clearTimeout(@state.delay)
         @state.delay = setTimeout(
           (() => 
-            @calculateIterations()
-            @updatePreview()), 
+            @calculateIterations()), 
           1)
     }
 
@@ -89,21 +88,25 @@ class ChocEditor
 
   updateTimelineMarker: (activeFrame) ->
     # TODO figure out the positioning below
-    # if activeFrame?.position()?
-    #   $("#tlmark").show()
-    #   $("#tlmark").height($("#tlmark").parent().height())
-    #   $("#tlmark").css('top', '0')
-    #   parentOffset = $("#tlmark").parent().offset()
-    #   if parentOffset?
-    #     # console.log("updateTimelineMarker")
-    #     # console.log(parentOffset)
-    #     # console.log(activeFrame.offset().left)
-    #     relX = activeFrame.position().left - parentOffset.left
-    #     console.log(relX)
-    #     $("#tlmark").css('left', relX)
+    if activeFrame?.position()?
+      # $("#tlmark").show()
+      # $("#tlmark").height($("#tlmark").parent().height())
+      # $("#tlmark").css('top', '0')
+      # parentOffset = @$("#tlmark").parent().offset()
+      # console.log parentOffset
+      # if parentOffset?
+      #   # console.log("updateTimelineMarker")
+      #   # console.log(parentOffset)
+      #   # console.log(activeFrame.offset().left)
+      #   relX = activeFrame.position().left - parentOffset.left
+      #   console.log(relX)
+      #   $("#tlmark").css('left', relX)
+      relX = activeFrame.position().left
+      @$("#timeline").scrollLeft(relX)
 
 
   onScrub: (info,opts={}) ->
+    console.log "onScrub"
     @updateActiveLine @codemirror, info.lineNumber - 1, info.frameNumber
     # updateTimelineMarker()
     # unless opts.noScroll
@@ -131,8 +134,8 @@ class ChocEditor
   # Generate the HTML view of the timeline data structure
   # TODO: this is a bit ugly
   generateTimelineTable: (timeline) ->
-    tdiv = $("#timeline")
-    execLine = $("#executionLine")
+    tdiv = @$("#timeline")
+    execLine = @$("#executionLine")
 
     table = $('<table></table>')
 
@@ -216,7 +219,7 @@ class ChocEditor
       self.state.slider.value = frameNumber
       # console.log self.state.slider.value
       updatePreview.apply(self)
-    for cell in $("#timeline .content-cell")
+    for cell in @$("#timeline .content-cell")
       ((cell) -> 
         $(cell).on 'mouseover', () ->
           cell = $(cell)
@@ -260,6 +263,7 @@ class ChocEditor
           if (@state.slider.value > max)
             @state.slider.value = max
             @slider.slider('value', max)
+            @slider.slider('step', count)
 
     window.choc.scrub @codemirror.getValue(), @options.maxIterations, 
       onTimeline: (args...) => @onTimeline.apply(@, args)
