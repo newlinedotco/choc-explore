@@ -30,7 +30,7 @@ class ChocEditor
 
     @codemirror.on "change", () =>
       clearTimeout(@state.delay)
-      @state.delay = setTimeout((() => @calculateIterations()), 300)
+      @state.delay = setTimeout((() => @calculateIterations()), 500)
 
     onSliderChange = (event, ui) =>
       @$( "#amount" ).text( "step #{ui.value}" ) 
@@ -168,13 +168,13 @@ class ChocEditor
             .attr("data-line-number", info.lineNumber)
           cell.append(innerCell)
 
-          if message.message?.timeline?
+          if message?.message?.timeline?
             timelineCreator = message.message.timeline
             if _.isFunction(timelineCreator)
               # display = timelineCreator("#" + frameId) # the table hasn't been created yet
               timelineCreator(innerCell)
 
-          else if message.timeline? 
+          else if message?.timeline? 
             display = message.timeline
             if display.hasOwnProperty("_choc_timeline")
               display = display._choc_timeline()
@@ -193,7 +193,7 @@ class ChocEditor
 
     # tableString += "<div id='tlmark'>&nbsp;</div>"
     # tdiv.html(tableString)
-    tdiv.append(table)
+    tdiv.html(table)
 
     console.log("setup the table")
     #onf() for onf in onFinish

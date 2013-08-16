@@ -2,6 +2,11 @@ $(document).ready () ->
   choc = window.choc
   readable = choc.readable
 
+  settings = {
+    cellWidth: 16
+    cellHeight: 16
+  }
+
   override = (target, originalName, newfn) ->
     originalFn = target[originalName]
     target[originalName] = (args...) ->
@@ -22,13 +27,13 @@ $(document).ready () ->
       ret
 
   overrides = 
-    makeLine: "this line"
-    makeRectangle: "this rectangle"
-    makeCircle: "this circle"
-    makeEllipse: "this ellipse"
-    makeCurve: "this curve"
-    makePolygon: "this polygon"
-    makeGroup: "this group"
+    makeLine: "the line"
+    makeRectangle: "the rectangle"
+    makeCircle: "the circle"
+    makeEllipse: "the ellipse"
+    makeCurve: "the curve"
+    makePolygon: "the polygon"
+    makeGroup: "the group"
 
   overrideToString(Two.prototype, method, str) for method, str of overrides
 
@@ -40,17 +45,23 @@ $(document).ready () ->
 
     scale: (args) ->
       [scale] = args
-      if scale > 1.0
+      inline = if scale > 1.0
         "scale bigger by #{strVar(scale)}"
       else
         "scale smaller by #{strVar(scale)}"
+      {
+        inline: inline
+        timeline: (elem) ->
+          elem.html(scale)
+      }
+      
 
     fill: (args) ->
       [fill] = args
       {
         inline: "set the fill to <div class='line-swatch' style='background-color: #{fill};'>&nbsp</div>"
         timeline: (elem) ->
-          swatch = $("<div></div>").addClass("line-swatch").css("background-color", fill)
+          swatch = $("<div></div>").addClass("line-swatch timeline-swatch").css("background-color", fill)
           elem.append(swatch)
       }
 
@@ -59,12 +70,9 @@ $(document).ready () ->
       {
         inline: "set the rotation to #{strVar(rot)}"
         timeline: (elem) ->
-          elem.css("width", "16px")
-          elem.css("height", "16px")
-
           two = new Two({
-            width: 16
-            height: 16
+            width: settings.cellWidth
+            height: settings.cellHeight
             type: Two.Types.canvas
             }).appendTo(elem[0])
          
@@ -99,7 +107,42 @@ $(document).ready () ->
     "draw a curve"
 
   choc.annotate Two.prototype.makePolygon, (args) ->
-    "draw a polygon"
+    open = args.pop()
+    numberOfSides = args.length / 2
+    polygonNames = 
+      3: "triangle"
+      4: "quadrilateral"
+      5: "pentagon"
+      6: "hexagon"
+      7: "heptagon"
+      8: "octagon"
+      9: "enneagon"
+      10: "decagon"
+    polygonName = if polygonNames.hasOwnProperty(numberOfSides) 
+                    polygonNames[numberOfSides] 
+                  else "polygon"
+
+    {
+      inline: "draw a #{polygonName}"
+      timeline: (elem) ->
+
+        two = new Two({
+          width: settings.cellWidth
+          height: settings.cellHeight
+          type: Two.Types.canvas
+          }).appendTo(elem[0])
+
+        # TODO - the idea here is to create a 'thumbnail' version of the polygon
+        maxGiven = _.max(args)
+        maxAllowed = _.max([settings.cellWidth, settings.cellHeight])
+        scale = maxAllowed / maxGiven
+        scaledArgs = _.map(args, ((v) -> v * scale))
+        poly = two.makePolygon.apply(two, scaledArgs.concat([open]))
+
+        poly.translation.set(two.width / 2, two.height / 2)
+        two.update()
+
+    }
 
   # Two.prototype.__choc_annotations =
   #   scale: (args) ->
