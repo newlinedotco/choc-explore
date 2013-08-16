@@ -20,12 +20,22 @@ class ChocEditor
     @setupEditor()
 
   setupEditor: () ->
+    @interactiveValues = {
+      onChange: (v) =>
+        clearTimeout(@state.delay)
+        @state.delay = setTimeout(
+          (() => 
+            @calculateIterations()
+            @updatePreview()), 
+          1)
+    }
 
     @codemirror = CodeMirror @$("#editor")[0], {
       value: @options.code
       mode:  "javascript"
       viewportMargin: Infinity
       tabMode: "spaces"
+      interactiveNumbers: @interactiveValues
       }
 
     @codemirror.on "change", () =>
@@ -146,7 +156,7 @@ class ChocEditor
     #   columns: number of elements in 
     rowidx  = 0
     while rowidx < timeline.maxLines + 1
-      row = $('<tr></tr>')
+      row = $('<tr class="timeline-row"></tr>')
       #tableString += "<tr>\n"
       column = 0
       while column < timeline.steps.length
