@@ -16,6 +16,13 @@ $(document).ready () ->
     })
     .appendTo(document.getElementById('targetcanvas'))
 
+  # enable retina
+  if window.devicePixelRatio == 2
+    canvas = pad.renderer.domElement
+    canvas.setAttribute('width', canvas.width*2)
+    canvas.setAttribute('height', canvas.height*2)
+    pad.renderer.ctx.scale(2, 2)
+
   editor = new choc.Editor({
     $: $
     code: parabola

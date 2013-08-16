@@ -24,6 +24,7 @@ $(document).ready () ->
       ret = originalFn.apply(me, args)
       ret.toString = () -> newString
       ret._choc_timeline = () -> "&#8226;"
+      ret.noFill()
       ret
 
   overrides = 
@@ -101,7 +102,7 @@ $(document).ready () ->
 
   choc.annotate Two.prototype.makeEllipse, (args) ->
     [x, y, radius] = _.map args, (arg) -> strVar(arg)
-    "draw an ellipse at (#{x},#{y}) #{width} wide and #{height} high"
+    "draw an ellipse at (#{x},#{y}) with a #{radius} radius"
 
   choc.annotate Two.prototype.makeCurve, (args) ->
     "draw a curve"

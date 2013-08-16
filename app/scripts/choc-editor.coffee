@@ -195,7 +195,7 @@ class ChocEditor
     # tdiv.html(tableString)
     tdiv.html(table)
 
-    console.log("setup the table")
+    # console.log("setup the table")
     #onf() for onf in onFinish
     
     slider = @slider
@@ -236,27 +236,31 @@ class ChocEditor
       @$("#messages").text(e.toString())
 
   calculateIterations: (first=false) ->
-    afterAll = \
-      if first
-        (info) =>
-          count = info.frameCount
-          @slider.slider('option', 'max', count)
-          @slider.slider('value', count)
-      else
-        (info) =>
-          count = info.frameCount
-          @slider.slider('option', 'max', count)
-          max = @slider.slider('option', 'max')
-          if (@state.slider.value > max)
-            @state.slider.value = max
-            @slider.slider('value', max)
+    afterAll = () -> 
+    console.log("afterAll")
+    if first
+      afterAll = (info) =>
+        count = info.frameCount
+        @slider.slider('option', 'max', count)
+        @slider.slider('value', count)
+        @options.afterCalculatingIterations()
+    else
+      afterAll = (info) =>
+        count = info.frameCount
+        @slider.slider('option', 'max', count)
+        max = @slider.slider('option', 'max')
+        if (@state.slider.value > max)
+          @state.slider.value = max
+          @slider.slider('value', max)
 
     window.choc.scrub @codemirror.getValue(), @options.maxIterations, 
       onTimeline: (args...) => @onTimeline.apply(@, args)
       beforeEach: (args...) => @beforeScrub.apply(@, args)
       afterEach:  (args...) => @afterScrub.apply(@, args)
+      afterFrame:  (args...) => @afterFrame.apply(@, args)
       afterAll: afterAll
       locals: @options.locals
+      animate: @options.animate 
 
     @updatePreview()
 
