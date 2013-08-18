@@ -42,9 +42,10 @@ class ChocEditor
       @state.delay = setTimeout((() => @calculateIterations()), 500)
 
     onSliderChange = (event, ui) =>
-      @$( "#amount" ).text( "step #{ui.value}" ) 
-      @state.slider.value = ui.value
-      @updatePreview()
+      if event.hasOwnProperty("originalEvent") # e.g. triggered by a user interaction, not programmatically below
+        @$( "#amount" ).text( "step #{ui.value}" ) 
+        @state.slider.value = ui.value
+        @updatePreview()
 
     @slider = @$("#slider").slider {
       min: 0
@@ -106,7 +107,7 @@ class ChocEditor
 
 
   onScrub: (info,opts={}) ->
-    console.log "onScrub"
+    # console.log "onScrub"
     @updateActiveLine @codemirror, info.lineNumber - 1, info.frameNumber
     # updateTimelineMarker()
     # unless opts.noScroll
@@ -250,13 +251,12 @@ class ChocEditor
 
   calculateIterations: (first=false) ->
     afterAll = () -> 
-    console.log("afterAll")
     if first
       afterAll = (info) =>
         count = info.frameCount
         @slider.slider('option', 'max', count)
         @slider.slider('value', count)
-        @options.afterCalculatingIterations()
+        # @options.afterCalculatingIterations() if @options.afterCalculatingIterations?
     else
       afterAll = (info) =>
         count = info.frameCount
@@ -267,6 +267,8 @@ class ChocEditor
           @slider.slider('value', max)
           @slider.slider('step', count)
 
+    @options.beforeCodeChange()
+
     window.choc.scrub @codemirror.getValue(), @options.maxIterations, 
       onTimeline: (args...) => @onTimeline.apply(@, args)
       beforeEach: (args...) => @beforeScrub.apply(@, args)
@@ -276,7 +278,7 @@ class ChocEditor
       locals: @options.locals
       animate: @options.animate 
 
-    @updatePreview()
+    # @updatePreview()
 
     # if first
     #   updateTimelineScroll() 

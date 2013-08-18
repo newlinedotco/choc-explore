@@ -27,11 +27,12 @@ $(document).ready () ->
     type: Two.Types.canvas
     })
     .appendTo(canvas)
-  console.log("making a pad ellipse")
-  el = pad.makeEllipse(100, 200, 30, 30) 
-  el.fill = "pink"
 
-  pad.update()
+  # console.log("making a pad ellipse")
+  # el = pad.makeEllipse(100, 200, 30, 30) 
+  # el.fill = "pink"
+  # pad.update()
+  # console.log("pad.update()")
 
   # enable retina
   if window.devicePixelRatio == 2
@@ -43,21 +44,30 @@ $(document).ready () ->
   # basically we want to call draw the number of iterations times before we call update
   # we also need a hook to make everything besides the current frame fade out
 
+  saveCanvasImage = () ->
+    console.log("saving the canvas")
+    dataURL = pad.renderer.domElement.toDataURL()
+    console.log(pad.renderer.domElement)
+    canvasbg = document.getElementById('canvasbg')
+    canvasbg.src = dataURL
+    $(canvasbg).css('opacity', 0.2)
+
+    console.log(document.getElementById('canvasbg'))
+
   editor = new choc.Editor({
     $: $
     code: parabola
-    afterCalculatingIterations: () ->
-      console.log("saving the canvas")
-      dataURL = pad.renderer.domElement.toDataURL()
-      console.log(pad.renderer.domElement)
-      console.log(dataURL)
-      document.getElementById('canvasbg').src = dataURL
-      console.log(document.getElementById('canvasbg').src)
-      console.log(document.getElementById('canvasbg'))
+
+    beforeCodeChange: () ->
+      console.log("beforeCodeChange")
+      pad.once Two.Events.render, () ->
+        saveCanvasImage()
+
     beforeScrub: () -> 
-      # pad.clear()
+      pad.clear()
     afterScrub: () ->  
-      # ball?.stroke = 'orangered'
+      ball?.stroke = 'orangered'
+      # console.log("pad.update()")
       pad.update()
     afterFrame: () ->
       # ball?.stroke = 'pink'
