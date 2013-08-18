@@ -50,7 +50,12 @@ $(document).ready () ->
     console.log(pad.renderer.domElement)
     canvasbg = document.getElementById('canvasbg')
     canvasbg.src = dataURL
-    $(canvasbg).css('opacity', 0.2)
+    $(canvasbg)
+      .css('opacity', 0.2)
+      .css('position', 'absolute')
+      .css('width', pad.width)
+      .css('height', pad.height)
+      .css('top', $(canvasbg).parent().css('margin-top'))
 
     console.log(document.getElementById('canvasbg'))
 
