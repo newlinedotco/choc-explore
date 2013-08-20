@@ -15,9 +15,9 @@ $(document).ready () ->
       }
     }
 
-  for(var i=0; i<100; i++) {
-    draw();
-  }
+  // for(var i=0; i<100; i++) {
+  //   draw();
+  // }
     
   """
   canvas = document.getElementById('targetcanvas')
@@ -64,7 +64,6 @@ $(document).ready () ->
     code: parabola
 
     beforeCodeChange: () ->
-      console.log("beforeCodeChange")
       pad.once Two.Events.render, () ->
         saveCanvasImage()
 
@@ -77,10 +76,14 @@ $(document).ready () ->
     afterFrame: () ->
       # ball?.stroke = 'pink'
     animate: "draw"
+    maxAnimationFrames: 100
     # maxIterations: 500
     # terminateWhen: () -> x > 300
     locals: { pad: pad }
     })
+
+  # to generate the preview, draw() without beforeScrub() 
+  # to scrub individually, draw() with beforeScrub()
 
   editor.start()
 

@@ -4,6 +4,7 @@ class ChocEditor
   constructor: (options) ->
     defaults =
       maxIterations: 1000
+      maxAnimationFrames: 100
 
     @options = _.extend(defaults, options)
     @$ = options.$
@@ -237,12 +238,23 @@ class ChocEditor
     _.map @state.lineWidgets, (widget) -> widget.clear()
 
     try
-      window.choc.scrub @codemirror.getValue(), @state.slider.value, 
+      code = @codemirror.getValue()
+      if @options.animate?
+        appendSource = """
+          for(var __i=0; __i<#{@options.maxAnimationFrames}; __i++) {
+            pad.clear();
+            #{@options.animate}();
+            pad.update();
+          }
+        """
+
+      window.choc.scrub code, @state.slider.value, 
         onFrame:    (args...) => @onScrub.apply(@, args)
         beforeEach: (args...) => @beforeScrub.apply(@, args)
         afterEach:  (args...) => @afterScrub.apply(@, args)
         onMessages: (args...) => @onMessages.apply(@, args)
         locals: @options.locals
+        appendSource: appendSource || ""
       @$("#messages").text("")
     catch e
       console.log(e)
@@ -267,18 +279,32 @@ class ChocEditor
           @slider.slider('value', max)
           @slider.slider('step', count)
 
-    @options.beforeCodeChange()
+    if @options.animate
 
-    window.choc.scrub @codemirror.getValue(), @options.maxIterations, 
-      onTimeline: (args...) => @onTimeline.apply(@, args)
-      beforeEach: (args...) => @beforeScrub.apply(@, args)
-      afterEach:  (args...) => @afterScrub.apply(@, args)
-      afterFrame:  (args...) => @afterFrame.apply(@, args)
-      afterAll: afterAll
-      locals: @options.locals
-      animate: @options.animate 
+      window.locals = @options.locals
+      localsStr = _.map(_.keys(@options.locals), (name) -> "var #{name} = locals.#{name};").join("; ")
+      gval = eval # http://perfectionkills.com/global-eval-what-are-the-options/
+      gval(localsStr + "\n" + @codemirror.getValue())
+      draw = gval(@options.animate)
+      do (() -> draw()) for [1..@options.maxAnimationFrames]
+      @afterScrub()
 
-    # @updatePreview()
+      console.log("generating animation preview")
+      @options.beforeCodeChange()
+      # @updatePreview()
+
+    else
+
+      console.log("regular calculate iterations")
+      window.choc.scrub @codemirror.getValue(), @options.maxIterations, 
+        onTimeline: (args...) => @onTimeline.apply(@, args)
+        beforeEach: (args...) => @beforeScrub.apply(@, args)
+        afterEach:  (args...) => @afterScrub.apply(@, args)
+        afterFrame:  (args...) => @afterFrame.apply(@, args)
+        afterAll: afterAll
+        locals: @options.locals
+
+    # @updatePreview() # TODO - bring this back?
 
     # if first
     #   updateTimelineScroll() 
