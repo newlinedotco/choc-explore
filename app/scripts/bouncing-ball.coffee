@@ -21,16 +21,20 @@ $(document).ready () ->
     height: 400
     type: Two.Types.canvas
 
-  framePad   = new Two(twoOptions).appendTo(document.getElementById('frameCanvas'))
+  #framePad   = new Two(twoOptions).appendTo(document.getElementById('frameCanvas'))
+  framePad = 1
   previewPad = new Two(twoOptions).appendTo(document.getElementById('previewCanvas'))
-  previewPad.renderer.ctx.globalAlpha = 0.5;
-  previewPad.renderer.ctx.globalCompositeOperation = "lighter"
+  # previewPad.renderer.ctx.globalAlpha = 0.5;
+  # previewPad.renderer.ctx.globalCompositeOperation = "lighter"
 
   editor = new choc.AnimationEditor({
     $: $
     code: code
     beforeGeneratePreview: () ->
       previewPad.clear()
+    afterGeneratePreview: () ->
+      previewPad.update()
+
     beforeScrub: () -> 
       pad.clear()
     afterScrub: () ->  

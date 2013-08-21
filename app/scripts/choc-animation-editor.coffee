@@ -125,7 +125,7 @@ class ChocAnimationEditor
     draw = gval(@options.animate)
     do (() -> draw()) for [1..@options.maxAnimationFrames]
 
-    @afterScrub()
+    @options.afterGeneratePreview?()
 
     # @options.beforeCodeChange()
     # _.defer () => @updatePreview() # ew two.js...
