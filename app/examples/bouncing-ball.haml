@@ -22,6 +22,7 @@
     %script{:src => "/scripts/vendor/custom.modernizr.js"}
     %script{:src => "/scripts/foundation/foundation.js"}
     %script{:src => "/scripts/vendor/codemirror.js"}
+    %script{:src => "/scripts/vendor/codemirror-interactive-numbers.build.js"}
     %script{:src => "/scripts/vendor/modes/javascript/javascript.js"}
     %script{:src => "/scripts/vendor/modes/coffeescript/coffeescript.js"}
     %script{:src => "/scripts/vendor/two.js"}
@@ -38,8 +39,8 @@
       .large-12.large-centered.columns
 
         .canvas-container.x-canvas
-          #targetcanvas
-          %img#canvasbg
+          #frameCanvas
+          #previewCanvas
 
         .canvas-editor
           .row
@@ -60,6 +61,6 @@
     .row
       .large-12.large-centered.columns
         #messages
-    %script{:src => "/scripts/choc-editor.js?d=1373775961496"}
+    %script{:src => "/scripts/choc-animation-editor.js?d=1373775961496"}
     %script{:src => "/scripts/two-annotations.js"}
     %script{:src => "/scripts/bouncing-ball.js"}

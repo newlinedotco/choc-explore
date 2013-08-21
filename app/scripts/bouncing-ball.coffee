@@ -1,7 +1,7 @@
 $(document).ready () ->
   choc = window.choc
 
-  parabola = """
+  code = """
     var draw, ball, x = 0, y = 50, dy = 0;
     draw = function() {
       x += 3;
@@ -14,64 +14,27 @@ $(document).ready () ->
         ball = pad.makeEllipse(x, y, 30, 30); 
       }
     }
-
-  // for(var i=0; i<100; i++) {
-  //   draw();
-  // }
-    
+   
   """
-  canvas = document.getElementById('targetcanvas')
-  pad = new Two({
+  twoOptions = 
     width: 200
     height: 400
     type: Two.Types.canvas
-    })
-    .appendTo(canvas)
 
-  # console.log("making a pad ellipse")
-  # el = pad.makeEllipse(100, 200, 30, 30) 
-  # el.fill = "pink"
-  # pad.update()
-  # console.log("pad.update()")
+  framePad   = new Two(twoOptions).appendTo(document.getElementById('frameCanvas'))
+  previewPad = new Two(twoOptions).appendTo(document.getElementById('previewCanvas'))
+  previewPad.renderer.ctx.globalAlpha = 0.5;
+  previewPad.renderer.ctx.globalCompositeOperation = "lighter"
 
-  # enable retina
-  if window.devicePixelRatio == 2
-    canvas = pad.renderer.domElement
-    canvas.setAttribute('width', canvas.width*2)
-    canvas.setAttribute('height', canvas.height*2)
-    pad.renderer.ctx.scale(2, 2)
-
-  # basically we want to call draw the number of iterations times before we call update
-  # we also need a hook to make everything besides the current frame fade out
-
-  saveCanvasImage = () ->
-    console.log("saving the canvas")
-    dataURL = pad.renderer.domElement.toDataURL()
-    console.log(pad.renderer.domElement)
-    canvasbg = document.getElementById('canvasbg')
-    canvasbg.src = dataURL
-    $(canvasbg)
-      .css('opacity', 0.2)
-      .css('position', 'absolute')
-      .css('width', pad.width)
-      .css('height', pad.height)
-      .css('top', $(canvasbg).parent().css('margin-top'))
-
-    console.log(document.getElementById('canvasbg'))
-
-  editor = new choc.Editor({
+  editor = new choc.AnimationEditor({
     $: $
-    code: parabola
-
-    beforeCodeChange: () ->
-      pad.once Two.Events.render, () ->
-        saveCanvasImage()
-
+    code: code
+    beforeGeneratePreview: () ->
+      previewPad.clear()
     beforeScrub: () -> 
       pad.clear()
     afterScrub: () ->  
       ball?.stroke = 'orangered'
-      # console.log("pad.update()")
       pad.update()
     afterFrame: () ->
       # ball?.stroke = 'pink'
@@ -79,11 +42,20 @@ $(document).ready () ->
     maxAnimationFrames: 100
     # maxIterations: 500
     # terminateWhen: () -> x > 300
-    locals: { pad: pad }
+    locals: { pad: [framePad, previewPad] }
     })
 
   # to generate the preview, draw() without beforeScrub() 
   # to scrub individually, draw() with beforeScrub()
 
   editor.start()
+
+  # have a bg canvas
+  # and a fg canvas
+  # set the global opacity on the bg context to be 50%
+  # when the code changes run on the bg canvas  
+  # when the scrub changes run the draw the number of times to the frame
+  # say frame number in the slider
+  # have the ability to change the number of animation frames
+  # have a play button to play the animation
 
