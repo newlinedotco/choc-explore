@@ -246,7 +246,6 @@ class ChocEditor
         afterEach:  (args...) => @afterScrub.apply(@, args)
         onMessages: (args...) => @onMessages.apply(@, args)
         locals: @options.locals
-        appendSource: appendSource || ""
       @$("#messages").text("")
     catch e
       console.log(e)
