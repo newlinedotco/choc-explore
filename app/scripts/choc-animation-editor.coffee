@@ -37,22 +37,22 @@ class ChocAnimationEditor
 
     onSliderChange = (event, ui) =>
       if event.hasOwnProperty("originalEvent") # e.g. triggered by a user interaction, not programmatically below
-        @$( "#amount" ).text( "step #{ui.value}" ) 
+        @$( "#amount" ).text( "frame #{ui.value}" ) 
         @state.slider.value = ui.value
         @updatePreview()
 
     @slider = @$("#slider").slider {
       min: 0
-      max: 50
+      max: @options.maxAnimationFrames
       change: onSliderChange
       slide: onSliderChange
       }
 
-  beforeScrub: () -> @options.beforeScrub()
-  afterScrub: () -> @options.afterScrub()
-  updateActiveLine: (cm, lineNumber, frameNumber) ->
-  updateTimelineMarker: (activeFrame) ->
-  onScrub: (info,opts={}) ->
+  # beforeScrub: () -> @options.beforeScrub()
+  # afterScrub: () -> @options.afterScrub()
+  # updateActiveLine: (cm, lineNumber, frameNumber) ->
+  # updateTimelineMarker: (activeFrame) ->
+  # onScrub: (info,opts={}) ->
 
   # When given an array of messages, add CodeMirror lineWidgets to each line
   onMessages: (messages) ->
@@ -77,58 +77,54 @@ class ChocAnimationEditor
     try
       code = @codemirror.getValue()
       if @options.animate?
+        # below we run animate for every iteration to make sure we're at the
+        # right place in code. However, we don't clear/update everytime because
+        # it causes flashing. We only need to clear right before we draw the
+        # frame we want to see
         appendSource = """
-          for(var __i=0; __i<#{@options.maxAnimationFrames}; __i++) {
-            pad.clear();
+          for(var __i=0; __i<#{@state.slider.value}; __i++) {
+            if(__i == #{@state.slider.value - 1}) {
+              pad.clear();
+              #{@options.animate}();
+              pad.update();
+            } else {
             #{@options.animate}();
-            pad.update();
+            }
           }
         """
 
-      window.choc.scrub code, @state.slider.value, 
-        onFrame:    (args...) => @onScrub.apply(@, args)
-        beforeEach: (args...) => @beforeScrub.apply(@, args)
-        afterEach:  (args...) => @afterScrub.apply(@, args)
-        onMessages: (args...) => @onMessages.apply(@, args)
-        locals: @options.locals
-        appendSource: appendSource || ""
+      @runCode(@codemirror.getValue() + appendSource, false)
+
       @$("#messages").text("")
     catch e
       console.log(e)
       console.log(e.stack)
       @$("#messages").text(e.toString())
 
-  generatePreview: (first=false) ->
-    # afterAll = () -> 
-    # if first
-    #   afterAll = (info) =>
-    #     count = info.frameCount
-    #     @slider.slider('option', 'max', count)
-    #     @slider.slider('value', count)
-    # else
-    #   afterAll = (info) =>
-    #     count = info.frameCount
-    #     @slider.slider('option', 'max', count)
-    #     max = @slider.slider('option', 'max')
-    #     if (@state.slider.value > max)
-    #       @state.slider.value = max
-    #       @slider.slider('value', max)
-    #       @slider.slider('step', count)
-    @options.beforeGeneratePreview?()
+  runCode: (code, isPreview=false) ->
+    gval = eval
+
+    localsIndex = if isPreview then 1 else 0
 
     window._choc_preview_locals = @options.locals
-    # console.log(@options.locals)
-    localsStr = _.map(_.keys(@options.locals), (name) -> "var #{name} = _choc_preview_locals.#{name}[1]; console.log(#{name});").join("; ")
+    localsStr = _.map( _.keys(@options.locals), \
+                (name) -> 
+                  "var #{name} = _choc_preview_locals.#{name}[#{localsIndex}]").join("; ")
+    console.log(localsStr)
+    gval(localsStr + "\n" + code )
+
+
+  generatePreview: (first=false) ->
     gval = eval
-    # console.log(localsStr)
-    gval(localsStr + "\n" + @codemirror.getValue())
+
+    @options.beforeGeneratePreview?()
+
+    @runCode(@codemirror.getValue(), true)
+
     draw = gval(@options.animate)
     do (() -> draw()) for [1..@options.maxAnimationFrames]
 
     @options.afterGeneratePreview?()
-
-    # @options.beforeCodeChange()
-    # _.defer () => @updatePreview() # ew two.js...
 
   start: () ->
     @generatePreview(true)

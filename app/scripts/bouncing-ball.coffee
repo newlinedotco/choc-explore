@@ -21,11 +21,15 @@ $(document).ready () ->
     height: 400
     type: Two.Types.canvas
 
-  #framePad   = new Two(twoOptions).appendTo(document.getElementById('frameCanvas'))
-  framePad = 1
+  framePad   = new Two(twoOptions).appendTo(document.getElementById('frameCanvas'))
+  fader      = new Two(twoOptions).appendTo(document.getElementById('faderCanvas'))
   previewPad = new Two(twoOptions).appendTo(document.getElementById('previewCanvas'))
   # previewPad.renderer.ctx.globalAlpha = 0.5;
   # previewPad.renderer.ctx.globalCompositeOperation = "lighter"
+
+  rectangle = fader.makeRectangle(fader.width/2,fader.height/2, fader.width, fader.height)
+  rectangle.fill = "rgba(255, 255, 255, 0.50)"
+  fader.update()
 
   editor = new choc.AnimationEditor({
     $: $
