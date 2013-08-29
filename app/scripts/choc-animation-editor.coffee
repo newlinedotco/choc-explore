@@ -54,7 +54,9 @@ class ChocAnimationEditor
         console.log("pause")
         @state.playing = false
         @options.pause()
+        @updateViews()
       else
+        @updateViews()
         console.log("play")
         @state.playing = true
         @options.play()
@@ -125,9 +127,7 @@ class ChocAnimationEditor
     gval = eval
 
     @options.beforeGeneratePreview?()
-
     @runCode(@codemirror.getValue(), true)
-
     draw = gval(@options.animate)
     do (() -> draw()) for [1..@options.maxAnimationFrames]
 

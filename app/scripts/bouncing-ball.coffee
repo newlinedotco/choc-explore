@@ -1,20 +1,21 @@
 $(document).ready () ->
   choc = window.choc
+  geval = eval
 
   code = """
-    var draw, ball, x = 0, y = 50, dy = 0;
-    draw = function() {
-      x += 3;
-      y += dy; 
-      if (y > 185) {
-        dy = -dy;
-        ball = pad.makeEllipse(x, 190, 36, 25); 
-      } else {
-        dy = dy * 0.94 + 3;
-        ball = pad.makeEllipse(x, y, 30, 30); 
-      }
-    }
-   
+   var draw, ball, x = 0, y = 50, dy = 0;
+   draw = function() {
+     x += 3;
+     y += dy; 
+     if (y > 185) {
+       dy = -dy;
+       ball = pad.makeEllipse(x, 190, 36, 25); 
+     } else {
+       dy = dy * 0.94 + 3;
+       ball = pad.makeEllipse(x, y, 30, 30); 
+     }
+   }
+
   """
   twoOptions = 
     width: 200
@@ -25,6 +26,8 @@ $(document).ready () ->
   fader      = new Two(twoOptions).appendTo(document.getElementById('faderCanvas'))
   previewPad = new Two(twoOptions).appendTo(document.getElementById('previewCanvas'))
 
+  window.framePad = framePad
+
   rectangle = fader.makeRectangle(fader.width/2,fader.height/2, fader.width, fader.height)
   rectangle.fill = "rgba(255, 255, 255, 0.50)"
   fader.update()
@@ -32,34 +35,32 @@ $(document).ready () ->
   editor = new choc.AnimationEditor({
     $: $
     code: code
-    beforeGeneratePreview: () ->
-      previewPad.clear()
-    afterGeneratePreview: () ->
-      previewPad.update()
+    beforeGeneratePreview: () -> previewPad.clear()
+    afterGeneratePreview:  () -> previewPad.update()
 
-    beforeScrub: () -> 
-      pad.clear()
-    afterScrub: () ->  
-      ball?.stroke = 'orangered'
-      pad.update()
-    afterFrame: () ->
-      # ball?.stroke = 'pink'
     animate: "draw"
     play: (cb) ->
-      geval = eval
+      framePad.frameCount = 0
+      previewPad.clear()
+      previewPad.update()
       draw = geval("draw")
-      updateFn = () ->
-        # framePad.clear()
-        draw()
-    
-      framePad.bind('update', updateFn).play()
+      updateFn = (frameCount, timeDelta) ->
 
-    pause: (cb) ->
+        if frameCount > 100
+          framePad.pause()
+        else
+          _.defer () ->
+            framePad.clear()
+            draw()
+
+      framePad.unbind(Two.Events.update)
+      framePad.bind('update', updateFn)
+      framePad.play()
+    pause: () ->
       framePad.pause()
-      
+      # framePad.unbind(Two.Events.update)
+
     maxAnimationFrames: 100
-    # maxIterations: 500
-    # terminateWhen: () -> x > 300
     locals: { pad: [framePad, previewPad] }
     })
 
@@ -67,13 +68,3 @@ $(document).ready () ->
   # to scrub individually, draw() with beforeScrub()
 
   editor.start()
-
-  # have a bg canvas
-  # and a fg canvas
-  # set the global opacity on the bg context to be 50%
-  # when the code changes run on the bg canvas  
-  # when the scrub changes run the draw the number of times to the frame
-  # say frame number in the slider
-  # have the ability to change the number of animation frames
-  # have a play button to play the animation
-
