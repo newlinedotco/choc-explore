@@ -11,16 +11,19 @@ class ChocAnimationEditor
       delay: null
       slider:
         value: 0
+      playing: false
     @setupEditor()
+
+  changeSlider: (newValue) ->
+    @$( "#amount" ).text( "frame #{newValue}" ) 
+    @state.slider.value = newValue
+    @updateFrameView()
 
   setupEditor: () ->
     @interactiveValues = {
       onChange: (v) =>
         clearTimeout(@state.delay)
-        @state.delay = setTimeout(
-          (() => 
-            @generatePreview()), 
-          1)
+        @state.delay = setTimeout((() => @updateViews()), 1)
     }
 
     @codemirror = CodeMirror @$("#editor")[0], {
@@ -33,13 +36,11 @@ class ChocAnimationEditor
 
     @codemirror.on "change", () =>
       clearTimeout(@state.delay)
-      @state.delay = setTimeout((() => @generatePreview()), 500)
+      @state.delay = setTimeout((() => @updateViews()), 500)
 
     onSliderChange = (event, ui) =>
       if event.hasOwnProperty("originalEvent") # e.g. triggered by a user interaction, not programmatically below
-        @$( "#amount" ).text( "frame #{ui.value}" ) 
-        @state.slider.value = ui.value
-        @updatePreview()
+        @changeSlider(ui.value)
 
     @slider = @$("#slider").slider {
       min: 0
@@ -48,11 +49,15 @@ class ChocAnimationEditor
       slide: onSliderChange
       }
 
-  # beforeScrub: () -> @options.beforeScrub()
-  # afterScrub: () -> @options.afterScrub()
-  # updateActiveLine: (cm, lineNumber, frameNumber) ->
-  # updateTimelineMarker: (activeFrame) ->
-  # onScrub: (info,opts={}) ->
+    @$("#animation-controls").click () =>
+      if @state.playing
+        console.log("pause")
+        @state.playing = false
+        @options.pause()
+      else
+        console.log("play")
+        @state.playing = true
+        @options.play()
 
   # When given an array of messages, add CodeMirror lineWidgets to each line
   onMessages: (messages) ->
@@ -73,7 +78,7 @@ class ChocAnimationEditor
         widget = @codemirror.addLineWidget(line, widgetHtml[0])
         @state.lineWidgets.push(widget)
 
-  updatePreview: () ->
+  updateFrameView: () ->
     try
       code = @codemirror.getValue()
       if @options.animate?
@@ -110,11 +115,13 @@ class ChocAnimationEditor
     localsStr = _.map( _.keys(@options.locals), \
                 (name) -> 
                   "var #{name} = _choc_preview_locals.#{name}[#{localsIndex}]").join("; ")
-    console.log(localsStr)
     gval(localsStr + "\n" + code )
 
+  updateViews: () ->
+    @generatePreview()
+    @updateFrameView()
 
-  generatePreview: (first=false) ->
+  generatePreview: () ->
     gval = eval
 
     @options.beforeGeneratePreview?()
@@ -127,14 +134,8 @@ class ChocAnimationEditor
     @options.afterGeneratePreview?()
 
   start: () ->
-    @generatePreview(true)
+    @changeSlider(1)
+    @updateViews()
 
 root = exports ? this
 root.choc.AnimationEditor = ChocAnimationEditor
-
-# when the page loads
-# run the animation F number of times
-# save the image off-scene and ghost it  - actually
-# pass in the canvas / context
-# set the global opacity and just put the canvas under the other canvas
-# 
