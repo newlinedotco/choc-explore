@@ -26,8 +26,7 @@ $(document).ready () ->
   fader      = new Two(twoOptions).appendTo(document.getElementById('faderCanvas'))
   previewPad = new Two(twoOptions).appendTo(document.getElementById('previewCanvas'))
 
-  window.framePad = framePad
-
+  # fader can we get rid?
   rectangle = fader.makeRectangle(fader.width/2,fader.height/2, fader.width, fader.height)
   rectangle.fill = "rgba(255, 255, 255, 0.70)"
   rectangle.stroke = "none"
@@ -43,12 +42,12 @@ $(document).ready () ->
 
     animate: "draw"
     play: () ->
-      editor.start()
-
-      framePad.frameCount = 0
-      previewPad.clear()
-      previewPad.update()
       draw = geval("draw")
+      framePad.frameCount = 0
+
+      editor.start()
+      previewPad.clear()
+
       updateFn = (frameCount, timeDelta) ->
         if frameCount > maxAnimationFrames
           editor.onPause()
@@ -68,8 +67,5 @@ $(document).ready () ->
     maxAnimationFrames: maxAnimationFrames
     locals: { pad: [framePad, previewPad] }
     })
-
-  # to generate the preview, draw() without beforeScrub() 
-  # to scrub individually, draw() with beforeScrub()
 
   editor.start()

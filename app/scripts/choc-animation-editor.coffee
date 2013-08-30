@@ -1,4 +1,5 @@
 class ChocAnimationEditor
+  gval = eval
 
   constructor: (options) ->
     defaults =
@@ -17,7 +18,6 @@ class ChocAnimationEditor
   changeSliderValue: (newValue) ->
     @$( "#amount" ).text( "frame #{newValue}" ) 
     @state.slider.value = newValue
-    # @slider.slider('value', newValue)
 
   changeSlider: (newValue) ->
     @changeSliderValue(newValue)
@@ -54,7 +54,6 @@ class ChocAnimationEditor
       }
 
     @$("#animation-controls").click () =>
-      console.log("click")
       if @state.playing
         @onPause()
       else
@@ -121,13 +120,10 @@ class ChocAnimationEditor
     @updateFrameView()
 
   generatePreview: () ->
-    gval = eval
-
     @options.beforeGeneratePreview?()
     @runCode(@codemirror.getValue(), true)
     draw = gval(@options.animate)
     do (() -> draw()) for [1..@options.maxAnimationFrames]
-
     @options.afterGeneratePreview?()
 
   start: (frame=1) ->
