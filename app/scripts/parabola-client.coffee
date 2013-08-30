@@ -4,7 +4,7 @@ $(document).ready () ->
   parabola = """
     var shift = 0;
     while (shift <= 200) {
-      pad.makeLine(shift, 0, 100, shift);
+      pad.makeLine(shift, 0, 200, shift);
       shift += 14;
     }
   """
