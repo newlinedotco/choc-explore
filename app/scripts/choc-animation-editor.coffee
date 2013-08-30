@@ -61,14 +61,12 @@ class ChocAnimationEditor
         @onPlay()
 
   onPlay: () ->
-    console.log("onPlay")
     @$("#animation-controls").text("Pause")
     @state.playing = true
     @updateViews()
     @options.play()
 
   onPause: () ->
-    console.log("onPause")
     @$("#animation-controls").text("Play")
     @state.playing = false
     @options.pause()
@@ -132,8 +130,8 @@ class ChocAnimationEditor
 
     @options.afterGeneratePreview?()
 
-  start: () ->
-    @changeSlider(1)
+  start: (frame=1) ->
+    @changeSlider(frame)
     @updateViews()
 
 root = exports ? this
