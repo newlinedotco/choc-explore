@@ -29,8 +29,11 @@ $(document).ready () ->
   window.framePad = framePad
 
   rectangle = fader.makeRectangle(fader.width/2,fader.height/2, fader.width, fader.height)
-  rectangle.fill = "rgba(255, 255, 255, 0.50)"
+  rectangle.fill = "rgba(255, 255, 255, 0.70)"
+  rectangle.stroke = "none"
   fader.update()
+
+  maxAnimationFrames = 100
 
   editor = new choc.AnimationEditor({
     $: $
@@ -39,16 +42,18 @@ $(document).ready () ->
     afterGeneratePreview:  () -> previewPad.update()
 
     animate: "draw"
-    play: (cb) ->
+    play: () ->
+      editor.start()
+
       framePad.frameCount = 0
       previewPad.clear()
       previewPad.update()
       draw = geval("draw")
       updateFn = (frameCount, timeDelta) ->
-
-        if frameCount > 100
-          framePad.pause()
+        if frameCount > maxAnimationFrames
+          editor.onPause()
         else
+          editor.onFrame(frameCount, timeDelta)
           _.defer () ->
             framePad.clear()
             draw()
@@ -58,9 +63,9 @@ $(document).ready () ->
       framePad.play()
     pause: () ->
       framePad.pause()
-      # framePad.unbind(Two.Events.update)
+      framePad.unbind(Two.Events.update)
 
-    maxAnimationFrames: 100
+    maxAnimationFrames: maxAnimationFrames
     locals: { pad: [framePad, previewPad] }
     })
 

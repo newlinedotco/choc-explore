@@ -14,9 +14,13 @@ class ChocAnimationEditor
       playing: false
     @setupEditor()
 
-  changeSlider: (newValue) ->
+  changeSliderValue: (newValue) ->
     @$( "#amount" ).text( "frame #{newValue}" ) 
     @state.slider.value = newValue
+    # @slider.slider('value', newValue)
+
+  changeSlider: (newValue) ->
+    @changeSliderValue(newValue)
     @updateFrameView()
 
   setupEditor: () ->
@@ -50,35 +54,30 @@ class ChocAnimationEditor
       }
 
     @$("#animation-controls").click () =>
+      console.log("click")
       if @state.playing
-        console.log("pause")
-        @state.playing = false
-        @options.pause()
-        @updateViews()
+        @onPause()
       else
-        @updateViews()
-        console.log("play")
-        @state.playing = true
-        @options.play()
+        @onPlay()
 
-  # When given an array of messages, add CodeMirror lineWidgets to each line
-  onMessages: (messages) ->
-    firstMessage = messages[0]?.message
-    if firstMessage
-      _.map messages, (messageInfo) =>
-        messageString = ""
+  onPlay: () ->
+    console.log("onPlay")
+    @$("#animation-controls").text("Pause")
+    @state.playing = true
+    @updateViews()
+    @options.play()
 
-        # to make the annotations API cleaner, we allow either a string to be
-        # returned or an object with the keys 'message' or 'timeline'
-        if _.isObject(messageInfo.message)
-          messageString = messageInfo.message.inline
-        else
-          messageString = messageInfo.message
+  onPause: () ->
+    console.log("onPause")
+    @$("#animation-controls").text("Play")
+    @state.playing = false
+    @options.pause()
+    @updateViews()
 
-        line = @codemirror.getLineHandle(messageInfo.lineNumber - 1)
-        widgetHtml = $("<div class='line-messages'>" + messageString + "</div>")
-        widget = @codemirror.addLineWidget(line, widgetHtml[0])
-        @state.lineWidgets.push(widget)
+  onFrame: (frameCount, timeDelta) ->
+    @changeSliderValue(frameCount)
+    @slider.slider('value', frameCount)
+    # console.log(frameCount)
 
   updateFrameView: () ->
     try
