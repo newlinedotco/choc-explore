@@ -21,13 +21,12 @@ $(document).ready ->
       when "clear" then 0 
       when "grass" then 1 
       when "brick" then 2
-      when "leaves" then 3
-      when "bark" then 4
+      when "bark" then 3
+      when "leaves" then 4
       else type
     newBlocks.push [pos, game.getBlock(pos)] 
     game.setBlock(pos, type)
 
-  strVar = (v) -> "<span class='choc-variable'>#{v}</span>"
   setBlock.__choc_annotation = (args) ->
     [pos, type] = args
     posStr = _.map(pos, (p) -> "<span class='choc-variable'>#{p}</span>").join(", ")
@@ -67,11 +66,12 @@ $(document).ready ->
   # notes: Math.round y to fix the bug
   circle2 = """
     var radius = 17;
-    var x, y, l;
+    var x = 0;
+    var y = 0;
     var material = "brick";
     var floor = 14;
-    l = radius * Math.cos(Math.PI / 4);
-    for (x=0; x<=l; x++) {
+    var l = radius * Math.cos(Math.PI / 4);
+    while(x<=l) {
       y = Math.sqrt((radius*radius) - (x*x));
       setBlock([x, floor, y], material);
       setBlock([x, floor, -y], material);
@@ -82,6 +82,7 @@ $(document).ready ->
       setBlock([y, floor, -x], material);
       setBlock([-y, floor, x], material);
       setBlock([-y, floor, -x], material);  
+      x++;
     }
   """
 
