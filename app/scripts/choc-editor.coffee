@@ -43,8 +43,8 @@ class ChocEditor
       @state.delay = setTimeout((() => @calculateIterations()), 500)
 
     onSliderChange = (event, ui) =>
+      @$( "#amount" ).text( "step #{ui.value}" ) 
       if event.hasOwnProperty("originalEvent") # e.g. triggered by a user interaction, not programmatically below
-        @$( "#amount" ).text( "step #{ui.value}" ) 
         @state.slider.value = ui.value
         @updatePreview()
 
@@ -102,9 +102,11 @@ class ChocEditor
       #   # console.log(activeFrame.offset().left)
       #   relX = activeFrame.position().left - parentOffset.left
       #   console.log(relX)
-      #   $("#tlmark").css('left', relX)
-      relX = activeFrame.position().left
-      @$("#timeline").scrollLeft(relX)
+      timeline = @$("#timeline")
+      relX = activeFrame.position().left + timeline.scrollLeft() + (activeFrame.width() / 2.0)
+      $("#tlmark").css('left', relX)
+      timeline.scrollLeft(relX - 40)
+      console.log(relX, timeline.scrollLeft())
 
 
   onScrub: (info,opts={}) ->
@@ -151,9 +153,18 @@ class ChocEditor
     # tableString += "<tr>\n"
     for column in [0..(timeline.steps.length-1)] by 1
       value = ""
+      klass = ""
       if (column % 10) == 0
         value = column
-      headerRow.append("<th><div class='cell'>#{value}</div></th>")
+        klass = "mod-ten"
+      else if (column % 5) == 0
+        value = "<div class='tick'></div>"
+        klass = "mod-five"
+      else 
+        value = "<div class='tick'></div>"
+        klass = "mod-one"
+
+      headerRow.append("<th><div class='cell #{klass}'>#{value}</div></th>")
     table.append(headerRow)
 
     # build a table where the number of rows is
@@ -206,9 +217,13 @@ class ChocEditor
       rowidx += 1
       table.append(row)
 
-    # tableString += "<div id='tlmark'>&nbsp;</div>"
     # tdiv.html(tableString)
     tdiv.html(table)
+
+    tlmark = $("<div id='tlmark'>&nbsp;</div>")
+    tlmark.height(tdiv.height() - (2 * row.height()))
+    tlmark.css('top', row.height())
+    tdiv.append(tlmark)
 
     # console.log("setup the table")
     #onf() for onf in onFinish

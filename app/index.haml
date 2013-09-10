@@ -29,70 +29,46 @@
     %script{:src => "scripts/choc.browser.js?d=1373775961496"}
   %body
     %header
-      %h1#title 
-        Choc
-      %h2#subtitle
-        Traceable programming
-
-    .row
-      .large-1.columns
-        &nbsp;
-      .large-10.columns
-        %p
-          %tt
-            Choc 
-          is a tool to help people understand programming. It is an implementation of several of the ideas found in Bret Victor's 
-          %span.proper
-            %a{:href => "http://worrydream.com/LearnableProgramming/"}
-              Learnable Programming.
-
-        %p
-          %tt
+      .row
+        .large-6.columns
+          %h1#title 
             Choc
-          aims to help learners gain a deep insight into how a program 
-          %em
-            runs
-          by
-          %em 
-            providing human descriptions of each line of code that runs,
-          %em
-            making the flow tangible by allowing you to scrub through each step
-          %em 
-            making the flow visible by xxx
-          %em
-            showing the data of each line of code 
-
-        %p
-
-    
-
-
-      .large-1.columns
-        &nbsp;
+          %h2#subtitle
+            Traceable programming
+        .large-6.columns
+          %p
+            %tt
+              Choc 
+            is a tool for stepping through code. The goal is xxx . It is an implementation of several of the ideas found in Bret Victor's 
+            %span.proper
+              %a{:href => "http://worrydream.com/LearnableProgramming/"}
+                Learnable Programming.
 
     .row
-      .large-12.large-centered.columns
-        .row
-          .large-9.columns
+      .large-1.columns
+      .large-10.large-centered.columns
+        %h3 
+          Demo 1
 
-            .row.collapse
-              .large-1.columns
-                #amount
-              .large-5.columns
-                #slider
-              .large-6.columns
-                .space
+        .canvas-container.x-canvas
+          #targetcanvas
 
-            .row.collapse
-              .large-6.columns
-                #editor-header
-                #editor
-              #timeline-container.large-6.columns
-                #timeline
+        .canvas-editor
+          .row
+            .large-12.columns
+              .row.slider-container
+                .large-2.columns
+                  #amount
+                .large-6.columns
+                  #slider
+                .large-4.columns
+                  .space
 
-          .large-3.columns.x-canvas
-            #targetcanvas
-
+              .row
+                .large-12.columns
+                  #editor-header
+                  #editor
+      .large-1.columns
 
     .row
       .large-1.columns
@@ -181,6 +157,32 @@
 
 
 
+    .row
+      .large-1.columns
+        &nbsp;
+      .large-10.columns
+        %p
+          %tt
+            Choc
+          aims to help learners gain a deep insight into how a program 
+          %em
+            runs
+          by
+          %em 
+            providing human descriptions of each line of code that runs,
+          %em
+            making the flow tangible by allowing you to scrub through each step
+          %em 
+            making the flow visible by xxx
+          %em
+            showing the data of each line of code 
+
+        %p
+
+      .large-1.columns
+        &nbsp;
+
+
 
 
 
@@ -189,4 +191,5 @@
         #messages
 
     %script{:src => "/scripts/choc-editor.js?d=1373775961496"}
+    %script{:src => "/scripts/two-annotations.js"}
     %script{:src => "/scripts/parabola-client.js"}
