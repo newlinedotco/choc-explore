@@ -18,6 +18,10 @@ class ChocEditor
         activeFrame: null
       slider:
         value: 0
+      mouse:
+        x: 0
+        y: 0
+      mouseovercell: false
     @setupEditor()
 
   setupEditor: () ->
@@ -55,6 +59,10 @@ class ChocEditor
       slide: onSliderChange
       }
 
+    # @$(document).mousemove (e) =>
+    #   @state.mouse.x = e.pageX
+    #   @state.mouse.y = e.pageY
+
   beforeScrub: () ->
     @options.beforeScrub()
   
@@ -88,33 +96,17 @@ class ChocEditor
     @state.timeline.activeFrame.addClass("active") if @state.timeline.activeFrame
     @updateTimelineMarker(activeFrame)
 
-  updateTimelineMarker: (activeFrame) ->
-    # TODO figure out the positioning below
+  updateTimelineMarker: (activeFrame, shouldScroll=true) ->
     if activeFrame?.position()?
-      # $("#tlmark").show()
-      # $("#tlmark").height($("#tlmark").parent().height())
-      # $("#tlmark").css('top', '0')
-      # parentOffset = @$("#tlmark").parent().offset()
-      # console.log parentOffset
-      # if parentOffset?
-      #   # console.log("updateTimelineMarker")
-      #   # console.log(parentOffset)
-      #   # console.log(activeFrame.offset().left)
-      #   relX = activeFrame.position().left - parentOffset.left
-      #   console.log(relX)
       timeline = @$("#timeline")
       relX = activeFrame.position().left + timeline.scrollLeft() + (activeFrame.width() / 2.0)
       $("#tlmark").css('left', relX)
-      timeline.scrollLeft(relX - 40)
-      console.log(relX, timeline.scrollLeft())
-
+      if !@state.mouseovercell # ew
+        timeline.scrollLeft(relX - 40) if shouldScroll # TODO - tween
+      @state.mouseovercell = false
 
   onScrub: (info,opts={}) ->
-    # console.log "onScrub"
-    @updateActiveLine @codemirror, info.lineNumber - 1, info.frameNumber
-    # updateTimelineMarker()
-    # unless opts.noScroll
-    #   updateTimelineScroll()
+    @updateActiveLine(@codemirror, info.lineNumber - 1, info.frameNumber)
 
   # When given an array of messages, add CodeMirror lineWidgets to each line
   onMessages: (messages) ->
@@ -140,17 +132,11 @@ class ChocEditor
   generateTimelineTable: (timeline) ->
     tdiv = @$("#timeline")
     execLine = @$("#executionLine")
-
     table = $('<table></table>')
 
-    # tableString = "<table>\n"
-
-    # onFinish = []
-    
     # header
     headerRow = $("<tr></tr>")
 
-    # tableString += "<tr>\n"
     for column in [0..(timeline.steps.length-1)] by 1
       value = ""
       klass = ""
@@ -173,14 +159,12 @@ class ChocEditor
     rowidx  = 0
     while rowidx < timeline.maxLines + 1
       row = $('<tr class="timeline-row"></tr>')
-      #tableString += "<tr>\n"
       column = 0
       while column < timeline.steps.length
         idx = rowidx * column
 
         if timeline.stepMap[column][rowidx]
           info = timeline.stepMap[column][rowidx]
-          # console.log(info)
 
           message = info.messages?[0]
 
@@ -217,7 +201,6 @@ class ChocEditor
       rowidx += 1
       table.append(row)
 
-    # tdiv.html(tableString)
     tdiv.html(table)
 
     tlmark = $("<div id='tlmark'>&nbsp;</div>")
@@ -225,24 +208,22 @@ class ChocEditor
     tlmark.css('top', row.height())
     tdiv.append(tlmark)
 
-    # console.log("setup the table")
-    #onf() for onf in onFinish
-    
     slider = @slider
     updatePreview = @updatePreview
     self = @
     updateSlider = (frameNumber) ->
       self.$( "#amount" ).text( "step #{frameNumber}" ) 
       self.state.slider.value = frameNumber
-      # console.log self.state.slider.value
       updatePreview.apply(self)
+
     for cell in @$("#timeline .content-cell")
       ((cell) -> 
         $(cell).on 'mouseover', () ->
           cell = $(cell)
           frameNumber = cell.data('frame-number')
           info = {lineNumber: cell.data('line-number'), frameNumber: frameNumber}
-          updateSlider info.frameNumber + 1
+          self.state.mouseovercell = true # ew
+          updateSlider(info.frameNumber + 1)
       )(cell)
 
   onTimeline: (timeline) ->
@@ -295,10 +276,6 @@ class ChocEditor
       locals: @options.locals
 
     # @updatePreview() # TODO - bring this back?
-
-    # if first
-    #   updateTimelineScroll() 
-    #   updateTimelineMarker() 
 
   start: () ->
     @calculateIterations(true)
