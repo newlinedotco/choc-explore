@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "dependencies": {
     "codemirror-interactive-numbers": "~0.0.1",
-    "components-foundation": "~4.1.2"
+    "components-foundation": "~4.1.2",
+    "CodeMirror": "~3.16.0"
   },
   "devDependencies": {}
 }
