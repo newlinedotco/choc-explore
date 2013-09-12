@@ -5,6 +5,11 @@ class ChocEditor
     defaults =
       maxIterations: 1000
       maxAnimationFrames: 100
+      editorId: "#editor"
+      amountId: "#amount"
+      sliderId: "#slider"
+      timelineId: "#timeline"
+      messagesId: "#messages"
 
     @options = _.extend(defaults, options)
     @$ = options.$
@@ -34,7 +39,7 @@ class ChocEditor
           1)
     }
 
-    @codemirror = CodeMirror @$("#editor")[0], {
+    @codemirror = CodeMirror @$(@options.editorId)[0], {
       value: @options.code
       mode:  "javascript"
       viewportMargin: Infinity
@@ -47,12 +52,12 @@ class ChocEditor
       @state.delay = setTimeout((() => @calculateIterations()), 500)
 
     onSliderChange = (event, ui) =>
-      @$( "#amount" ).text( "step #{ui.value}" ) 
+      @$( @options.amountId ).text( "step #{ui.value}" ) 
       if event.hasOwnProperty("originalEvent") # e.g. triggered by a user interaction, not programmatically below
         @state.slider.value = ui.value
         @updatePreview()
 
-    @slider = @$("#slider").slider {
+    @slider = @$(@options.sliderId).slider {
       min: 0
       max: 50
       change: onSliderChange
@@ -84,12 +89,12 @@ class ChocEditor
     line.addClass(WRAP_CLASS) if line
     @state.editor.activeLine = line
 
-    @state.timeline.activeLine = @$(@$("#timeline table tr")[lineNumber + 1])
+    @state.timeline.activeLine = @$(@$("#{@options.timelineId} table tr")[lineNumber + 1])
     @state.timeline.activeLine.addClass("active") if @state.timeline.activeLine
     
     # update active frame
     # splitting this up into three 'queries' is a lot faster than one giant query (in my profiling in Chrome)
-    activeRow   = @$("#timeline table tr")[lineNumber + 1]
+    activeRow   = @$("#{@options.timelineId} table tr")[lineNumber + 1]
     activeTd    = @$(activeRow).find("td")[frameNumber]
     activeFrame = @$(activeTd).find(".cell")
     @state.timeline.activeFrame = activeFrame
@@ -98,7 +103,7 @@ class ChocEditor
 
   updateTimelineMarker: (activeFrame, shouldScroll=true) ->
     if activeFrame?.position()?
-      timeline = @$("#timeline")
+      timeline = @$(@options.timelineId)
       relX = activeFrame.position().left + timeline.scrollLeft() + (activeFrame.width() / 2.0)
       $("#tlmark").css('left', relX)
       if !@state.mouseovercell # ew
@@ -130,7 +135,7 @@ class ChocEditor
   # Generate the HTML view of the timeline data structure
   # TODO: this is a bit ugly
   generateTimelineTable: (timeline) ->
-    tdiv = @$("#timeline")
+    tdiv = @$(@options.timelineId)
     execLine = @$("#executionLine")
     table = $('<table></table>')
 
@@ -212,11 +217,11 @@ class ChocEditor
     updatePreview = @updatePreview
     self = @
     updateSlider = (frameNumber) ->
-      self.$( "#amount" ).text( "step #{frameNumber}" ) 
+      self.$( @options.sliderId ).text( "step #{frameNumber}" ) 
       self.state.slider.value = frameNumber
       updatePreview.apply(self)
 
-    for cell in @$("#timeline .content-cell")
+    for cell in @$("#{@options.timelineId} .content-cell")
       ((cell) -> 
         $(cell).on 'mouseover', () ->
           cell = $(cell)
@@ -225,6 +230,9 @@ class ChocEditor
           self.state.mouseovercell = true # ew
           updateSlider(info.frameNumber + 1)
       )(cell)
+    
+    # TODO -- 
+    # timeline.onScroll (e) -> updateSlider on the frame
 
   onTimeline: (timeline) ->
     @generateTimelineTable(timeline)
@@ -242,11 +250,11 @@ class ChocEditor
         afterEach:  (args...) => @afterScrub.apply(@, args)
         onMessages: (args...) => @onMessages.apply(@, args)
         locals: @options.locals
-      @$("#messages").text("")
+      @$(@options.messagesId).text("")
     catch e
       console.log(e)
       console.log(e.stack)
-      @$("#messages").text(e.toString())
+      @$(@options.messagesId).text(e.toString())
 
   calculateIterations: (first=false) ->
     afterAll = () -> 
