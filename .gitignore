@@ -13,3 +13,4 @@ logs/*.log
 log/*.log
 .sass-cache
 .tmp
+app/components

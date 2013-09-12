@@ -1,1 +1,1 @@
-../../../../codemirror-interactive-numbers/js/codemirror-interactive-numbers.build.js
+../../../../codemirror-interactive-numbers/build/codemirror-interactive-numbers.build.js

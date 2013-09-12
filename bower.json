@@ -1,7 +1,9 @@
 {
-  "name": "blue",
-  "version": "0.0.0",
+  "name": "choc-explore",
+  "version": "0.0.1",
   "dependencies": {
+    "codemirror-interactive-numbers": "~0.0.1",
+    "components-foundation": "~4.1.2"
   },
   "devDependencies": {}
 }
