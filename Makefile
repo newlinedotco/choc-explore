@@ -1,5 +1,10 @@
 .PHONY: server develop
 
+all: build
+
+build:
+	grunt build
+
 clean:
 	grunt clean
 
