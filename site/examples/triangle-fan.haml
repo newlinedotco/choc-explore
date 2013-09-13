@@ -1,64 +1,38 @@
-!!!
-/ [if IE 8] <html class="no-js lt-ie9" lang="en">
-/ [if gt IE 8]><!
-%html.no-js{:lang => "en"}
-  / <![endif]
-  %head
-    %meta{:charset => "utf-8"}/
-    %meta{:content => "width=device-width", :name => "viewport"}/
-    %title Choc - Traceable Programming
+---
+title: Triangle Fan
+layout: default
+---
+%header
+  %h1#title 
+    Choc
+  %h2#subtitle
+    Traceable programming
 
-    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800", :rel => "stylesheet", :type => "text/css"}
-    %link{:href => "http://fonts.googleapis.com/css?family=Montserrat", :rel => "stylesheet", :type => "text/css"}
+.row
+  .large-12.large-centered.columns
 
-    %link{:href => "/styles/normalize.css", :rel => "stylesheet"}/
-    %link{:href => "/styles/ui-lightness/jquery-ui-1.10.3.custom.css", :rel => "stylesheet"}/
-    %link{:href => "/styles/codemirror.css", :rel => "stylesheet"}/
-    %link{:href => "/styles/foundation.css", :rel => "stylesheet"}/
-    %link{:href => "/styles/choc.css", :rel => "stylesheet"}/
+    .canvas-container.x-canvas
+      #targetcanvas
 
-    %script{:src => "/scripts/vendor/jquery.js"}
-    %script{:src => "/scripts/vendor/jquery-ui-1.10.3.custom.js"}
-    %script{:src => "/scripts/vendor/custom.modernizr.js"}
-    %script{:src => "/scripts/foundation/foundation.js"}
-    %script{:src => "/scripts/vendor/codemirror.js"}
-    %script{:src => "/scripts/vendor/modes/javascript/javascript.js"}
-    %script{:src => "/scripts/vendor/modes/coffeescript/coffeescript.js"}
-    %script{:src => "/scripts/vendor/two.js"}
-    %script{:src => "/scripts/choc.browser.js?d=1373775961496"}
+    .canvas-editor
+      .row
+        .large-12.columns
+          .row.slider-container
+            .large-1.columns
+              #amount
+            .large-5.columns
+              #slider
+            .large-6.columns
+              .space
 
-  %body
-    %header
-      %h1#title 
-        Choc
-      %h2#subtitle
-        Traceable programming
-
-    .row
-      .large-12.large-centered.columns
-
-        .canvas-container.x-canvas
-          #targetcanvas
-
-        .canvas-editor
           .row
             .large-12.columns
-              .row.slider-container
-                .large-1.columns
-                  #amount
-                .large-5.columns
-                  #slider
-                .large-6.columns
-                  .space
+              #editor-header
+              #editor
 
-              .row
-                .large-12.columns
-                  #editor-header
-                  #editor
-
-    .row
-      .large-12.large-centered.columns
-        #messages
-    %script{:src => "/scripts/choc-editor.js?d=1373775961496"}
-    %script{:src => "/scripts/two-annotations.js"}
-    %script{:src => "/scripts/triangle-fan.js"}
+.row
+  .large-12.large-centered.columns
+    #messages
+%script{:src => "/scripts/choc/choc-editor.js?d=1373775961496"}
+%script{:src => "/scripts/choc/two-annotations.js"}
+%script{:src => "/scripts/examples/triangle-fan.js"}
