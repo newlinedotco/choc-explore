@@ -257,9 +257,8 @@ module.exports = function (grunt) {
         },
         haml: {
           options: {
-            language: "ruby"
+            language: "coffee"
           },
-          // compile individually into dest, maintaining folder structure
           dist: {
             files: [{
               expand: true,
@@ -270,7 +269,35 @@ module.exports = function (grunt) {
             }]
 
           }
+        },
+
+      generator: {
+        dist: {
+          files: [{ 
+            cwd: '<%= yeoman.app %>', 
+            src: ['**/*.haml'], 
+            dest: '.tmp', 
+            ext: '.html' 
+          }],
+
+          options: {
+          //   templateExt: 'html',
+          //   defaultTemplate: 'index',
+          //   partialsglob: 'pages/partials/*.html',
+          //   templates: 'templates',
+          //   handlebarshelpers: helpers,
+          //   environment: 'dev'
+            templateEngine: 'handlebars',
+            processors: {
+              haml: function (input) { 
+                console.log("haml processing");
+                var hamlc = require('haml-coffee');
+                hamlc.template(input, "", 'window.HAML', {});
+              }
+            }
+          }
         }
+      }
     });
 
     grunt.renameTask('regarde', 'watch');

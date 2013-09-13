@@ -2,7 +2,8 @@
   "name": "blue",
   "version": "0.0.0",
   "dependencies": {
-    "grunt-generator": "~0.2.7"
+    "grunt-generator": "0.3.0",
+    "haml-coffee": "~1.11.4"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -28,8 +29,8 @@
     "grunt-svgmin": "~0.1.0",
     "grunt-concurrent": "~0.1.0",
     "matchdep": "~0.1.1",
-    "grunt-haml": "~0.5.0",
-    "grunt-contrib-watch": "~0.4.4"
+    "grunt-contrib-watch": "~0.4.4",
+    "grunt-haml": "~0.7.0"
   },
   "engines": {
     "node": ">=0.8.0"
