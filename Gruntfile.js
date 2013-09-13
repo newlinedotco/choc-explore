@@ -125,7 +125,7 @@ module.exports = function (grunt) {
         javascriptsDir: '<%= yeoman.serve %>/scripts',
         relativeAssets: true,
         force: true,
-        require: 'rgbapng'
+        require: ['rgbapng']
       },
       dist: {},
       server: {
