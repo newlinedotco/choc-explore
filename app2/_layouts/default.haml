@@ -1,0 +1,30 @@
+!!!
+/ [if IE 8] <html class="no-js lt-ie9" lang="en">
+/ [if gt IE 8]><!
+%html.no-js{:lang => "en"}
+  / <![endif]
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width", :name => "viewport"}/
+    %title Choc - Traceable Programming
+
+    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "http://fonts.googleapis.com/css?family=Montserrat", :rel => "stylesheet", :type => "text/css"}
+
+    %link{:href => "/components/normalize-css/normalize.css", :rel => "stylesheet"}/
+    %link{:href => "/styles/ui-lightness/jquery-ui-1.10.3.custom.css", :rel => "stylesheet"}/
+    %link{:href => "/components/CodeMirror/lib/codemirror.css", :rel => "stylesheet"}/
+    %link{:href => "/components/components-foundation/css/foundation.min.css", :rel => "stylesheet"}/
+    %link{:href => "/styles/choc.css", :rel => "stylesheet"}/
+
+    %script{:src => "/components/jquery/jquery.min.js"}
+    %script{:src => "/scripts/vendor/jquery-ui-1.10.3.custom.js"}
+    %script{:src => "/scripts/vendor/custom.modernizr.js"}
+    %script{:src => "/components/components-foundation/js/foundation.min.js"}
+    %script{:src => "/components/CodeMirror/lib/codemirror.js"}
+    %script{:src => "/components/codemirror-interactive-numbers/dist/codemirror-interactive-numbers.browser.js"}
+    %script{:src => "/components/CodeMirror/mode/javascript/javascript.js"}
+    %script{:src => "/scripts/vendor/two.js"}
+    %script{:src => "/scripts/choc.browser.js?d=1373775961496"}
+  %body
+    {{ content }}
