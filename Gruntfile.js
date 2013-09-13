@@ -59,7 +59,6 @@ module.exports = function (grunt) {
       livereload: {
         options: {
           middleware: function (connect) {
-            console.log("connect", connect);
             return [
               lrSnippet,
               mountFolder(connect, yeomanConfig.serve),
