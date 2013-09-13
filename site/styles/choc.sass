@@ -107,14 +107,6 @@ p
 .CodeMirror-lines
   z-index: 10
 
-.CodeMirror-selected
-  color: green
-  z-index: -10
-  @include rgba-background( rgba(200,200,200,0.35) )
-
-.CodeMirror pre
-  z-index: 0
-
 .CodeMirror-lines pre:nth-child(odd)
   background: #f9f9f9
 
@@ -139,6 +131,18 @@ p
 
 .CodeMirror-code pre
   width: 100%
+  z-index: 3
+
+.CodeMirror-selected
+  z-index: 4
+  @include rgba-background( rgba(200,200,200,0.35) )
+
+.CodeMirror-focused .CodeMirror-selected
+  z-index: 0
+  @include rgba-background( rgba(200,200,200,0.35) )
+
+.CodeMirror pre
+  z-index: 0
 
 .line-messages
   float: right

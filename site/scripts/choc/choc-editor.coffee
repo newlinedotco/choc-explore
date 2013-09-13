@@ -45,6 +45,7 @@ class ChocEditor
       viewportMargin: Infinity
       tabMode: "spaces"
       interactiveNumbers: @interactiveValues
+      highlightSelectionMatches: {showToken: /\w/}
       }
 
     @codemirror.on "change", () =>
