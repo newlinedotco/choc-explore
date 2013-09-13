@@ -1,3 +1,4 @@
+@import "rgbapng"
 $bg: white
 $active-yellow: #FFF8B1
 
@@ -100,8 +101,19 @@ p
   color: rgb(148, 148, 148)
 
 .CodeMirror-activeline
-  z-index: 10
+  z-index: 20
   background: $active-yellow !important
+
+.CodeMirror-lines
+  z-index: 10
+
+.CodeMirror-selected
+  color: green
+  z-index: -10
+  @include rgba-background( rgba(200,200,200,0.35) )
+
+.CodeMirror pre
+  z-index: 0
 
 .CodeMirror-lines pre:nth-child(odd)
   background: #f9f9f9

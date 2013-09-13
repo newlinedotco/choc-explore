@@ -5,7 +5,8 @@
     "codemirror-interactive-numbers": "~0.0.1",
     "components-foundation": "~4.1.2",
     "codemirror": "~3.16.0",
-    "jquery-ui": "~1.10.3"
+    "jquery-ui": "~1.10.3",
+    "pie": "~1.0.0"
   },
   "devDependencies": {}
 }
