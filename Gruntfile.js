@@ -4,12 +4,6 @@ var mountFolder = function (connect, dir) {
     return connect.static(require('path').resolve(dir));
 };
 
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// use this if you want to match all subfolders:
-// 'test/spec/**/*.js'
-
 module.exports = function (grunt) {
   // load all grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -95,19 +89,6 @@ module.exports = function (grunt) {
     clean: {
       dist: ['<%= yeoman.serve %>', '<%= yeoman.dist %>/*'],
       server: '<%= yeoman.serve %>'
-    },
-    jshint: {
-      options: {
-        jshintrc: '.jshintrc'
-      },
-      all: [
-        'Gruntfile.js',
-        '<%= yeoman.app %>/scripts/{,*/}*.js',
-        '!<%= yeoman.app %>/scripts/vendor/*',
-        '!<%= yeoman.app %>/scripts/libs/*',
-        '!<%= yeoman.app %>/scripts/plugins/*',
-        'test/spec/{,*/}*.js'
-      ]
     },
     coffee: {
       dist: {
