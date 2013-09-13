@@ -169,13 +169,26 @@ module.exports = function (grunt) {
             'images/{,*/}*.{webp,gif}'
           ]
         }]
-      }
+      } // ,
+      // serve: {
+      //   files: [{
+      //     expand: true,
+      //     dot: true,
+      //     cwd: '<%= yeoman.app %>',
+      //     dest: '<%= yeoman.dist %>',
+      //     src: [
+      //       '*.{ico,txt}',
+      //       '.htaccess',
+      //       'images/{,*/}*.{webp,gif}',
+      //       'components/**/*',
+      //       'scripts/**/*',
+      //       'styles/**/*'
+      //     ]
+      //   }]
+      // }
     },
     bower: {
       install: {
-      },
-      all: {
-        rjsConfig: '<%= yeoman.app %>/scripts/main.js'
       }
     },
 
