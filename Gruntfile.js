@@ -251,6 +251,8 @@ module.exports = function (grunt) {
             }
         },
         bower: {
+            install: {
+            },
             all: {
                 rjsConfig: '<%= yeoman.app %>/scripts/main.js'
             }
@@ -306,7 +308,7 @@ module.exports = function (grunt) {
         },
         dist: {                             // Target
           options: {                        // Target options
-            dest: 'site/_site',
+            dest: '<%= yeoman.dist %>',
             config: 'site/_config.yml'
           }
         },
@@ -350,6 +352,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
+        'bower:install',
         'coffee',
         'haml',
         'compass:dist',
