@@ -1,0 +1,6 @@
+* convert to require js
+* create a gruntfile for compiling
+* figure out yeoman haml templates
+* reorganize the html and coffeescripts to be siblings in a directory - use the
+  same coffeescripts for the index
+* 
