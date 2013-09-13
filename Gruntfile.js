@@ -1,7 +1,9 @@
 'use strict';
 var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
 var mountFolder = function (connect, dir) {
-    return connect.static(require('path').resolve(dir));
+    var directory = require('path').resolve(dir);
+    console.log("serving up:", directory)
+    return connect.static(directory);
 };
 
 module.exports = function (grunt) {
@@ -24,11 +26,7 @@ module.exports = function (grunt) {
     watch: {
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
-        tasks: ['coffee:dist']
-      },
-      coffeeTest: {
-        files: ['test/spec/{,*/}*.coffee'],
-        tasks: ['coffee:test']
+        tasks: ['coffee:serve']
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -36,17 +34,17 @@ module.exports = function (grunt) {
       },
 	    jekyll: {
 				files: [
-          '<%= yeoman.app %>/*/*.html',
-          '<%= yeoman.app %>/*/*.haml'
+          '<%= yeoman.app %>/{,*/}*.html',
+          '<%= yeoman.app %>/{,*/}*.haml'
         ],
-				tasks: ['jekyll:serve']
+				tasks: ['jekyll:serve', 'compass', 'coffee:serve']
 			},
       livereload: {
         files: [
           '<%= yeoman.app %>/*.html',
           '{<%= yeoman.serve %>,<%= yeoman.app %>}/styles/{,*/}*.html',
           '{<%= yeoman.serve %>,<%= yeoman.app %>}/styles/{,*/}*.css',
-          '{<%= yeoman.serve %>,<%= yeoman.app %>}/scripts/{,*/}*.js',
+          '{<%= yeoman.serve %>,<%= yeoman.app %>}/scripts/**/*.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}'
         ],
         tasks: ['livereload']
@@ -61,10 +59,11 @@ module.exports = function (grunt) {
       livereload: {
         options: {
           middleware: function (connect) {
+            console.log("connect", connect);
             return [
               lrSnippet,
-              mountFolder(connect, '<%= yeoman.serve %>'),
-              mountFolder(connect, '<%= yeoman.app %>')
+              mountFolder(connect, yeomanConfig.serve),
+              mountFolder(connect, yeomanConfig.app)
             ];
           }
         }
@@ -73,7 +72,7 @@ module.exports = function (grunt) {
         options: {
           middleware: function (connect) {
             return [
-              mountFolder(connect, '<%= yeoman.serve %>'),
+              mountFolder(connect, yeomanConfig.serve),
               mountFolder(connect, 'test')
             ];
           }
@@ -83,7 +82,7 @@ module.exports = function (grunt) {
         options: {
           middleware: function (connect) {
             return [
-              mountFolder(connect, 'dist')
+              mountFolder(connect, yeomanConfig.dist)
             ];
           }
         }
@@ -101,11 +100,9 @@ module.exports = function (grunt) {
     coffee: {
       dist: {
         files: [{
-          // rather than compiling multiple files here you should
-          // require them into your main .coffee file
           expand: true,
           cwd: '<%= yeoman.app %>/scripts',
-          src: '*.coffee',
+          src: '**/*.coffee',
           dest: '<%= yeoman.dist %>/scripts',
           ext: '.js'
         }]
@@ -114,17 +111,9 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/scripts',
-          src: '*.coffee',
+          src: '**/*.coffee',
           dest: '<%= yeoman.serve %>/scripts',
           ext: '.js'
-        }]
-      },
-      test: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.serve %>/spec',
-          src: '*.coffee',
-          dest: 'test/spec'
         }]
       }
 
