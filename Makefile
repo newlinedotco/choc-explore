@@ -1,5 +1,10 @@
 .PHONY: server develop
 
+install:
+	bundle install
+	npm install
+	./node_modules/.bin/grunt install
+
 server:
 	grunt server
 

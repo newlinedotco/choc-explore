@@ -134,30 +134,6 @@ module.exports = function (grunt) {
         }
       }
     },
-    // not used since Uglify task does concat,
-    // but still available if needed
-    /*concat: {
-     dist: {}
-     },*/
-    requirejs: {
-      dist: {
-        // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
-        options: {
-          // `name` and `out` is set by grunt-usemin
-          baseUrl: '<%= yeoman.app %>/scripts',
-          optimize: 'none',
-          // TODO: Figure out how to make sourcemaps work with grunt-usemin
-          // https://github.com/yeoman/grunt-usemin/issues/30
-          //generateSourceMaps: true,
-          // required to support SourceMaps
-          // http://requirejs.org/docs/errors.html#sourcemapcomments
-          preserveLicenseComments: false,
-          useStrict: true,
-          wrap: true,
-          //uglify2: {} // https://github.com/mishoo/UglifyJS2
-        }
-      }
-    },
     useminPrepare: {
       html: '<%= yeoman.app %>/index.html',
       options: {
@@ -258,7 +234,6 @@ module.exports = function (grunt) {
         'coffee',
         'compass:dist',
         'useminPrepare',
-        'requirejs',
         'concat',
         'cssmin',
         'uglify',
@@ -269,5 +244,9 @@ module.exports = function (grunt) {
     grunt.registerTask('default', [
         'test',
         'build'
+    ]);
+
+    grunt.registerTask('install', [
+        'bower:install'
     ]);
 };
