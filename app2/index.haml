@@ -1,0 +1,199 @@
+---
+layout: default
+title: Your New Jekyll Site
+---
+
+!!!
+/ [if IE 8] <html class="no-js lt-ie9" lang="en">
+/ [if gt IE 8]><!
+%html.no-js{:lang => "en"}
+  / <![endif]
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width", :name => "viewport"}/
+    %title Choc - Traceable Programming
+
+    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "http://fonts.googleapis.com/css?family=Montserrat", :rel => "stylesheet", :type => "text/css"}
+
+    %link{:href => "/components/normalize-css/normalize.css", :rel => "stylesheet"}/
+    %link{:href => "/styles/ui-lightness/jquery-ui-1.10.3.custom.css", :rel => "stylesheet"}/
+    %link{:href => "/components/CodeMirror/lib/codemirror.css", :rel => "stylesheet"}/
+    %link{:href => "/components/components-foundation/css/foundation.min.css", :rel => "stylesheet"}/
+    %link{:href => "/styles/choc.css", :rel => "stylesheet"}/
+
+    %script{:src => "/components/jquery/jquery.min.js"}
+    %script{:src => "/scripts/vendor/jquery-ui-1.10.3.custom.js"}
+    %script{:src => "/scripts/vendor/custom.modernizr.js"}
+    %script{:src => "/components/components-foundation/js/foundation.min.js"}
+    %script{:src => "/components/CodeMirror/lib/codemirror.js"}
+    %script{:src => "/components/codemirror-interactive-numbers/dist/codemirror-interactive-numbers.browser.js"}
+    %script{:src => "/components/CodeMirror/mode/javascript/javascript.js"}
+    %script{:src => "/scripts/vendor/two.js"}
+    %script{:src => "/scripts/choc.browser.js?d=1373775961496"}
+  %body
+    %header
+      .row
+        .large-6.columns
+          %h1#title 
+            Choc
+          %h2#subtitle
+            Traceable programming
+        .large-6.columns
+          %p
+            %tt
+              Choc 
+            is a tool for stepping through code. The goal is xxx . It is an implementation of several of the ideas found in Bret Victor's 
+            %span.proper
+              %a{:href => "http://worrydream.com/LearnableProgramming/"}
+                Learnable Programming.
+
+    .row
+      .large-1.columns
+      .large-10.large-centered.columns
+        %h3 
+          Demo 1
+
+        .canvas-container.x-canvas
+          #targetcanvas
+
+        .canvas-editor
+          .row
+            .large-12.columns
+              .row.slider-container
+                .large-2.columns
+                  #amount
+                .large-6.columns
+                  #slider
+                .large-4.columns
+                  .space
+
+              .row
+                .large-12.columns
+                  #editor-header
+                  #editor
+      .large-1.columns
+
+    .row
+      .large-1.columns
+        &nbsp;
+      .large-10.columns
+        %p
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        %img{:src => "images/mockups/mockup-editor-01.jpg"}
+      .large-1.columns
+        &nbsp;
+
+    .row
+      .large-1.columns
+        &nbsp;
+      .large-10.columns
+        %p
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        %img{:src => "images/mockups/mockup-editor-02.jpg"}
+      .large-1.columns
+        &nbsp;
+
+
+    .row
+      .large-1.columns
+        &nbsp;
+      .large-10.columns
+        %p
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        %img{:src => "images/mockups/mockup-editor-03.jpg"}
+      .large-1.columns
+        &nbsp;
+
+
+    .row
+      .large-1.columns
+        &nbsp;
+      .large-10.columns
+        %p
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        %img{:src => "images/mockups/mockup-editor-04.jpg"}
+      .large-1.columns
+        &nbsp;
+
+
+    .row
+      .large-1.columns
+        &nbsp;
+      .large-10.columns
+        %p
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        %img{:src => "images/mockups/mockup-editor-05.jpg"}
+      .large-1.columns
+        &nbsp;
+
+
+    .row
+      .large-1.columns
+        &nbsp;
+      .large-10.columns
+        %p
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        %img{:src => "images/mockups/mockup-editor-06.jpg"}
+      .large-1.columns
+        &nbsp;
+
+
+    .row
+      .large-1.columns
+        &nbsp;
+      .large-10.columns
+        %p
+          Installation instructions
+      .large-1.columns
+        &nbsp;
+
+
+    .row
+      .large-1.columns
+        &nbsp;
+      .large-10.columns
+        %p
+          Made by Nate Murray & Ari Lerner in San Francisco - Fullstack.io
+
+      .large-1.columns
+        &nbsp;
+
+
+
+    .row
+      .large-1.columns
+        &nbsp;
+      .large-10.columns
+        %p
+          %tt
+            Choc
+          aims to help learners gain a deep insight into how a program 
+          %em
+            runs
+          by
+          %em 
+            providing human descriptions of each line of code that runs,
+          %em
+            making the flow tangible by allowing you to scrub through each step
+          %em 
+            making the flow visible by xxx
+          %em
+            showing the data of each line of code 
+
+        %p
+
+      .large-1.columns
+        &nbsp;
+
+
+
+
+
+    .row
+      .large-12.large-centered.columns
+        #messages
+
+    %script{:src => "/scripts/choc-editor.js?d=1373775961496"}
+    %script{:src => "/scripts/two-annotations.js"}
+    %script{:src => "/scripts/parabola-client.js"}
