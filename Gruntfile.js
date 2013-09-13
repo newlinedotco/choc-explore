@@ -34,6 +34,13 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass']
       },
+	    jekyll: {
+				files: [
+          '<%= yeoman.app %>/*/*.html',
+          '<%= yeoman.app %>/*/*.haml'
+        ],
+				tasks: ['jekyll:serve']
+			},
       livereload: {
         files: [
           '<%= yeoman.app %>/*.html',
@@ -44,6 +51,7 @@ module.exports = function (grunt) {
         ],
         tasks: ['livereload']
       }
+		
     },
     connect: {
       options: {
@@ -56,7 +64,7 @@ module.exports = function (grunt) {
             return [
               lrSnippet,
               mountFolder(connect, '<%= yeoman.serve %>'),
-              mountFolder(connect, 'app')
+              mountFolder(connect, '<%= yeoman.app %>')
             ];
           }
         }
@@ -147,7 +155,7 @@ module.exports = function (grunt) {
         // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
         options: {
           // `name` and `out` is set by grunt-usemin
-          baseUrl: 'app/scripts',
+          baseUrl: '<%= yeoman.app %>/scripts',
           optimize: 'none',
           // TODO: Figure out how to make sourcemaps work with grunt-usemin
           // https://github.com/yeoman/grunt-usemin/issues/30
@@ -210,12 +218,12 @@ module.exports = function (grunt) {
     jekyll: {                             // Task
       options: {                          // Universal options
         bundleExec: true,
-        src : 'site'
+        src : 'site',
+        config: 'site/_config.yml'
       },
       dist: {                             // Target
         options: {                        // Target options
           dest: '<%= yeoman.dist %>',
-          config: 'site/_config.yml'
         }
       },
       serve: {                            // Another target
@@ -237,7 +245,7 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
-            'coffee:dist',
+            'coffee:serve',
             'jekyll:serve',
             'compass:server',
             'livereload-start',
