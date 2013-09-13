@@ -297,7 +297,27 @@ module.exports = function (grunt) {
             }
           }
         }
+      },
+
+      jekyll: {                             // Task
+        options: {                          // Universal options
+          bundleExec: true,
+          src : 'site'
+        },
+        dist: {                             // Target
+          options: {                        // Target options
+            dest: 'site/_site',
+            config: 'site/_config.yml'
+          }
+        },
+        serve: {                            // Another target
+          options: {
+            dest: '.jekyll',
+            drafts: true
+          }
+        }
       }
+
     });
 
     grunt.renameTask('regarde', 'watch');
