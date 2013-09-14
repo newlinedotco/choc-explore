@@ -102,8 +102,10 @@ class ChocEditor
     @state.timeline.activeFrame = activeFrame
     @state.timeline.activeFrame.addClass("active") if @state.timeline.activeFrame
 
-    runTds      = @$("#{@options.timelineId} table tr").find("td:nth-child(-n+#{frameNumber - 1}) .cell")
+    runTds        = @$("#{@options.timelineId} table tr").find("td:nth-child(-n+#{frameNumber}) .cell")
+    notYetRunTds  = @$("#{@options.timelineId} table tr").find("td:nth-child(n+#{frameNumber + 1}) .cell")
     @$(runTds).addClass("executed")
+    @$(notYetRunTds).removeClass('executed')
     @updateTimelineMarker(activeFrame)
 
   updateTimelineMarker: (activeFrame, shouldScroll=true) ->
