@@ -39,6 +39,10 @@ module.exports = function (grunt) {
         ],
 				tasks: ['jekyll:serve', 'compass', 'coffee:serve']
 			},
+      choc: {
+        files: ['<%= yeoman.app %>/components/choc/{,*/}/*.{js,coffee}'],
+        tasks: ['copy']
+      },
       livereload: {
         files: [
           '<%= yeoman.app %>/*.html',

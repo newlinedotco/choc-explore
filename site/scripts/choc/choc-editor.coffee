@@ -1,3 +1,4 @@
+
 class ChocEditor
   WRAP_CLASS = "CodeMirror-activeline"
 
@@ -100,6 +101,9 @@ class ChocEditor
     activeFrame = @$(activeTd).find(".cell")
     @state.timeline.activeFrame = activeFrame
     @state.timeline.activeFrame.addClass("active") if @state.timeline.activeFrame
+
+    runTds      = @$("#{@options.timelineId} table tr").find("td:nth-child(-n+#{frameNumber - 1}) .cell")
+    @$(runTds).addClass("executed")
     @updateTimelineMarker(activeFrame)
 
   updateTimelineMarker: (activeFrame, shouldScroll=true) ->
