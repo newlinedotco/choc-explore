@@ -1,5 +1,13 @@
 .PHONY: server develop
 
+all: build
+
+build:
+	grunt build
+
+clean:
+	grunt clean
+
 install:
 	bundle install
 	npm install
