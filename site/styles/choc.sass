@@ -1,4 +1,6 @@
 @import "rgbapng"
+@import "compass"
+
 $bg: white
 $active-yellow: #FFF8B1
 
@@ -170,6 +172,8 @@ p
 #editor
   font-size: 15px
 
+$circle-size: 8px
+
 #timeline
   overflow-x: scroll
   position: relative
@@ -198,6 +202,16 @@ p
       .cell
         width: 13px
         color: #ccc
+
+      .circle
+        width: $circle-size
+        height: $circle-size
+        background-color: #ccc
+        +border-radius($circle-size)
+        +box-shadow(inset 0 0 $circle-size 0 #888)
+
+      .circle.executed
+        +box-shadow(inset 0 0 $circle-size 0 #111)
 
       .executed
         color: #222
@@ -231,7 +245,6 @@ p
   float: right
   width: 200px
   margin-top: 50px
-
 
 .scrub_widget
   cursor: ew-resize

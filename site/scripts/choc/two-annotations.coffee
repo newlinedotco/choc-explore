@@ -54,6 +54,7 @@ $(document).ready () ->
         inline: inline
         timeline: (elem) ->
           elem.html(scale)
+          elem.removeClass('circle')
       }
       
 
@@ -64,6 +65,7 @@ $(document).ready () ->
         timeline: (elem) ->
           swatch = $("<div></div>").addClass("line-swatch timeline-swatch").css("background-color", fill)
           elem.append(swatch)
+          elem.removeClass('circle')
       }
 
     rotation: (args) ->
@@ -76,6 +78,7 @@ $(document).ready () ->
             height: settings.cellHeight
             type: Two.Types.canvas
             }).appendTo(elem[0])
+          elem.removeClass('circle')
          
           circle = two.makeCircle(0, 0, 6)
           line = two.makeLine(0, 0, -8, 0)
@@ -126,6 +129,7 @@ $(document).ready () ->
     {
       inline: "draw a #{polygonName}"
       timeline: (elem) ->
+        elem.removeClass('circle')
 
         two = new Two({
           width: settings.cellWidth
