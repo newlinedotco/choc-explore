@@ -2,6 +2,7 @@
 title: Scrub And Timeline
 layout: default
 ---
+%script{:src => "/scripts/choc/two-annotations.js"}
 %header
   %h1#title 
     Choc
@@ -11,31 +12,34 @@ layout: default
 .row
   .large-12.large-centered.columns
 
-    .canvas-container.x-canvas
-      #targetcanvas
+    .choc-wrapper
+      .canvas-container.x-canvas
+        #parabola-timeline-canvas
 
-    .canvas-editor
-      .row
-        .large-12.columns
-          .row.collapse
-            .large-1.columns
-              #amount
-            .large-5.columns
-              #slider
-            .large-6.columns
-              .space
+      #choc-editor-for-parabola-with-timeline.canvas-editor
 
-          .row.collapse
-            .large-9.columns
-              #editor-header
-              #editor
-            #timeline-container.large-3.columns
-              #timeline
+    -# .canvas-container.x-canvas
+    -#   #targetcanvas
 
+    -# .canvas-editor
+    -#   .row
+    -#     .large-12.columns
+    -#       .row.collapse
+    -#         .large-1.columns
+    -#           #amount
+    -#         .large-5.columns
+    -#           #slider
+    -#         .large-6.columns
+    -#           .space
+
+    -#       .row.collapse
+    -#         .large-9.columns
+    -#           #editor-header
+    -#           #editor
+    -#         #timeline-container.large-3.columns
+    -#           #timeline
 
 .row
   .large-12.large-centered.columns
     #messages
-%script{:src => "/scripts/choc/choc-editor.js?d=1373775961496"}
-%script{:src => "/scripts/choc/two-annotations.js"}
 %script{:src => "/scripts/examples/parabola-client-timeline.js"}

@@ -98,7 +98,7 @@ p
 .canvas
   text-align: center
 
-#amount
+.amount-container
   font-size: 0.50em
   color: rgb(148, 148, 148)
 
@@ -169,12 +169,12 @@ p
   height: 26px
   // background-color: grey
 
-#editor
+.editor-container
   font-size: 15px
 
 $circle-size: 8px
 
-#timeline
+#timeline, .timeline
   overflow-x: scroll
   position: relative
 
@@ -220,7 +220,7 @@ $circle-size: 8px
         color: red
         /* font-size: 41px
 
-#timeline-container
+#timeline-container, .timeline-container
   overflow: hidden
   +box-shadow(1px 0px 3px 3px #eee)
 
@@ -245,13 +245,14 @@ $circle-size: 8px
 .canvas-container
   float: right
   width: 200px
-  margin-top: 50px
+  /* margin-top: 50px
 
 .scrub_widget
   cursor: ew-resize
   border-bottom: 1px dashed #9bb
   z-index: 100
-  display: inline
+
+    display: inline
 
 .dragging
   cursor: ew-resize

@@ -1,7 +1,9 @@
 ---
-layout: default
 title: Choc 
+layout: default
 ---
+%script{:src => "/scripts/choc/two-annotations.js"}
+
 %header
   .row
     .large-6.columns
@@ -24,25 +26,13 @@ title: Choc
     %h3 
       Demo 1
 
-    .canvas-container.x-canvas
-      #targetcanvas
+    .choc-wrapper
+      .canvas-container.x-canvas
+        #parabola-canvas
+      #choc-editor-for-parabola.canvas-editor
 
-    .canvas-editor
-      .row
-        .large-12.columns
-          .row.slider-container
-            .large-2.columns
-              #amount
-            .large-6.columns
-              #slider
-            .large-4.columns
-              .space
-
-          .row
-            .large-12.columns
-              #editor-header
-              #editor
   .large-1.columns
+%script{:src => "/scripts/examples/parabola-client.js"}
 
 .row
   .large-1.columns
@@ -156,13 +146,7 @@ title: Choc
   .large-1.columns
     &nbsp;
 
-
-
-
-
 .row
   .large-12.large-centered.columns
     #messages
 
-%script{:src => "/scripts/choc/two-annotations.js"}
-%script{:src => "/scripts/examples/parabola-client.js"}

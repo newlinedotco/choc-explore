@@ -18,7 +18,7 @@ $(document).ready () ->
     height: 200
     type: Two.Types.canvas
     })
-    .appendTo(document.getElementById('targetcanvas'))
+    .appendTo(document.getElementById('parabola-timeline-canvas'))
 
   # enable retina
   if window.devicePixelRatio == 2
@@ -29,6 +29,8 @@ $(document).ready () ->
 
   editor = new choc.Editor({
     $: $
+    id: "#choc-editor-for-parabola-with-timeline"
+    timeline: true
     code: parabola
     beforeScrub: () -> pad.clear()
     afterScrub: () ->  pad.update()

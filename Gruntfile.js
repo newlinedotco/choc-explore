@@ -40,8 +40,8 @@ module.exports = function (grunt) {
 				tasks: ['jekyll:serve', 'compass', 'coffee:serve']
 			},
       choc: {
-        files: ['<%= yeoman.app %>/components/choc/{,*/}/*.{js,coffee}'],
-        tasks: ['copy']
+        files: ['<%= yeoman.app %>/components/choc/dist/{,*/}/*.{js,coffee}'],
+        tasks: ['copy:choc', 'livereload']
       },
       livereload: {
         files: [
@@ -174,23 +174,18 @@ module.exports = function (grunt) {
             'images/{,*/}*.{webp,gif}'
           ]
         }]
-      } // ,
-      // serve: {
-      //   files: [{
-      //     expand: true,
-      //     dot: true,
-      //     cwd: '<%= yeoman.app %>',
-      //     dest: '<%= yeoman.dist %>',
-      //     src: [
-      //       '*.{ico,txt}',
-      //       '.htaccess',
-      //       'images/{,*/}*.{webp,gif}',
-      //       'components/**/*',
-      //       'scripts/**/*',
-      //       'styles/**/*'
-      //     ]
-      //   }]
-      // }
+      },
+      // special copy task since choc is often developed alongside this project
+      // this is a lot faster than copying every file in components on every reload
+      choc: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '<%= yeoman.app %>/components/choc/dist',
+          dest: '<%= yeoman.serve %>/components/choc/dist',
+          src: [ '*.js' ]
+        }]
+      }
     },
     bower: {
       install: {

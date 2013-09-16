@@ -1,7 +1,9 @@
 ---
-title: Scrub Only
 layout: default
+title: Scrub Only
 ---
+%script{:src => "/scripts/choc/two-annotations.js"}
+
 %header
   %h1#title 
     Choc
@@ -11,29 +13,13 @@ layout: default
 .row
   .large-12.large-centered.columns
 
-    .canvas-container.x-canvas
-      #targetcanvas
-
-    .canvas-editor
-      .row
-        .large-12.columns
-          .row.slider-container
-            .large-1.columns
-              #amount
-            .large-5.columns
-              #slider
-            .large-6.columns
-              .space
-
-          .row
-            .large-12.columns
-              #editor-header
-              #editor
+    .choc-wrapper
+      .canvas-container.x-canvas
+        #parabola-canvas
+      #choc-editor-for-parabola.canvas-editor
 
 .row
   .large-12.large-centered.columns
     #messages
-%script{:src => "/scripts/choc/choc-editor.js?d=1373775961496"}
-%script{:src => "/scripts/choc/two-annotations.js"}
 %script{:src => "/scripts/examples/parabola-client.js"}
 
