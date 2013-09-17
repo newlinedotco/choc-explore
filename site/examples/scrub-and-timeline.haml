@@ -2,6 +2,7 @@
 title: Scrub And Timeline
 layout: default
 ---
+%script{:src => "/scripts/examples/parabola-client-timeline.js"}
 %script{:src => "/scripts/choc/two-annotations.js"}
 %header
   %h1#title 
@@ -13,33 +14,10 @@ layout: default
   .large-12.large-centered.columns
 
     .choc-wrapper
-      .canvas-container.x-canvas
+      .canvas-container
         #parabola-timeline-canvas
-
       #choc-editor-for-parabola-with-timeline.canvas-editor
-
-    -# .canvas-container.x-canvas
-    -#   #targetcanvas
-
-    -# .canvas-editor
-    -#   .row
-    -#     .large-12.columns
-    -#       .row.collapse
-    -#         .large-1.columns
-    -#           #amount
-    -#         .large-5.columns
-    -#           #slider
-    -#         .large-6.columns
-    -#           .space
-
-    -#       .row.collapse
-    -#         .large-9.columns
-    -#           #editor-header
-    -#           #editor
-    -#         #timeline-container.large-3.columns
-    -#           #timeline
 
 .row
   .large-12.large-centered.columns
     #messages
-%script{:src => "/scripts/examples/parabola-client-timeline.js"}

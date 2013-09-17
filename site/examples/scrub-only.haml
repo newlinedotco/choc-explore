@@ -1,7 +1,8 @@
 ---
-layout: default
 title: Scrub Only
+layout: default
 ---
+%script{:src => "/scripts/examples/parabola-client.js"}
 %script{:src => "/scripts/choc/two-annotations.js"}
 
 %header
@@ -14,12 +15,11 @@ title: Scrub Only
   .large-12.large-centered.columns
 
     .choc-wrapper
-      .canvas-container.x-canvas
+      .canvas-container
         #parabola-canvas
       #choc-editor-for-parabola.canvas-editor
 
 .row
   .large-12.large-centered.columns
     #messages
-%script{:src => "/scripts/examples/parabola-client.js"}
 

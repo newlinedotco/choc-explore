@@ -1,7 +1,5 @@
 $(document).ready () ->
-  choc = window.choc
-
-  parabola = """
+  code = """
     var i = 0;
     while (i <= 20) {
       var scaleFactor = 1 + (20 - i)/20;
@@ -19,12 +17,13 @@ $(document).ready () ->
     height: 200
     type: Two.Types.canvas
     })
-    .appendTo(document.getElementById('triangle-fan-1-canvas'))
+    .appendTo(document.getElementById('triangle-fan-2-canvas'))
 
   editor = new window.choc.Editor({
     $: $
-    id: "#choc-editor-for-triangle-fan-1"
-    code: parabola
+    id: "#choc-editor-for-triangle-fan-2"
+    timeline: true
+    code: code
     beforeScrub: () -> pad.clear()
     afterScrub: () ->  pad.update()
     locals: { pad: pad }
