@@ -184,10 +184,14 @@ class ChocEditor
           frameId = "data-frame-#{info.frameNumber}"
           cell = $("<td></td>")
           innerCell = $("<div></div>")
-            .addClass("cell content-cell circle")
+            .addClass("cell content-cell")
             .attr("id", frameId)
             .attr("data-frame-number", info.frameNumber)
             .attr("data-line-number", info.lineNumber)
+          circleDiv = $("<div></div>")
+            .addClass("circle")
+            .attr("class", "circle")
+          innerCell.append(circleDiv)
           cell.append(innerCell)
 
           if message?.message?.timeline?
@@ -195,13 +199,14 @@ class ChocEditor
             if _.isFunction(timelineCreator)
               # display = timelineCreator("#" + frameId) # the table hasn't been created yet
               timelineCreator(innerCell)
-              innerCell.removeClass('circle')
+              # innerCell.find(".circle").remove()
 
           else if message?.timeline? 
             display = message.timeline
             if display.hasOwnProperty("_choc_timeline")
               display = display._choc_timeline()
-            innerCell.removeClass('circle')
+            # innerCell.removeClass('circle')
+            innerCell.find(".circle").remove()
             innerCell.html(display)
           else
             innerCell.html(display)
