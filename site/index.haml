@@ -8,16 +8,15 @@ layout: default
 
 %header
   .row
-    .large-6.columns
+    .large-6.columns.title-container
       %h1#title 
         Choc
-      %h2#subtitle
+      #subtitle
         Traceable programming
-    .large-6.columns
+    .large-6.columns.description
       %p
-        %tt
-          Choc 
-        is a tool for stepping through code. The goal is xxx . It is an implementation of several of the ideas found in Bret Victor's 
+        Choc is a tool for thinking powerful thoughts by stepping through code 
+        It is an implementation of several ideas found in Bret Victor's 
         %span.proper
           %a{:href => "http://worrydream.com/LearnableProgramming/"}
             Learnable Programming.
@@ -25,8 +24,10 @@ layout: default
 .row
   .large-1.columns
   .large-10.large-centered.columns
-    %h3 
-      Demo 1
+    %h2
+      Demo 1 — 
+      %b
+        See the flow
 
     .choc-wrapper
       .canvas-container.x-canvas
@@ -41,8 +42,18 @@ layout: default
     &nbsp;
   .large-10.columns
     %p
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    %img{:src => "images/mockups/mockup-editor-01.jpg"}
+      Computers affect the way people think and learn. We can use computers to enhance thinking and change patterns of access to knowledge. 
+
+    %p 
+      Choc is a toolkit designed to help teachers craft small demos that students can explore interactively. 
+
+    %p
+      Choc is different from other "live-coding" environments in that each step of the execution can be controled by the learner.
+
+    %p
+
+
+    %img{:src => "images/mockups/mockup-editor-02.jpg"}
   .large-1.columns
     &nbsp;
 
