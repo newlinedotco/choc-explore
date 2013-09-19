@@ -23,14 +23,9 @@ $(document).ready () ->
     type: Two.Types.canvas
 
   framePad   = new Two(twoOptions).appendTo(document.getElementById('frameCanvas'))
-  fader      = new Two(twoOptions).appendTo(document.getElementById('faderCanvas'))
   previewPad = new Two(twoOptions).appendTo(document.getElementById('previewCanvas'))
 
-  # fader can we get rid?
-  rectangle = fader.makeRectangle(fader.width/2,fader.height/2, fader.width, fader.height)
-  rectangle.fill = "rgba(255, 255, 255, 0.70)"
-  rectangle.stroke = "none"
-  fader.update()
+  $("#fader").width(twoOptions.width).height(twoOptions.height)
 
   maxAnimationFrames = 100
 
