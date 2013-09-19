@@ -2,6 +2,9 @@
 title: Bouncing Ball
 layout: default
 ---
+%script{:src => "/scripts/choc/two-annotations.js"}
+%script{:src => "/scripts/examples/bouncing-ball.js"}
+
 %header
   %h1#title 
     Choc
@@ -11,32 +14,14 @@ layout: default
 .row
   .large-12.large-centered.columns
 
-    .canvas-container.x-canvas
-      #frameCanvas
-      #faderCanvas
-      #previewCanvas
+    .choc-wrapper
+      .canvas-container
+        #frameCanvas
+        #faderCanvas
+        #previewCanvas
 
-    .canvas-editor
-      .row
-        .large-12.columns
-          .row.slider-container
-            .large-1.columns.collapse
-              #amount
-            .large-5.columns.collapse
-              #slider
-            .large-6.columns
-              %a#animation-controls{:href => "#"}
-                Play
-              .space
-
-          .row
-            .large-12.columns
-              #editor-header
-              #editor
+      #choc-editor-for-bouncing-ball.canvas-editor
 
 .row
   .large-12.large-centered.columns
     #messages
-%script{:src => "/scripts/choc/choc-animation-editor.js?d=1373775961496"}
-%script{:src => "/scripts/choc/two-annotations.js"}
-%script{:src => "/scripts/examples/bouncing-ball.js"}

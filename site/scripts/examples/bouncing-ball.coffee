@@ -36,6 +36,7 @@ $(document).ready () ->
 
   editor = new choc.AnimationEditor({
     $: $
+    id: "#choc-editor-for-bouncing-ball"
     code: code
     beforeGeneratePreview: () -> previewPad.clear()
     afterGeneratePreview:  () -> previewPad.update()
