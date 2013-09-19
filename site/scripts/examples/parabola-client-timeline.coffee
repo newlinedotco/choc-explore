@@ -36,6 +36,6 @@ $(document).ready () ->
     afterScrub: () ->  pad.update()
     locals: { pad: pad }
     })
-
+  
   editor.start()
 

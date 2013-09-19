@@ -2,6 +2,9 @@
 title: Voxel
 layout: default
 ---
+%script{:src => "/scripts/vendor/voxel-garden.js"}
+%script{:src => "/scripts/examples/voxel-game.js"}
+
 %header
   %h1#title 
     Choc
@@ -11,28 +14,11 @@ layout: default
 .row.voxel
   .large-12.large-centered.columns
 
-    .canvas-container.x-canvas
-      #game
-
-    .canvas-editor
-      .row
-        .large-12.columns
-          .row.slider-container
-            .large-1.columns
-              #amount
-            .large-5.columns
-              #slider
-            .large-6.columns
-              .space
-
-          .row
-            .large-12.columns
-              #editor-header
-              #editor
+    .choc-wrapper
+      .canvas-container
+        #game
+      #choc-editor-for-voxel.canvas-editor
 
 .row
   .large-12.large-centered.columns
     #messages
-%script{:src => "/scripts/choc/choc-editor.js?d=1373775961496"}
-%script{:src => "/scripts/vendor/voxel-garden.js"}
-%script{:src => "/scripts/examples/voxel-game.js"}

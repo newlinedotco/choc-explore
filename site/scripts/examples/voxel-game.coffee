@@ -38,33 +38,9 @@ $(document).ready ->
       game.setBlock(pos, type)
     newBlocks = []
 
+  # notes: use Math.round y to fix the bug
+  # left the bug in to show how one can use choc to find these sorts of bugs
   code = """
-    var count = 10;
-    for(var i=0; i<count; i++) {
-      setBlock([i,14,0], "brick");
-    }
-  """
-
-  circle1 = """
-    var radius = 5; 
-    var x;
-    var y;
-
-    for (y = -radius; y <= radius; y++) {
-      console.log(y);
-      for (x = -radius; x <= radius; x++) {
-        console.log(x);
-        var thing = (x*x) + (y*y) <= (radius*radius);
-        if( thing ) {
-          console.log(x, y);
-          setBlock([x,16,y], 2);
-        }
-      }
-    }
-  """
-
-  # notes: Math.round y to fix the bug
-  circle2 = """
     var radius = 17;
     var x = 0;
     var y = 0;
@@ -88,11 +64,10 @@ $(document).ready ->
 
   editor = new choc.Editor({
     $: $
-    #code: code
-    code: circle2
+    id: "#choc-editor-for-voxel"
+    code: code
     beforeScrub: () -> clearNewBlocks()
-    afterScrub: () ->  # pad.update()
-    # afterEdit () -> clearNewBlocks()
+    afterScrub: () -> 
     locals: { game: game, setBlock: setBlock }
     })
 
