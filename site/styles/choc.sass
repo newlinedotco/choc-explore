@@ -1,5 +1,6 @@
 @import "rgbapng"
 @import "compass"
+@import "animation"
 
 $bg: white
 $active-yellow: #FFF8B1
@@ -172,6 +173,14 @@ p
 .CodeMirror pre
   z-index: 0
 
+.CodeMirror
+  border: 1px solid #eee
+  height: auto
+
+.CodeMirror-scroll
+  overflow-y: hidden
+  overflow-x: auto
+
 .line-messages
   float: right
   text-align: right
@@ -246,9 +255,10 @@ $circle-size: 8px
         color: red
         /* font-size: 41px
 
-#timeline-container, .timeline-container
+#timeline-container
   overflow: hidden
-  /* +box-shadow(1px 0px 3px 3px #eee)
+  +box-shadow(1px 0px 2px 2px #ccc)
+  z-index: 100
 
 .tlmark
   background-color: red
@@ -271,7 +281,8 @@ $circle-size: 8px
 .canvas-container
   float: right
   width: 200px
-  /* margin-top: 50px
+  margin-top: 50px
+  z-index: 200
 
 .scrub_widget
   cursor: ew-resize
@@ -331,10 +342,8 @@ $circle-size: 8px
     margin: auto
 
 .editor-with-timeline
-  width: 60%
   float: left   
-  /* display: inline-block
+  display: inline
 
 .timeline-with-editor
-  width: 40%
-  /* display: inline-block
+  display: inline
