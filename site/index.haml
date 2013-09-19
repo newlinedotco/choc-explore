@@ -5,6 +5,10 @@ layout: default
 %script{:src => "/scripts/choc/two-annotations.js"}
 %link{:href => "/styles/joyride/joyride-2.1.css", :rel => "stylesheet"}/
 %script{:src => "/scripts/vendor/jquery.joyride-2.1.js"}
+%script{:src => "/scripts/examples/parabola-client.js"}
+%script{:src => "/scripts/examples/parabola-client-timeline.js"}
+%script{:src => "/scripts/examples/triangle-fan-timeline.js"}
+%script{:src => "/scripts/examples/bouncing-ball.js"}
 
 %header
   .row
@@ -22,20 +26,16 @@ layout: default
             Learnable Programming.
 
 .row
-  .large-1.columns
-  .large-10.large-centered.columns
+  .large-12.large-centered.columns
     %h2
       Demo 1 — 
       %b
-        See the flow
+        Show each step
 
     .choc-wrapper
       .canvas-container.x-canvas
         #parabola-canvas
       #choc-editor-for-parabola.canvas-editor
-
-  .large-1.columns
-%script{:src => "/scripts/examples/parabola-client.js"}
 
 .row
   .large-1.columns
@@ -48,14 +48,63 @@ layout: default
       Choc is a toolkit designed to help teachers craft small demos that students can explore interactively. 
 
     %p
-      Choc is different from other "live-coding" environments in that each step of the execution can be controled by the learner.
+      Thinking procedurally is one of the hardest concepts to grasp for the beginning programmer.
+
+    %p
+      Choc is different from other "live-coding" environments in that each step of the execution is controled by the learner.
 
     %p
 
+      Choc is a tool-to-think-with. 
+      Build new intellectual structures
 
-    %img{:src => "images/mockups/mockup-editor-02.jpg"}
+      Code is often pasted into web-pages and this provides us no advantages over paper on a page. 
+      Choc provides a framework to use the computer to teach algorithms in a way that no book can.
+
+      Choc encourages exploration and reflection
+
+      Many people who become programmers do so because they have an aptitute to holding complex weaves of procedures in their mind. There are currently very poor tools for helping people grow the aptitute to think procedurally.
+
+      
+      Choc aims to augment what is learnable and teachable.
+
+      Choc aims to help draw pathways between action-ways-of-knowing and symbolic-ways-of-knowing.
+      Acquire action-knowledge by toying with the elements of an idea.
+
+      Export the properties of a chosen microhold. Hopefully as one learns to explore the properties of a microworld, they'll learn to transfer habits of exploration into the rest of their lives.
+
+      Gives you the ability to explore ideas without a bug being "wrong", bad or a mistake
+
+
+    %p 
+      How to create your own examples
+      Choc examples should be created in mind-sized bites.
+
+      getting to know an idea, exploring an area of knowledge, and acquiring sensitivity to distinctions that seem ungraspably subtle 
+
+
+      Propositional content of programming is important, but it's only a part of a programmer's body of knowledge. We're also interested in knowledge that is more qualitative, less completely specified, and seldom stated in propositional form.
+
+      In everyday life procedures are lived and used, they are not necessarily reflected on. In the LOGO environment, a procedure becomes a thing that is named, manipulated, and recognized as the children come to acquire the idea of procedure.
+
+      By showing how the structure of a program can be decomposed into simpler, but still meaningful and coherant,structures, we're able to show a pathway into how an algorithm works.
+
+      In our culture number is richly represented, systematic procedure is poorly represented.
+
   .large-1.columns
     &nbsp;
+
+.row
+  .large-12.large-centered.columns
+    %h2
+      Demo 1 — 
+      %b
+        Make the flow visible
+
+    .choc-wrapper
+      .canvas-container.x-canvas
+        #parabola-timeline-canvas
+      #choc-editor-for-parabola-with-timeline.canvas-editor
 
 .row
   .large-1.columns
@@ -63,10 +112,21 @@ layout: default
   .large-10.columns
     %p
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    %img{:src => "images/mockups/mockup-editor-02.jpg"}
   .large-1.columns
     &nbsp;
 
+
+.row
+  .large-12.columns
+    %h2
+      Demo 3 — 
+      %b
+        Show the state
+
+    .choc-wrapper
+      .canvas-container
+        #triangle-fan-2-canvas
+      #choc-editor-for-triangle-fan-2.canvas-editor
 
 .row
   .large-1.columns
@@ -74,10 +134,25 @@ layout: default
   .large-10.columns
     %p
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    %img{:src => "images/mockups/mockup-editor-03.jpg"}
   .large-1.columns
     &nbsp;
 
+
+.row
+  .large-12.columns
+    %h2
+      Demo 4 — 
+      %b
+        Make time tangible
+
+    .choc-wrapper
+      .canvas-container
+        .canvas-wrapper
+          #frameCanvas
+          #fader
+          #previewCanvas
+
+      #choc-editor-for-bouncing-ball.canvas-editor
 
 .row
   .large-1.columns
@@ -85,10 +160,21 @@ layout: default
   .large-10.columns
     %p
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    %img{:src => "images/mockups/mockup-editor-04.jpg"}
   .large-1.columns
     &nbsp;
 
+
+.row
+  .large-12.columns
+    %h2
+      Demo 5 — 
+      %b
+        A B C
+
+    .choc-wrapper
+      .canvas-container
+        #game
+      #choc-editor-for-voxel.canvas-editor
 
 .row
   .large-1.columns
@@ -96,18 +182,6 @@ layout: default
   .large-10.columns
     %p
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    %img{:src => "images/mockups/mockup-editor-05.jpg"}
-  .large-1.columns
-    &nbsp;
-
-
-.row
-  .large-1.columns
-    &nbsp;
-  .large-10.columns
-    %p
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    %img{:src => "images/mockups/mockup-editor-06.jpg"}
   .large-1.columns
     &nbsp;
 
