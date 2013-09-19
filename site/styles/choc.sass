@@ -3,21 +3,44 @@
 
 $bg: white
 $active-yellow: #FFF8B1
+$not-black: rgb(78, 78, 78)
+$body-font: 'Source Sans Pro', sans-serif
 
 body
   margin: 0
-  font-family: "source-code-pro","Helvetica",Georgia,Times New Roman,serif
+  font-family: $body-font
+  font-weight: 400
   font-size: 1.125em
   line-height: 20px
-  color: #333333
+  color: $not-black
   background-color: $bg
 
 header
   text-align: center
   background-color: #F8F9F9
   margin-bottom: 1em
-  padding: 2.3em
+  padding: 1.5em 1em 1em 1em
 
+h2
+  width: 100%
+  text-align: center
+  font-family: $body-font
+  font-weight: 400
+
+  b
+    font-weight: 700
+
+.title-container
+  text-align: right
+
+.description
+  text-align: left
+  margin-top: 1em
+  color: $not-black
+
+  p
+    font-size: 1em
+    line-height: 1.3em
 
 #title
   font-family: "open sans"
@@ -27,13 +50,16 @@ header
   text-transform: uppercase
 
 #subtitle
-  font-family: 'Montserrat', sans-serif
   color: #868686
   text-transform: uppercase
   font-size: 0.8em
+  font-weight: normal
+  font-family: $body-font
+  background-color: rgb(58, 212, 241)
+  color: white
+  padding: 0.1em 0.2em
 
 p
-  font-family: 'Georgia', serif
   font-size: 22px
   line-height: 36px
 
