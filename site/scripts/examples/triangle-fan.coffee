@@ -1,7 +1,5 @@
 $(document).ready () ->
-  choc = window.choc
-
-  parabola = """
+  code = """
     var i = 0;
     while (i <= 20) {
       var scaleFactor = 1 + (20 - i)/20;
@@ -24,7 +22,7 @@ $(document).ready () ->
   editor = new window.choc.Editor({
     $: $
     id: "#choc-editor-for-triangle-fan-1"
-    code: parabola
+    code: code
     beforeScrub: () -> pad.clear()
     afterScrub: () ->  pad.update()
     locals: { pad: pad }
