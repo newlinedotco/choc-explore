@@ -3,6 +3,8 @@ title: Choc
 layout: default
 ---
 %script{:src => "/scripts/choc/two-annotations.js"}
+%link{:href => "/styles/joyride/joyride-2.1.css", :rel => "stylesheet"}/
+%script{:src => "/scripts/vendor/jquery.joyride-2.1.js"}
 %script{:src => "/scripts/examples/parabola-client.js"}
 %script{:src => "/scripts/examples/parabola-client-timeline.js"}
 %script{:src => "/scripts/examples/triangle-fan-timeline.js"}
@@ -235,4 +237,10 @@ layout: default
   .large-12.large-centered.columns
     #messages
 
+/* Tour
+%ol#tourGuide
+  %li{:'data-tour' => 'slider'} Slide here
+  %li{:'data-tour' => 'editor'} Edit here
+  %li{:'data-tour' => 'canvas'} See result here
 
+%script{:src => "/scripts/index/tour.js"}
