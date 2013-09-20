@@ -192,29 +192,6 @@ layout: default
     %p
       Try dragging around the constants above. Can you find the constant that relates to "bounciness"? There are two variables above that relate to the "floor". Can you find them?
 
-    %p
-      see to augment what is learnable and teachable.
-
-      There are currently very poor tools for helping people grow the aptitute to think procedurally.
-      
-      Choc encourages exploration and reflection
-
-      Export the properties of a chosen microhold. Hopefully as one learns to explore the properties of a microworld, they'll learn to transfer habits of exploration into the rest of their lives.
-
-      Gives you the ability to explore ideas without a bug being "wrong", bad or a mistake
-
-    %p 
-      How to create your own examples
-      Choc examples should be created in mind-sized bites.
-
-      getting to know an idea, exploring an area of knowledge, and acquiring sensitivity to distinctions that seem ungraspably subtle 
-
-      Propositional content of programming is important, but it's only a part of a programmer's body of knowledge. We're also interested in knowledge that is more qualitative, less completely specified, and seldom stated in propositional form.
-
-      By showing how the structure of a program can be decomposed into simpler, but still meaningful and coherant,structures, we're able to show a pathway into how an algorithm works.
-
-      In our culture number is richly represented, systematic procedure is poorly represented.
-
 
   .large-1.columns
     &nbsp;
@@ -229,7 +206,9 @@ layout: default
 
     -# http://fgnass.github.io/spin.js/#?lines=13&length=40&width=10&radius=12&corners=1.0&rotate=0&trail=76&speed=1.2&direction=1&hwaccel=on
 
-    %img{:src => "/images/voxel-preload-play.png"}
+    %a{:href => "#"}
+      %img{:src => "/images/voxel-preload-play.png"}
+
     .choc-wrapper
       .canvas-container
         #game
@@ -240,7 +219,61 @@ layout: default
     &nbsp;
   .large-10.columns
     %p
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      %em
+        In the Voxel world, use arrow keys to navigate. Use the 
+        %tt space 
+        button to jump. Hit 
+        %tt space 
+        twice to fly. Use 
+        %tt shift 
+        to move towards the ground. 
+
+    %p
+      Choc isn't limited to 2D canvas examples. Above we're interacting with a 
+      %a{:href => "http://voxeljs.com/"} Voxel.js
+      world. The Choc scrubbing loop is independent of the game loop.
+
+    %p
+      In this example, we're building a tower by 
+      %a{:href => "https://banu.com/blog/7/drawing-circles/"} "drawing" a circle
+      higher and higher.
+
+    %p
+      We don't have to build a 
+      %tt "brick"
+      tower though. Try changing the first line to
+      %tt "grass"
+      or 
+      %tt "bark"
+      \. Try dragging the
+      %tt radius
+      or 
+      %tt height
+      \. 
+        
+
+
+    %p
+      seek to augment what is learnable and teachable.
+
+      There are currently very poor tools for helping people grow the aptitute to think procedurally.
+      
+      Choc encourages exploration and reflection
+
+      Explore the properties of a chosen microhold. Hopefully as one learns to explore the properties of a microworld, they'll learn to transfer habits of exploration into the rest of their lives.
+
+      Gives you the ability to explore ideas without a bug being "wrong", bad or a mistake
+
+    %p 
+      How to create your own examples
+      Choc examples should be created in mind-sized bites.
+
+      getting to know an idea, exploring an area of knowledge, and acquiring sensitivity to distinctions that seem ungraspably subtle 
+
+      By showing how the structure of a program can be decomposed into simpler, but still meaningful and coherant,structures, we're able to show a pathway into how an algorithm works.
+
+      In our culture number is richly represented, systematic procedure is poorly represented.
+
   .large-1.columns
     &nbsp;
 
