@@ -3,9 +3,15 @@
 @import "animation"
 
 $bg: white
-$active-yellow: #FFF8B1
+$soft-gray: #F8F9F9
 $not-black: rgb(78, 78, 78)
 $body-font: 'Source Sans Pro', sans-serif
+$lightest-blue: #E6FAFF
+$bright-blue: rgb(58, 212, 241)
+$darker-blue: #19AACF
+$darker-blue-2: #084159
+
+/* Choc Explore Styles
 
 body
   margin: 0
@@ -18,7 +24,7 @@ body
 
 header
   text-align: center
-  background-color: #F8F9F9
+  background-color: $lightest-blue
   margin-bottom: 1em
   padding: 1.5em 1em 1em 1em
 
@@ -31,13 +37,17 @@ h2
   b
     font-weight: 700
 
+blockquote
+  padding: 0.5625em 1.25em 0.5625em 1.1875em
+
 .title-container
   text-align: right
 
 .description
   text-align: left
-  margin-top: 1em
+  padding-top: 1em
   color: $not-black
+  background-color: white
 
   p
     font-size: 1em
@@ -56,7 +66,7 @@ h2
   font-size: 0.8em
   font-weight: normal
   font-family: $body-font
-  background-color: rgb(58, 212, 241)
+  background-color: $bright-blue
   color: white
   padding: 0.1em 0.2em
 
@@ -64,15 +74,12 @@ p
   font-size: 22px
   line-height: 36px
 
-.CodeMirror
-  background-color: $bg
-  line-height: 1.575em
-  height: auto
-
-.CodeMirror-scroll
-  height: auto
-  overflow-x: auto
-  overflow-y: hidden
+a
+  color: $bright-blue
+  &:hover
+    color: $darker-blue
+  &:active
+    color: $darker-blue
 
 .ubutton
   background-color: #dcdcdc
@@ -92,206 +99,11 @@ p
     position: relative
     top: 1px
 
-.top-buttons
-  text-align: right
-
-.run
-  margin-top: 1.2em
-  margin-bottom: 0.5em
-
 .hidden
   display: none
 
-#choc-icon
-  margin-right: 0.2em
-  height: 1em
-  top: 0.1em
-  position: relative
-
-.section-header 
-  background-color: #DCDCDC
-  color: #777777
-  padding: 0.4em 0em
-
-.section-header
-  color: $bg
-  padding: 0.4em 0.5em
-  text-transform: uppercase
-  font-family: courier
-  -moz-border-radius: 5px
-  -webkit-border-radius: 5px
-  border-radius: 5px
-
 .canvas
   text-align: center
-
-.amount-container
-  font-size: 0.50em
-  color: rgb(148, 148, 148)
-
-.CodeMirror-activeline
-  z-index: 20
-  background: $active-yellow !important
-
-.CodeMirror-lines
-  z-index: 10
-
-.CodeMirror-lines pre:nth-child(odd)
-  background: #f9f9f9
-
-.CodeMirror-lines pre:nth-child(even)
-  background: #ffffff
-
-.CodeMirror-activeline > pre
-  background: none !important
-
-.CodeMirror div.CodeMirror-cursor 
-  z-index: 20
-
-.CodeMirror-activeline-background
-  background: $active-yellow !important
-
-.CodeMirror-linewidget
-  position: absolute
-  top: 0px
-  right: 0px
-  max-width: 50%
-  z-index: 10
-
-.CodeMirror-code pre
-  width: 100%
-  z-index: 3
-
-.CodeMirror-selected
-  z-index: 4
-  @include rgba-background( rgba(200,200,200,0.35) )
-
-.CodeMirror-focused .CodeMirror-selected
-  z-index: 0
-  @include rgba-background( rgba(200,200,200,0.35) )
-
-.CodeMirror pre
-  z-index: 0
-
-.CodeMirror
-  height: auto
-
-.CodeMirror-scroll
-  overflow-y: hidden
-  overflow-x: auto
-
-.line-messages
-  float: right
-  text-align: right
-  background: #FFF8B1 !important
-  font-family: "Helvetica", Georgia, Times New Roman, serif
-  color: rgb(148, 148, 148)
-  font-size: 12px
-  line-height: 1.3em
-  padding-right: 0.3em
-  padding-left: 0.5em
-  padding-top: 0.3em
-  min-height: 23px
-
-.choc-variable
-  font-family: "source-code-pro", "monaco", "courier"
-
-.choc-value
-  font-weight: bold
-
-#editor-header
-  height: 26px
-  // background-color: grey
-
-.editor-container
-  font-size: 15px
-
-$circle-size: 8px
-
-#timeline, .timeline
-  overflow-x: scroll
-  position: relative
-
-  // cheater styles just for now
-  table
-    border: none
-    margin-top: 7px
-
-    tr.active
-      background-color: $active-yellow !important
-
-    th
-      padding: 0px
-      color: rgb(148, 148, 148)
-      background: #f1f1f1
-      font-weight: normal
-      font-size: 0.5em
-      height: 23px
-      
-    td 
-      height: 23px   
-      padding: 0px
-      text-align: center
-
-      .cell
-        width: 13px
-        color: #ccc
-
-      .circle
-        width: $circle-size
-        height: $circle-size
-        background-color: #ccc
-        +border-radius($circle-size)
-        +box-shadow(inset 0 0 $circle-size 0 #888)
-
-      .circle.executed
-        +box-shadow(inset 0 0 $circle-size 0 #111)
-
-      .executed
-        color: #222
-
-      .active
-        color: red
-        /* font-size: 41px
-
-#timeline-container
-  overflow: hidden
-  +box-shadow(1px 0px 2px 2px #ccc)
-  z-index: 100
-
-.tlmark
-  background-color: red
-  position: absolute
-  width: 1px
-
-.line-swatch
-  width: 16px
-  height: 16px 
-  border: 1px solid rgba(68, 67, 67, 0.68) 
-  display: inline-block 
-
-.timeline-swatch
-  margin-top: 3px
-
-.canvas-editor
-  margin-right: 220px
-  position: relative
-
-.canvas-container
-  float: right
-  width: 200px
-  margin-top: 50px
-  z-index: 200
-
-.scrub_widget
-  cursor: ew-resize
-  border-bottom: 1px dashed #9bb
-  z-index: 100
-
-    display: inline
-
-.dragging
-  cursor: ew-resize
 
 #frameCanvas
   position: absolute
@@ -322,53 +134,33 @@ $circle-size: 8px
     width: 400px
     height: 400px
 
-.mod-five
-  text-align: center
-
-  .tick
-    background-color: rgb(146, 146, 146)
-    height: 13px
-    width: 1px
-    margin: auto
-
-.mod-one
-  text-align: center
-
-  .tick
-    background-color: rgb(199, 199, 199)
-    height: 5px
-    width: 1px
-    margin: auto
-
-.editor-with-timeline
-  float: left   
-  display: inline
-
-.timeline-with-editor
-  display: inline
-
-.controls-container
-  min-height: 2.5em
-
 #tourGuide
   display: none
+
+.joyride-tip-guide .joyride-next-tip
+  background: #19AACF
+  text-shadow: none
+  box-shadow: none
+  border: none
+
+.joyride-next-tip:hover
+  border: none
 
 .joyride-tip-guide
   display: none
   position: absolute
-  background: rgba(0,0,0,0.9)
+  background: rgba(61, 61, 61, 0.91)
   color: #fff
   z-index: 101
   top: 0
   left: 1.5%
   font-family: inherit
   font-weight: normal
-  border: 1px solid #222
 
   span.joyride-nub.top
-    top: -12px
+    top: -14px
     left: 3px
-
+    border-color: rgba(61, 61, 61, 0.91)
 
   .joyride-content-wrapper
     width: 100%
@@ -376,3 +168,11 @@ $circle-size: 8px
 
     .button
       margin-bottom: 0 !important
+
+#demo-1
+  min-height: 250px
+
+ul
+  list-style: disc outside none
+  padding-left: 20px
+
