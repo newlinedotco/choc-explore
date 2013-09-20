@@ -14,6 +14,7 @@ $(document).ready () ->
        dy = dy * 0.94 + 3;
        ball = pad.makeEllipse(x, y, 30, 30); 
      }
+     // ball.fill = "green"; // uncomment to set the color, then play the animation
    }
 
   """
@@ -26,6 +27,7 @@ $(document).ready () ->
   previewPad = new Two(twoOptions).appendTo(document.getElementById('previewCanvas'))
 
   $("#fader").width(twoOptions.width).height(twoOptions.height)
+
 
   maxAnimationFrames = 100
 
