@@ -1,6 +1,4 @@
-
-$(document).ready ->
-  choc = window.choc
+startVoxelDemo = () ->
 
   container = document.getElementById("game")
   window.game = game = ChocGame(
@@ -13,6 +11,7 @@ $(document).ready ->
     bark: 5
     leaves: 4
   })
+  window.avatar.yaw.position.set 5, 21, 16 
 
   newBlocks = []
 
@@ -41,28 +40,36 @@ $(document).ready ->
   # notes: use Math.round y to fix the bug
   # left the bug in to show how one can use choc to find these sorts of bugs
   code = """
-    var radius = 17;
-    var x = 0;
-    var y = 0;
-    var material = "brick";
-    var floor = 14;
-    var l = radius * Math.cos(Math.PI / 4);
-    while(x<=l) {
-      y = Math.sqrt((radius*radius) - (x*x));
-      setBlock([x, floor, y], material);
-      setBlock([x, floor, -y], material);
-      setBlock([-x, floor, y], material);
-      setBlock([-x, floor, -y], material);
+var radius = 3;
+var x = 0;
+var y = 0;
+var material = "brick";
+var floor = 14;
+var z = floor;
+var height = 10;
+var l = radius * Math.cos(Math.PI / 4);
+while( z <= height+floor) {
+  while( x<=l ) {
+    y = Math.sqrt((radius*radius) - (x*x));
+    setBlock([x, z, y], material);
+    setBlock([x, z, -y], material);
+    setBlock([-x, z, y], material);
+    setBlock([-x, z, -y], material);
 
-      setBlock([y, floor, x], material);
-      setBlock([y, floor, -x], material);
-      setBlock([-y, floor, x], material);
-      setBlock([-y, floor, -x], material);  
-      x++;
-    }
+    setBlock([y, z, x], material);
+    setBlock([y, z, -x], material);
+    setBlock([-y, z, x], material);
+    setBlock([-y, z, -x], material);
+    x = x + 1;
+  }
+  x = 0;
+  z = z + 1;
+}
+
+
   """
 
-  editor = new choc.Editor({
+  editor = new window.choc.Editor({
     $: $
     id: "#choc-editor-for-voxel"
     code: code
@@ -72,4 +79,7 @@ $(document).ready ->
     })
 
   editor.start()
+
+window.Choc ||= {}
+window.Choc.startVoxelDemo = startVoxelDemo
 

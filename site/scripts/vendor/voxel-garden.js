@@ -48109,6 +48109,7 @@ require.define("/js/game.js",function(require,module,exports,__dirname,__filenam
     makeFly = fly(game);
     target = game.controls.target();
     game.flyer = makeFly(target);
+    game.flyer.startFlying();
     blockPosPlace = void 0;
     blockPosErase = void 0;
     hl = game.highlighter = highlight(game, {
@@ -48125,11 +48126,6 @@ require.define("/js/game.js",function(require,module,exports,__dirname,__filenam
     });
     hl.on("remove-adjacent", function(voxelPos) {
       return blockPosPlace = null;
-    });
-    window.addEventListener("keydown", function(ev) {
-      if (ev.keyCode === "R".charCodeAt(0)) {
-        return avatar.toggle();
-      }
     });
     currentMaterial = 1;
     game.on("fire", function(target, state) {
@@ -48185,6 +48181,7 @@ require.define("/js/game.js",function(require,module,exports,__dirname,__filenam
     };
     opts = extend({}, defaults, opts || {});
     game = createGame(opts);
+    console.log(game);
     container = opts.container || document.body;
     window.game = game;
     game.appendTo(container);
