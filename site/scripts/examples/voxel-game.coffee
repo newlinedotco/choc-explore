@@ -40,30 +40,30 @@ startVoxelDemo = () ->
   # notes: use Math.round y to fix the bug
   # left the bug in to show how one can use choc to find these sorts of bugs
   code = """
-var radius = 3;
-var x = 0;
-var y = 0;
 var material = "brick";
+var radius = 3;
 var floor = 14;
-var z = floor;
 var height = 10;
+var x = 0;
+var y = floor;
+var z = 0;
 var l = radius * Math.cos(Math.PI / 4);
-while( z <= height+floor) {
-  while( x<=l ) {
-    y = Math.sqrt((radius*radius) - (x*x));
-    setBlock([x, z, y], material);
-    setBlock([x, z, -y], material);
-    setBlock([-x, z, y], material);
-    setBlock([-x, z, -y], material);
+while( y <= height+floor) {
+  while( x <= l ) {
+    z = Math.sqrt((radius*radius) - (x*x));
+    setBlock([x, y, z], material);
+    setBlock([x, y, -z], material);
+    setBlock([-x, y, z], material);
+    setBlock([-x, y, -z], material);
 
-    setBlock([y, z, x], material);
-    setBlock([y, z, -x], material);
-    setBlock([-y, z, x], material);
-    setBlock([-y, z, -x], material);
+    setBlock([z, y, x], material);
+    setBlock([z, y, -x], material);
+    setBlock([-z, y, x], material);
+    setBlock([-z, y, -x], material);
     x = x + 1;
   }
   x = 0;
-  z = z + 1;
+  y = y + 1;
 }
 
 
