@@ -9,7 +9,7 @@ $("body").on "chocSliderLoaded", (evt) ->
     console.log $(ele).data().tour
     switch $(ele).data().tour
       when 'slider'
-        slider = $(firstChoc).find('.slider-container')[0]
+        slider = $(firstChoc).find('.slider-container .ui-slider-handle')[0]
         $(slider).attr('id', thisId)
         $(ele).attr('data-id', thisId)
         window.tourCallbacks[thisId] = (idx, tip) ->
