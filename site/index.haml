@@ -3,7 +3,8 @@ title: Choc
 layout: default
 ---
 %script{:src => "/scripts/choc/two-annotations.js"}
-%script{:src => "/scripts/vendor/jquery.joyride-2.1.js"}
+%script{:src => "/components/opentip/lib/opentip.js"}
+%script{:src => "/components/opentip/lib/adapter-jquery.js"}
 %script{:src => "/scripts/examples/parabola-client.js"}
 %script{:src => "/scripts/examples/parabola-client-timeline.js"}
 %script{:src => "/scripts/examples/triangle-fan-timeline.js"}
@@ -308,10 +309,16 @@ layout: default
 
 /* Tour
 %ol#tourGuide
-  %li{:'data-tour' => 'slider'} 
+  %li{:'data-tour' => '.slider-container',
+      :'data-tipjoint' => 'top right',
+      :'data-targetjoint' => 'top right'} 
     %p Sliding to step forwards (and backwards) in time
-  %li{:'data-tour' => 'numberslider'} 
+  %li{:'data-tour' => '.CodeMirror-widget',
+      :'data-targetjoint' => 'middle',
+      :'data-tipjoint' => 'top'}
     %p Try dragging the numbers with underlines
-  %li{:'data-tour' => 'editor'} 
+  %li{:'data-tour' => '.CodeMirror',
+      :'data-targetjoint' => 'middle',
+      :'data-tipjoint' => 'top'} 
     %p The code is fully editable
 %script{:src => "/scripts/index/tour.js"}
