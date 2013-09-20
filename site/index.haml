@@ -47,7 +47,7 @@ layout: default
       Choc is a toolkit for teachers to craft small demos that can be explored interactively.
 
     %p
-      Choc is different from other "live-coding" environments in that each step of the execution is controled by the viewer.
+      Choc is different from other "live-coding" environments in that each step of the execution is controled by the learner.
 
     %blockquote
       Choc is a tool-to-think-with.
@@ -65,7 +65,8 @@ layout: default
         %li
           The ability to drag constants and see their effect
 
-
+        %li
+          Completely editable code
 
   .large-1.columns
     &nbsp;
@@ -121,32 +122,41 @@ layout: default
   .large-10.columns
 
     %p
-      see  to augment what is learnable and teachable.
+      %em
+        Click on the slider and then use the arrow keys to step through the code.
 
-      There are currently very poor tools for helping people grow the aptitute to think procedurally.
-      
-      Choc encourages exploration and reflection
+    %p
+      As we show the flow
+      %em structure
+      we can also show step
+      %em content.
 
-      Choc aims to help draw pathways between action-ways-of-knowing and symbolic-ways-of-knowing.
+    %p
+      Looking at the code above, the 
+      %tt triangle.fill
+      line is impossibly dense. 
 
+      If you had only the code to read, you might be able to tell that we're setting the 
+      %tt fill
+      of a 
+      %tt triangle
+      to a string that is an rgb value that changes with 
+      %tt i
+      \.
+      But good luck trying to find out what color that actually is.
 
-      Acquire action-knowledge by toying with the elements of an idea.
+    %p
+      With Choc, we can annotate 
+      %em any library 
+      to give us custom descriptions and timeline rendering.
+      In the timeline above you can see rich cells that display 
+      %b rotation
+      , 
+      %b shape
+      , and 
+      %b color
+      \.
 
-      Export the properties of a chosen microhold. Hopefully as one learns to explore the properties of a microworld, they'll learn to transfer habits of exploration into the rest of their lives.
-
-      Gives you the ability to explore ideas without a bug being "wrong", bad or a mistake
-
-    %p 
-      How to create your own examples
-      Choc examples should be created in mind-sized bites.
-
-      getting to know an idea, exploring an area of knowledge, and acquiring sensitivity to distinctions that seem ungraspably subtle 
-
-      Propositional content of programming is important, but it's only a part of a programmer's body of knowledge. We're also interested in knowledge that is more qualitative, less completely specified, and seldom stated in propositional form.
-
-      By showing how the structure of a program can be decomposed into simpler, but still meaningful and coherant,structures, we're able to show a pathway into how an algorithm works.
-
-      In our culture number is richly represented, systematic procedure is poorly represented.
 
   .large-1.columns
     &nbsp;
@@ -173,9 +183,39 @@ layout: default
     &nbsp;
   .large-10.columns
     %p
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      Propositional content of programming is important, but it's only a part of a programmer's body of knowledge. We're also interested in knowledge that is more qualitative.
 
-      This falls short of Bret Victor's original design. There are many things to be done [think to github]
+    %p
+      Choc helps learners draw pathways from action-ways-of-knowing to symbolic-ways-of-knowing.
+      You acquire action-knowledge by toying with the elements of an idea. Here, because we're able to play with the symbols, our action-knowledge is directly transferrable to symbolic-knowledge.  
+      
+    %p
+      Try dragging around the constants above. Can you find the constant that relates to "bounciness"? There are two variables above that relate to the "floor". Can you find them?
+
+    %p
+      see to augment what is learnable and teachable.
+
+      There are currently very poor tools for helping people grow the aptitute to think procedurally.
+      
+      Choc encourages exploration and reflection
+
+      Export the properties of a chosen microhold. Hopefully as one learns to explore the properties of a microworld, they'll learn to transfer habits of exploration into the rest of their lives.
+
+      Gives you the ability to explore ideas without a bug being "wrong", bad or a mistake
+
+    %p 
+      How to create your own examples
+      Choc examples should be created in mind-sized bites.
+
+      getting to know an idea, exploring an area of knowledge, and acquiring sensitivity to distinctions that seem ungraspably subtle 
+
+      Propositional content of programming is important, but it's only a part of a programmer's body of knowledge. We're also interested in knowledge that is more qualitative, less completely specified, and seldom stated in propositional form.
+
+      By showing how the structure of a program can be decomposed into simpler, but still meaningful and coherant,structures, we're able to show a pathway into how an algorithm works.
+
+      In our culture number is richly represented, systematic procedure is poorly represented.
+
+
   .large-1.columns
     &nbsp;
 
@@ -185,7 +225,7 @@ layout: default
     %h2
       Demo 5 — 
       %b
-        A B C
+        Build a (mental) model
 
     -# http://fgnass.github.io/spin.js/#?lines=13&length=40&width=10&radius=12&corners=1.0&rotate=0&trail=76&speed=1.2&direction=1&hwaccel=on
 
@@ -209,6 +249,8 @@ layout: default
   .large-1.columns
     &nbsp;
   .large-10.columns
+    %p
+      This falls short of Bret Victor's original design. There are many things to be done [think to github]
     %p
       Installation instructions
   .large-1.columns
@@ -269,11 +311,8 @@ layout: default
 %ol#tourGuide
   %li{:'data-tour' => 'slider'} 
     %p Sliding to step forwards (and backwards) in time
-  %li{:'data-tour' => 'editor'} 
-    %p You can edit the code to your liking. Try changing it around.
   %li{:'data-tour' => 'numberslider'} 
-    %p you can even slide the numbers with the underlines around.
-  %li{:'data-tour' => 'canvas'} 
-    %p And see the results change live.
-
+    %p Try dragging the numbers with underlines
+  %li{:'data-tour' => 'editor'} 
+    %p The code is fully editable
 %script{:src => "/scripts/index/tour.js"}
