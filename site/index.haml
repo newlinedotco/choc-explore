@@ -3,7 +3,6 @@ title: Choc
 layout: default
 ---
 %script{:src => "/scripts/choc/two-annotations.js"}
-%link{:href => "/styles/joyride/joyride-2.1.css", :rel => "stylesheet"}/
 %script{:src => "/scripts/vendor/jquery.joyride-2.1.js"}
 %script{:src => "/scripts/examples/parabola-client.js"}
 %script{:src => "/scripts/examples/parabola-client-timeline.js"}
@@ -239,8 +238,13 @@ layout: default
 
 /* Tour
 %ol#tourGuide
-  %li{:'data-tour' => 'slider'} Slide here
-  %li{:'data-tour' => 'editor'} Edit here
-  %li{:'data-tour' => 'canvas'} See result here
+  %li{:'data-tour' => 'slider'} 
+    %p Try sliding the slider bar to the left and right. Watch how the code changes as we walk through each step
+  %li{:'data-tour' => 'editor'} 
+    %p You can edit the code to your liking. Try changing it around.
+  %li{:'data-tour' => 'numberslider'} 
+    %p you can even slide the numbers with the underlines around.
+  %li{:'data-tour' => 'canvas'} 
+    %p And see the results change live.
 
 %script{:src => "/scripts/index/tour.js"}
