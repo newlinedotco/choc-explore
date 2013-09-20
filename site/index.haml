@@ -8,6 +8,9 @@ layout: default
 %script{:src => "/scripts/examples/parabola-client-timeline.js"}
 %script{:src => "/scripts/examples/triangle-fan-timeline.js"}
 %script{:src => "/scripts/examples/bouncing-ball.js"}
+%script{:src => "/scripts/vendor/voxel-garden.js"}
+%script{:src => "/scripts/examples/voxel-game.js"}
+
 
 %header
   .row
@@ -197,17 +200,48 @@ layout: default
     &nbsp;
 
 
-.row
+:javascript
+  function startVoxelDemo() {
+    window.ChocGame.startVoxelDemo();
+
+    // http://fgnass.github.io/spin.js/#?lines=13&length=40&width=10&radius=12&corners=1.0&rotate=0&trail=76&speed=1.2&direction=1&hwaccel=on
+    var opts = {
+      lines: 13, // The number of lines to draw
+      length: 40, // The length of each line
+      width: 10, // The line thickness
+      radius: 12, // The radius of the inner circle
+      corners: 1, // Corner roundness (0..1)
+      rotate: 0, // The rotation offset
+      direction: 1, // 1: clockwise, -1: counterclockwise
+      color: '#000', // #rgb or #rrggbb or array of colors
+      speed: 1.2, // Rounds per second
+      trail: 76, // Afterglow percentage
+      shadow: false, // Whether to render a shadow
+      hwaccel: true, // Whether to use hardware acceleration
+      className: 'spinner', // The CSS class to assign to the spinner
+      zIndex: 2e9, // The z-index (defaults to 2000000000)
+      top: 'auto', // Top position relative to parent in px
+      left: 'auto' // Left position relative to parent in px
+    };
+    var target = document.getElementById('voxel-preload-image');
+    var spinner = new Spinner(opts).spin(target);
+  }
+
+  // $(document).ready(function() {
+
+  //   window.Choc.startVoxelDemo();
+  // });
+
+.row.voxel
   .large-12.columns
     %h2
       Demo 5 — 
       %b
         Build a (mental) model
 
-    -# http://fgnass.github.io/spin.js/#?lines=13&length=40&width=10&radius=12&corners=1.0&rotate=0&trail=76&speed=1.2&direction=1&hwaccel=on
 
-    %a{:href => "#"}
-      %img{:src => "/images/voxel-preload-play.png"}
+    %a{:href => "#", :onclick => "startVoxelDemo(); return false;"}
+      %img{:src => "/images/voxel-preload-play.png", :id => "voxel-preload-image"}
 
     .choc-wrapper
       .canvas-container

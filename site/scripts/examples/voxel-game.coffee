@@ -80,6 +80,6 @@ while( y <= height+floor) {
 
   editor.start()
 
-window.Choc ||= {}
-window.Choc.startVoxelDemo = startVoxelDemo
+window.ChocGame ||= {}
+window.ChocGame.startVoxelDemo = startVoxelDemo
 
