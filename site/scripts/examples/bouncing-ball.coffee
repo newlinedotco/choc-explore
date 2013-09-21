@@ -20,7 +20,7 @@ $(document).ready () ->
   """
   twoOptions = 
     width: 200
-    height: 400
+    height: 300
     type: Two.Types.canvas
 
   framePad   = new Two(twoOptions).appendTo(document.getElementById('frameCanvas'))

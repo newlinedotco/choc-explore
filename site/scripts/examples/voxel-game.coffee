@@ -1,17 +1,21 @@
-startVoxelDemo = () ->
+startVoxelDemo = (onLoaded) ->
+  onLoaded ||= () ->
 
   container = document.getElementById("game")
   window.game = game = ChocGame(
     container: container
     playerSkin: "/images/textures/substack.png"
   )
-
+  game.paused = false
   game.createTree({ 
     position: {x: 0, y: 14, z: 0},
     bark: 5
     leaves: 4
   })
-  window.avatar.yaw.position.set 5, 21, 16 
+  setTimeout((() -> game.createTree({bark: 5, leaves: 4})), 100) for [1..10]
+
+  window.avatar.yaw.position.set 2, 28, 18 
+  window.avatar.pitch.rotation = new game.THREE.Vector3(-0.44, 0, 0)
 
   newBlocks = []
 
@@ -76,10 +80,11 @@ while( y <= height+floor) {
     beforeScrub: () -> clearNewBlocks()
     afterScrub: () -> 
     locals: { game: game, setBlock: setBlock }
+    onLoaded: () -> onLoaded()
     })
 
   editor.start()
 
-window.Choc ||= {}
-window.Choc.startVoxelDemo = startVoxelDemo
+window.ChocGame ||= {}
+window.ChocGame.startVoxelDemo = startVoxelDemo
 

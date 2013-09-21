@@ -18,14 +18,15 @@ layout: default
       .canvas-container
         #game
       #choc-editor-for-voxel.canvas-editor
-    %a{:href => "x", :onClick => "window.Choc.startVoxelDemo(); return false;"}
-      play
+    -# %a{:href => "x", :onClick => "window.ChocGame.startVoxelDemo(); return false;"}
+    -#   play
 
 .row
   .large-12.large-centered.columns
     #messages
 
 :javascript
-  // $(document).ready(function() {
-  //   window.Choc.startVoxelDemo();
-  // });
+  $(document).ready(function() {
+    $("#game").show();
+    window.ChocGame.startVoxelDemo();
+  });
