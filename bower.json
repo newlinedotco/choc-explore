@@ -2,7 +2,7 @@
   "name": "choc-explore",
   "version": "0.0.1",
   "dependencies": {
-    "codemirror-interactive-numbers": "~0.0.3",
+    "codemirror-interactive-numbers": "~0.0.4",
     "components-foundation": "~4.1.2",
     "codemirror": "~3.16.0",
     "jquery-ui": "~1.10.3",
