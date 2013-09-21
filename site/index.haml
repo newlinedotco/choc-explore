@@ -202,7 +202,7 @@ layout: default
 
 :javascript
   function startVoxelDemo() {
-    window.ChocGame.startVoxelDemo();
+    console.log("Starting Voxel Demo");
 
     // http://fgnass.github.io/spin.js/#?lines=13&length=40&width=10&radius=12&corners=1.0&rotate=0&trail=76&speed=1.2&direction=1&hwaccel=on
     var opts = {
@@ -223,14 +223,21 @@ layout: default
       top: 'auto', // Top position relative to parent in px
       left: 'auto' // Left position relative to parent in px
     };
-    var target = document.getElementById('voxel-preload-image');
+    var target = document.getElementById('voxel-preview-container');
     var spinner = new Spinner(opts).spin(target);
+
+    $("#game").show();
+
+    window.setTimeout(function (){
+      // window.ChocGame.startVoxelDemo(function() {
+      //  console.log("showing game");
+      spinner.stop();
+      $("#voxel-preview-container").hide();
+      // });
+    }, 1000);
+
+    return false;
   }
-
-  // $(document).ready(function() {
-
-  //   window.Choc.startVoxelDemo();
-  // });
 
 .row.voxel
   .large-12.columns
@@ -239,9 +246,9 @@ layout: default
       %b
         Build a (mental) model
 
-
-    %a{:href => "#", :onclick => "startVoxelDemo(); return false;"}
-      %img{:src => "/images/voxel-preload-play.png", :id => "voxel-preload-image"}
+    #voxel-preview-container 
+      %a{:href => "javascript:void(0)", :onclick => "startVoxelDemo(); return false;"}
+        %img{:src => "/images/voxel-preload-play.png", :id => "voxel-preload-image"}
 
     .choc-wrapper
       .canvas-container
