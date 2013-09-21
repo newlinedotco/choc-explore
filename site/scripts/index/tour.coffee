@@ -1,42 +1,52 @@
+window.__tour_loaded = false
 $("body").on "chocSliderLoaded", (evt) ->
+  return if (__tour_loaded)
+  window.__tour_loaded = true
   firstChoc = $(".choc-wrapper")[0]
   tour = $("#tourGuide")
-  window.tourCallbacks = {}
+  window.__tooltipsForTour = {}
   idPostfix = "____for_tour"
+  buttonCallbackPostfix = "___on_tour_callback_"
+
+  makeHtml = (ele, idx, last, cb) ->
+    html = $(ele).html()
+    callbackId = buttonCallbackPostfix + idx
+    window[callbackId] = () ->
+      thisTip = window.__tooltipsForTour[idx]
+      thisTip.hide()
+      nextTip = window.__tooltipsForTour[idx + 1]
+      if nextTip
+        nextTip.show()
+      else
+        if cb?
+          cb()
+
+    html += """
+<button value='Next' onclick="#{callbackId}()">Next</button>
+    """
+    html
+
+  makeTooltip = (ele, target, idx, cb) ->
+    opts =
+      delay: 500
+      showOn: null
+      target: $(target)
+      tipJoint: $(ele).data('tipjoint') || 'top right'
+      targetJoint: $(ele).data('targetjoint') || 'bottom left'
+      title: $(ele).data('title') || null
+      borderRadius: 5
+      style: "dark"
+      group: "tourGuide"
+      removeElementsOnHide: false
+    tip = $(ele).opentip makeHtml(ele, idx, cb), opts
+    window.__tooltipsForTour[idx] = tip
+    tip.hide()
+    tip
 
   tour.find('li').each (idx, ele) ->
     thisId = idx + idPostfix
-    console.log $(ele).data().tour
-    switch $(ele).data().tour
-      when 'slider'
-        slider = $(firstChoc).find('.slider-container .ui-slider-handle')[0]
-        $(slider).attr('id', thisId)
-        $(ele).attr('data-id', thisId)
-        window.tourCallbacks[thisId] = (idx, tip) ->
-          ## Show slider
-          handle = $(slider).find('.ui-slider-handle')[0]
-      when 'editor'
-        slider = $(firstChoc).find('.CodeMirror')[0]
-        $(slider).attr('id', thisId)
-        $(ele).attr('data-id', thisId)
-        window.tourCallbacks[thisId] = (idx, tip) ->
-          console.log "editor", $(tip)
-      when 'numberslider'
-        slider = $(firstChoc).find('.CodeMirror-widget')[1]
-        $(slider).attr('id', thisId)
-        $(ele).attr('data-id', thisId)
-        window.tourCallbacks[thisId] = (idx, tip) ->
-          # Here
-      when 'canvas'
-        slider = $(firstChoc).find('.canvas-container')[0]
-        $(slider).attr('id', thisId)
-        $(ele).attr('data-id', thisId)
-        window.tourCallbacks[thisId] = (idx, tip) ->
-          console.log "canvas", idx
+    tele = $(firstChoc).find($(ele).data().tour)[0]
+    if tele
+      makeTooltip ele, tele, idx, () ->
 
-  $("#tourGuide").joyride
-    'tipLocation': 'bottom'
-    'preStepCallback': (idx, tip) ->
-      cb = window.tourCallbacks[idx+idPostfix]
-      if cb
-        cb(idx, tip)
+  window.__tooltipsForTour[0].show();
