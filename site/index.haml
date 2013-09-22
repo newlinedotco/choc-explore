@@ -333,8 +333,29 @@ layout: default
   .large-1.columns
     &nbsp;
   .large-10.columns
+
+    %h2
+      %b
+        Get notified about new demos
     %p
-      Newsletter signup
+      This is only the beginning.
+
+    %p
+      / Begin MailChimp Signup Form
+      #mc_embed_signup
+        %form#mc-embedded-subscribe-form.validate{action: "http://willcodeforfoo.us6.list-manage1.com/subscribe/post?u=86d6f14c7cc955128485e3b8e&id=10b0695103", method: "post", name: "mc-embedded-subscribe-form", novalidate: "", target: "_blank"}
+          .mc-field-group
+            %label{for: "mce-EMAIL"}
+              Email Address
+              %span.asterisk *
+            %input#mce-EMAIL.required.email{name: "EMAIL", type: "email", value: ""}/
+          #mce-responses.clear
+            #mce-error-response.response{style: "display:none"}
+            #mce-success-response.response{style: "display:none"}
+          .clear
+            %input#mc-embedded-subscribe.button{name: "subscribe", type: "submit", value: "Subscribe"}/
+      / End mc_embed_signup
+
   .large-1.columns
     &nbsp;
 
@@ -348,18 +369,22 @@ layout: default
   .large-1.columns
     &nbsp;
 
+#drag-this
+#and-drag-this
+
 /* Tour
-%ol#tourGuide
-  %li{:'data-tour' => '.slider-container',
-      :'data-tipjoint' => 'top right',
-      :'data-targetjoint' => 'top right'} 
-    %p Sliding to step forwards (and backwards) in time
-  %li{:'data-tour' => '.CodeMirror-widget',
-      :'data-targetjoint' => 'middle',
-      :'data-tipjoint' => 'top'}
-    %p Try dragging the numbers with underlines
-  %li{:'data-tour' => '.CodeMirror',
-      :'data-targetjoint' => 'middle',
-      :'data-tipjoint' => 'top'} 
-    %p The code is fully editable
+-# %ol#tourGuide
+-#   %li{:'data-tour' => '.slider-container',
+-#       :'data-tipjoint' => 'top right',
+-#       :'data-targetjoint' => 'top right',
+-#       :'data-onshow' => 'console.log("showing first")'} 
+-#     %p Slide to step through time
+-#   %li{:'data-tour' => '#interactive_3',
+-#       :'data-targetjoint' => 'middle',
+-#       :'data-tipjoint' => 'top'}
+-#     %p Try dragging the numbers with underlines
+-#   %li{:'data-tour' => '.CodeMirror',
+-#       :'data-targetjoint' => 'middle',
+-#       :'data-tipjoint' => 'top'} 
+-#     %p The code is fully editable
 %script{:src => "/scripts/index/tour.js"}

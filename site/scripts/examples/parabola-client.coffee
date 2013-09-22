@@ -34,3 +34,4 @@ $(document).ready () ->
 
   editor.start()
 
+  window.parabolaEditor = editor
