@@ -5,9 +5,9 @@ $(document).ready () ->
     var shift = 0;
     while (shift <= 200) {
       var line = pad.makeLine(shift, 0, 200, shift);
-      if(shift % 3) {
+      if(shift % 3 == 0) {
         line.linewidth = 2;
-        line.stroke = "#333";
+        line.stroke = "#EE6768";
       }
       shift += 14;
     }
@@ -31,6 +31,7 @@ $(document).ready () ->
     $: $
     id: "#choc-editor-for-parabola-with-timeline"
     timeline: true
+    timelineValues: false
     code: parabola
     beforeScrub: () -> pad.clear()
     afterScrub: () ->  pad.update()

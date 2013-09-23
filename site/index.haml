@@ -54,7 +54,7 @@ layout: default
       Choc is different from other "live-coding" environments in that each step of the execution is controled by the learner.
 
     %blockquote
-      Choc is a tool designed to augment the thinking process.
+      Choc is a tool-to-think-with.
 
     %p
       The first example above shows the most fundimental features of Choc:
@@ -227,14 +227,14 @@ layout: default
     var target = document.getElementById('voxel-preview-container');
     var spinner = new Spinner(opts).spin(target);
 
-    $("#game").show();
+    $("#game").slideDown();
 
     window.setTimeout(function (){
-      // window.ChocGame.startVoxelDemo(function() {
-      //  console.log("showing game");
-      spinner.stop();
-      $("#voxel-preview-container").hide();
-      // });
+      window.ChocGame.startVoxelDemo(function() {
+        console.log("showing game");
+        spinner.stop();
+        $("#voxel-preview-container").hide();
+      });
     }, 1000);
 
     return false;
@@ -248,8 +248,13 @@ layout: default
         Build a (mental) model
 
     #voxel-preview-container 
-      %a{:href => "javascript:void(0)", :onclick => "startVoxelDemo(); return false;"}
+      %a{:href => "#", :onclick => "startVoxelDemo(); return false;"}
         %img{:src => "/images/voxel-preload-play.png", :id => "voxel-preload-image"}
+
+      %p
+        %center
+          %em
+            Click to load. This demo takes a while to load (but it's worth the wait).
 
     .choc-wrapper
       .canvas-container
@@ -306,7 +311,7 @@ layout: default
 
     %h2
       %b
-        Create your own Chocs
+        Create your own
 
     %p 
       Choc lessons should be captured in mind-sized bites.
@@ -322,10 +327,20 @@ layout: default
   .large-1.columns
     &nbsp;
   .large-10.columns
+    %h2
+      %b
+        Contribute
     %p
-      This falls short of Bret Victor's original design. There are many things to be done [think to github]
+      Certainly, this version falls short of Bret Victor's design and, ultimately, the tool it could be. There are 
+      %a{:href => "#"}
+        many things to be done
+      \. 
+
     %p
-      Installation instructions
+      Choc is open-source and MIT licenced. If you'd like to contribute, head over to 
+      %a{:href => "#"}
+        Github and grab the source.
+
   .large-1.columns
     &nbsp;
 
@@ -338,7 +353,7 @@ layout: default
       %b
         Get notified about new demos
     %p
-      This is only the beginning.
+      This post is the first of many demos we plan to release with Choc. We built Choc to help teach programming and there are many lessons left to write. If you'd like to keep up to date with what's happening in the Choc community, sign up for the newsletter below (low volume: no more than one email per week).
 
     %p
       / Begin MailChimp Signup Form
@@ -349,22 +364,24 @@ layout: default
               Email Address
               %span.asterisk *
             %input#mce-EMAIL.required.email{name: "EMAIL", type: "email", value: ""}/
+            %input#mc-embedded-subscribe.button{name: "subscribe", type: "submit", value: "Subscribe"}/
           #mce-responses.clear
             #mce-error-response.response{style: "display:none"}
             #mce-success-response.response{style: "display:none"}
-          .clear
-            %input#mc-embedded-subscribe.button{name: "subscribe", type: "submit", value: "Subscribe"}/
       / End mc_embed_signup
 
   .large-1.columns
     &nbsp;
 
-.row
+.row.credits
   .large-1.columns
     &nbsp;
-  .large-10.columns
+  .large-10.columns.content
     %p
       Made by Nate Murray & Ari Lerner in San Francisco - Fullstack.io
+
+    %a{:href => "http://fullstack.io"}
+      %img{:src => "/images/fullstack/fullstack-logo-508.png"}
 
   .large-1.columns
     &nbsp;
@@ -372,19 +389,4 @@ layout: default
 #drag-this
 #and-drag-this
 
-/* Tour
--# %ol#tourGuide
--#   %li{:'data-tour' => '.slider-container',
--#       :'data-tipjoint' => 'top right',
--#       :'data-targetjoint' => 'top right',
--#       :'data-onshow' => 'console.log("showing first")'} 
--#     %p Slide to step through time
--#   %li{:'data-tour' => '#interactive_3',
--#       :'data-targetjoint' => 'middle',
--#       :'data-tipjoint' => 'top'}
--#     %p Try dragging the numbers with underlines
--#   %li{:'data-tour' => '.CodeMirror',
--#       :'data-targetjoint' => 'middle',
--#       :'data-tipjoint' => 'top'} 
--#     %p The code is fully editable
 %script{:src => "/scripts/index/tour.js"}

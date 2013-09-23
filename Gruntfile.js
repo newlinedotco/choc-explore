@@ -1,10 +1,14 @@
 'use strict';
+
+var level = require('level')
 var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
 var mountFolder = function (connect, dir) {
     var directory = require('path').resolve(dir);
     console.log("serving up:", directory)
     return connect.static(directory);
 };
+
+var db = function() { level('./.s3-cache'); };
 
 module.exports = function (grunt) {
   // load all grunt tasks
@@ -210,6 +214,7 @@ module.exports = function (grunt) {
         }
       }
     }
+
 
   });
 

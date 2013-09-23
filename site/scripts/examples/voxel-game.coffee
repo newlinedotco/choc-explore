@@ -12,7 +12,7 @@ startVoxelDemo = (onLoaded) ->
     bark: 5
     leaves: 4
   })
-  setTimeout((() -> game.createTree({bark: 5, leaves: 4})), 100) for [1..10]
+  # setTimeout((() -> game.createTree({bark: 5, leaves: 4})), 100) for [1..10]
 
   window.avatar.yaw.position.set 2, 28, 18 
   window.avatar.pitch.rotation = new game.THREE.Vector3(-0.44, 0, 0)
