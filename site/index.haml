@@ -92,6 +92,12 @@ layout: default
     &nbsp;
   .large-10.columns
     %p
+      %em.demo-note
+        The code is fully editable. This demo uses the 
+        %a{:href => "http://jonobr1.github.io/two.js/"}
+          Two.js API
+
+    %p
       Code is often pasted into web-pages and this provides us no advantage over paper.
 
     %p
@@ -126,7 +132,7 @@ layout: default
   .large-10.columns
 
     %p
-      %em
+      %em.demo-note
         Click on the slider and then use the arrow keys to step through the code.
 
     %p
@@ -314,10 +320,9 @@ layout: default
         Create your own
 
     %p 
-      Choc lessons should be captured in mind-sized bites.
+      Choc lessons should be captured in mind-sized bites. Each Choc should be crafted to teach a single concept.
 
     %p 
-      By showing how the structure of a program can be decomposed into simpler, but still meaningful and coherant,structures, we're able to facilitate a pathway into how an algorithm works.
        
   .large-1.columns
     &nbsp;
@@ -373,18 +378,41 @@ layout: default
   .large-1.columns
     &nbsp;
 
-.row.credits
-  .large-1.columns
-    &nbsp;
-  .large-10.columns.content
-    %p
-      Made by Nate Murray & Ari Lerner in San Francisco - Fullstack.io
+.credits
+  .row
+    .large-1.columns
+      &nbsp;
+    .large-10.columns.content
+      %p
+        .made-by
+          Made by:
+        .row
+          .large-4.columns
+            %img{:src => "/images/fullstack/nates-big-face.png"}
+            .name
+              Nate Murray
+            .follow
+              %a{:href => "https://twitter.com/eigenjoy", :class => "twitter-follow-button", "data-show-count" => "false", "data-size" => "large"}
+                Follow @eigenjoy
+              :javascript
+                !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+          .large-4.columns
+            #giant-ampersand
+          .large-4.columns
+            %img{:src => "/images/fullstack/aris-beautiful-face.png"}
+            .name
+              Ari Lerner
+            .follow
+              %a{:href => "https://twitter.com/auser", :class => "twitter-follow-button", "data-show-count" => "false", "data-size" => "large"}
+                Follow @auser
+              :javascript
+                !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 
-    %a{:href => "http://fullstack.io"}
-      %img{:src => "/images/fullstack/fullstack-logo-508.png"}
+      %a{:href => "http://fullstack.io"}
+        %img{:src => "/images/fullstack/fullstack-logo-508.png"}
 
-  .large-1.columns
-    &nbsp;
+    .large-1.columns
+      &nbsp;
 
 #drag-this
 #and-drag-this

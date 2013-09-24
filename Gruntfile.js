@@ -12,6 +12,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-generator');
   grunt.loadNpmTasks('grunt-haml');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-exec');
 
   // configurable paths
   var yeomanConfig = {
@@ -209,6 +210,16 @@ module.exports = function (grunt) {
           drafts: true
         }
       }
+    },
+
+    shell: {
+      deployBeta: {
+        options: {
+          stdout: true,
+          stderr: true
+        },
+        command: 's3cmd sync .tmp/ s3://j0dcwqka8t4jju2.private.choc/ && echo "open http://j0dcwqka8t4jju2.private.choc.s3-website-us-east-1.amazonaws.com/index.html" '
+      }
     }
 
 
@@ -262,4 +273,6 @@ module.exports = function (grunt) {
     grunt.registerTask('install', [
         'bower:install'
     ]);
+
+    grunt.registerTask('deployBeta', ['shell:deployBeta']);
 };

@@ -218,7 +218,31 @@ ul
 
 .credits
   background-color: #e6faff
+  text-align: center
+
+  #giant-ampersand
+    background-image: url('/images/fullstack/amp.png')
+    width: 225px 
+    height: 225px
+    margin-left: 0.9em 
+
+  @media all and (-webkit-min-device-pixel-ratio: 1.5)
+    #giant-ampersand
+      background-image: url('/images/fullstack/amp@2x.png')
+      background-size: 225px 225px
+
+  .made-by
+    text-align: left
+
   .content
     margin-top: 2em
     margin-bottom: 3em
 
+  .name
+    padding-bottom: 0.6em
+    padding-top: 0.5em
+
+.demo-note
+  font-size: 0.8em
+  color: rgb(134, 134, 134)
+  text-align: center

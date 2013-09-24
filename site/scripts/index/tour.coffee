@@ -10,7 +10,7 @@ $(document).ready () ->
     numberToDrag = $("#choc-editor-for-parabola").find("#interactive_3")
     andDragThis = $("#and-drag-this")
     andDragThis.css("position", "absolute")
-      .css("top", numberToDrag.offset().top + 20)
+      .css("top", numberToDrag.offset().top + 25)
       .css("left", numberToDrag.offset().left - 70)
 
     fadeout = _.once(() ->
