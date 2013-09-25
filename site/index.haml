@@ -2,13 +2,13 @@
 title: Choc 
 layout: default
 ---
-%script{:src => "/scripts/choc/two-annotations.js"}
-%script{:src => "/components/opentip/lib/opentip.js"}
-%script{:src => "/components/opentip/lib/adapter-jquery.js"}
-%script{:src => "/scripts/examples/parabola-client.js"}
-%script{:src => "/scripts/examples/parabola-client-timeline.js"}
-%script{:src => "/scripts/examples/triangle-fan-timeline.js"}
-%script{:src => "/scripts/examples/bouncing-ball.js"}
+%script{:src => "{{ site.baseurl }}scripts/choc/two-annotations.js"}
+%script{:src => "{{ site.baseurl }}components/opentip/lib/opentip.js"}
+%script{:src => "{{ site.baseurl }}components/opentip/lib/adapter-jquery.js"}
+%script{:src => "{{ site.baseurl }}scripts/examples/parabola-client.js"}
+%script{:src => "{{ site.baseurl }}scripts/examples/parabola-client-timeline.js"}
+%script{:src => "{{ site.baseurl }}scripts/examples/triangle-fan-timeline.js"}
+%script{:src => "{{ site.baseurl }}scripts/examples/bouncing-ball.js"}
 
 %header
   .row
@@ -204,8 +204,8 @@ layout: default
     &nbsp;
 
 
-%script{:src => "/scripts/vendor/voxel-garden.min.js"}
-%script{:src => "/scripts/examples/voxel-game.js"}
+%script{:src => "{{ site.baseurl }}scripts/vendor/voxel-garden.min.js"}
+%script{:src => "{{ site.baseurl }}scripts/examples/voxel-game.js"}
 
 :javascript
   function startVoxelDemo() {
@@ -255,7 +255,7 @@ layout: default
 
     #voxel-preview-container 
       %a{:href => "#", :onclick => "startVoxelDemo(); return false;"}
-        %img{:src => "/images/voxel-preload-play.png", :id => "voxel-preload-image"}
+        %img{:src => "{{ site.baseurl }}images/voxel-preload-play.png", :id => "voxel-preload-image"}
 
       %p
         %center
@@ -388,7 +388,7 @@ layout: default
           Made by:
         .row
           .large-4.columns
-            %img{:src => "/images/fullstack/nates-big-face.png"}
+            %img{:src => "{{ site.baseurl }}images/fullstack/nates-big-face.png"}
             .name
               Nate Murray
             .follow
@@ -399,7 +399,7 @@ layout: default
           .large-4.columns
             #giant-ampersand
           .large-4.columns
-            %img{:src => "/images/fullstack/aris-beautiful-face.png"}
+            %img{:src => "{{ site.baseurl }}images/fullstack/aris-beautiful-face.png"}
             .name
               Ari Lerner
             .follow
@@ -417,4 +417,4 @@ layout: default
 #drag-this
 #and-drag-this
 
-%script{:src => "/scripts/index/tour.js"}
+%script{:src => "{{ site.baseurl }}scripts/index/tour.js"}
