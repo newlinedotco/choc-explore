@@ -104,7 +104,13 @@ layout: default
       Many people who are able to become programmers have an aptitute for envisioning weaves of procedural flow in their mind. Choc makes procedure flow tangible. 
 
     %p
-      In the timeline above we can relate to the program flow "geometrically" by seeing patterns in the timeline. 
+      In the timeline above, each frame that executes has a dot. By laying out the execution in time we can relate to the program flow "geometrically" by seeing patterns of execution.   
+
+    %p
+      In the example above, each frame that executes displays a 
+      %span{:class => "circle executed inline-circle"}
+        &nbsp;
+      \. By organizing program execution in time, we can relate to the program flow geometrically. Seeing spatial patterns in execution give us a stronger intution about how our programs run.
 
 
   .large-1.columns
@@ -337,14 +343,18 @@ layout: default
         Contribute
     %p
       Certainly, this version falls short of Bret Victor's design and, ultimately, the tool it could be. There are 
-      %a{:href => "#"}
-        many things to be done
-      \. 
+      many things to be done. 
 
     %p
-      Choc is open-source and MIT licenced. If you'd like to contribute, head over to 
-      %a{:href => "#"}
-        Github and grab the source.
+      Choc is open-source and MIT licenced. It's currently split into two projects:
+      %tt<
+        %a{:href => "https://github.com/fullstackio/choc"}<
+          choc
+      contains the core for stepping through code and generating readable descriptions 
+      %tt<
+        %a{:href => "https://github.com/fullstackio/choc-explore"}<
+          choc-explore
+      contains this website and the examples. 
 
   .large-1.columns
     &nbsp;
