@@ -40,25 +40,26 @@ layout: default
 .row
   .large-1.columns
     &nbsp;
+
   .large-10.columns
     %p
       Thinking procedurally is one of the hardest concepts to grasp for the beginning programmer.
 
     %p 
-      Choc is a toolkit for teachers to craft small demos that can be explored interactively.
-
-    %p
-      Choc is different from other "live-coding" environments in that each step of the execution is controled by the learner.
+      Choc is a toolkit for teachers to craft small programs that can be explored
+      interactively. 
 
     %blockquote
-      Choc is a tool-to-think-with.
+      Choc is a tool to think with.
 
     %p
-      The first example above shows the most fundimental features of Choc:
+      Choc is different from other "live-coding" environments in that each step
+      of the execution is controled by the learner. The first example above
+      shows the most fundimental features of Choc:
 
       %ul
         %li
-          The ability to "scrub" through each step of a program
+          The ability to scrub through each step of a program
 
         %li
           A clear description of what each step is doing
@@ -95,23 +96,16 @@ layout: default
           Two.js API
 
     %p
-      Code is often pasted into web-pages and this provides us no advantage over paper.
-
-    %p
-      Choc provides a framework to use the computer to teach programs in a way that no book can. By showing the flow of a program explicitly we can build new intellectual structures for thinking about how procedures run.
-
-    %p
-      Many people who are able to become programmers have an aptitute for envisioning weaves of procedural flow in their mind. Choc makes procedure flow tangible. 
-
-    %p
-      In the timeline above, each frame that executes has a dot. By laying out the execution in time we can relate to the program flow "geometrically" by seeing patterns of execution.   
-
-    %p
-      In the example above, each frame that executes displays a 
+      In the example above, each frame that executes displays a
       %span{:class => "circle executed inline-circle"}
         &nbsp;
-      \. By organizing program execution in time, we can relate to the program flow geometrically. Seeing spatial patterns in execution give us a stronger intution about how our programs run.
+      dot. By organizing program execution in time, we can relate to the execution flow geometrically. Seeing spatial patterns in execution give us a stronger intution about how our programs run.
 
+    %p
+      Choc provides a framework to teach programming on a computer. That sounds silly, but code is often pasted flatly into documents and this provides us no advantage over paper. 
+
+    %p
+      By showing the flow of a program explicitly we can build new intellectual structures for thinking about how procedures execute.
 
   .large-1.columns
     &nbsp;
@@ -149,26 +143,29 @@ layout: default
       %tt triangle.fill
       line is impossibly dense. 
 
-      If you had only the code to read, you might be able to tell that we're setting the 
+      If you were reading the code, you might be able to tell that we're setting the 
       %tt fill
       of a 
       %tt triangle
-      to a string that is an rgb value that changes with 
+      to a string that is an RGB value that changes with 
       %tt i
       \.
-      But good luck trying to find out what color that actually is.
+      But the code gives no insight into what color that actually is.
 
     %p
+      In the timeline the cells display rich information such as 
+      %b< 
+        rotation
+      ,
+      %b< 
+        shape
+      , or
+      %b< 
+        color
+      \.
       With Choc, we can annotate 
       %em any library 
       to give us custom descriptions and timeline rendering.
-      In the timeline above you can see rich cells that display 
-      %b rotation
-      , 
-      %b shape
-      , and 
-      %b color
-      \.
 
 
   .large-1.columns
@@ -196,15 +193,20 @@ layout: default
     &nbsp;
   .large-10.columns
     %p
-      Propositional content of programming is important, but it's only a part of a programmer's body of knowledge. We're also interested in knowledge that is more qualitative.
+      Choc helps learners draw pathways from 
+      %b action-ways-of-knowing 
+      to 
+      %b symbolic-ways-of-knowing
+      \.
 
     %p
-      Choc helps learners draw pathways from action-ways-of-knowing to symbolic-ways-of-knowing.
-      You acquire action-knowledge by toying with the elements of an idea. Here, because we're able to play with the symbols, our action-knowledge is directly transferrable to symbolic-knowledge.  
-      
-    %p
-      Try dragging around the constants above. Can you find the constant that relates to "bounciness"? There are two variables above that relate to the "floor". Can you find them?
+      Try dragging around the 
+      %span.underlined-constants 
+        underlined constants
+      above. Can you find the constant that relates to "bounciness"? There are two variables above that relate to the "floor". Can you find them?
 
+    %p
+      Because we're able to play with the symbols and see their effect, our action-knowledge is directly transferrable to symbolic-knowledge.  
 
   .large-1.columns
     &nbsp;
@@ -290,7 +292,7 @@ layout: default
     %p
       Choc isn't limited to 2D canvas examples. Above we're interacting with a 
       %a{:href => "http://voxeljs.com/"} Voxel.js
-      world. The Choc scrubbing loop is independent of the game loop.
+      world. 
 
     %p
       In this example, we're building a tower by 
