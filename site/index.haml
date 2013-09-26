@@ -337,34 +337,35 @@ layout: default
       Choc lessons should be captured in mind-sized bites. Each Choc should be crafted to teach a single concept.
 
     %p 
-      We've tried to make Choc easy to include into other sites. To that end, here are a few distilled examples you can look at:
+      We've tried to make Choc easy to include into other sites. To that end, here are a few JSFiddle examples you can look at:
 
-    -# %p
-    -#   Parabola
-    -#   %a{:href => "#"} jsfiddle
-    -#   \|
-    -#   %a{:href => "#"} jsbin
-    -#   \|
-    -#   %a{:href => "#"} codepen
+    .row.examples
+      .large-6.columns
+        .example
+          %a{:href => "#", :class => "name"}
+            Parabola
+          %a{:href => "#"}
+            %img{:src => "{{ site.baseurl }}images/thumbnails/parabola-thumb.jpg", :class => "thumbnail"}
 
-    -# %p
-    -#   Tringle Timeline
-    -#   %a{:href => "#"} jsfiddle
-    -#   %a{:href => "#"} jsbin
-    -#   %a{:href => "#"} codepen
+        .example
+          %a{:href => "#", :class => "name"}
+            Triangle (with Timeline)
+          %a{:href => "#"}
+            %img{:src => "{{ site.baseurl }}images/thumbnails/triangle-fan-thumb.jpg", :class => "thumbnail"}
 
-    -# %p
-    -#   Bouncing Ball
-    -#   %a{:href => "#"} jsfiddle
-    -#   %a{:href => "#"} jsbin
-    -#   %a{:href => "#"} codepen
+      .large-6.columns
+        .example
+          %a{:href => "#", :class => "name"}
+            Bouncing Ball
+          %a{:href => "#"}
+            %img{:src => "{{ site.baseurl }}images/thumbnails/bouncing-ball-thumb.jpg", :class => "thumbnail"}
 
-    -# %p
-    -#   Voxel
-    -#   %a{:href => "#"} jsfiddle
-    -#   %a{:href => "#"} jsbin
-    -#   %a{:href => "#"} codepen
-       
+        .example
+          %a{:href => "#", :class => "name"}
+            Voxel
+          %a{:href => "#"}
+            %img{:src => "{{ site.baseurl }}images/thumbnails/voxel-thumb.jpg", :class => "thumbnail"}
+      
   .large-1.columns
     &nbsp;
 

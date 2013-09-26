@@ -250,4 +250,34 @@ ul
 .underlined-constants
   border-bottom: 1px dashed #99bbbb
 
+.examples
+  text-align: center
 
+  .name
+    font-weight: bold
+    margin-bottom: 1em
+    text-align: center
+    display: block
+     
+  a.name
+    color: $not-black
+
+    &:hover
+      text-decoration: underline
+
+  .thumbnail
+    border: 1px solid rgb(223, 223, 223)
+    padding: 2px
+
+  a:hover .thumbnail
+    border: 2px solid $not-black
+
+  .example
+    margin-bottom: 1em
+    padding-bottom: 1em
+    padding-top: 1em
+    width: 80%
+    margin: 0 auto 1em auto
+
+.clear
+  clear: both
