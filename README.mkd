@@ -2,7 +2,7 @@
 
 ![Choc](https://github.com/fullstackio/choc-explore/raw/master/doc/images/parabola-demo-1.gif)
 
-This project holds the [Choc](#) website and example projects.
+This project holds the [Choc](http://fullstack.io/choc) website and example projects.
 
 ## Installation
 
