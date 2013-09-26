@@ -49,8 +49,8 @@ layout: default
       Choc is a toolkit for teachers to craft small programs that can be explored
       interactively. 
 
-    %blockquote
-      Choc is a tool to think with.
+    -# %blockquote
+    -#   Choc is a tool to think with.
 
     %p
       Choc is different from other "live-coding" environments in that each step
@@ -163,9 +163,9 @@ layout: default
       %b< 
         color
       \.
-      With Choc, we can annotate 
+      Choc provides hooks that allow us to annotate 
       %em any library 
-      to give us custom descriptions and timeline rendering.
+      with custom descriptions and timeline rendering.
 
 
   .large-1.columns
@@ -310,9 +310,18 @@ layout: default
       or 
       %tt height
       \. 
+
+    %blockquote
+      There is a bug in the above code that causes the tower to look funny. Can you find it? The 
+      %tt Math.sqrt
+      function returns some long numbers for 
+      %tt z
+      that don't feel right. I wonder, what would happen if we used 
+      %tt Math.round 
+      to smooth them out?
         
     %p
-      A goal of Choc is to encourage exploration and reflection. The hope is to give learners the ability to explore ideas without a bug being "wrong", "bad", or "a mistake". Hopefully as one learns to explore the properties of a microworld, they'll learn to transfer habits of exploration into the rest of their lives.
+      A goal of Choc is to encourage both exploration and reflection. The hope is to give learners the ability to explore ideas without a bug being "wrong", "bad", or "a mistake". Hopefully as one learns to explore the properties of a microworld, they'll learn to transfer habits of exploration into the rest of their lives.
 
   .large-1.columns
     &nbsp;
@@ -330,6 +339,33 @@ layout: default
       Choc lessons should be captured in mind-sized bites. Each Choc should be crafted to teach a single concept.
 
     %p 
+      We've tried to make Choc easy to include into other sites. To that end, here are a few distilled examples you can look at:
+
+    %p
+      Parabola
+      %a{:href => "#"} jsfiddle
+      \|
+      %a{:href => "#"} jsbin
+      \|
+      %a{:href => "#"} codepen
+
+    %p
+      Tringle Timeline
+      %a{:href => "#"} jsfiddle
+      %a{:href => "#"} jsbin
+      %a{:href => "#"} codepen
+
+    %p
+      Bouncing Ball
+      %a{:href => "#"} jsfiddle
+      %a{:href => "#"} jsbin
+      %a{:href => "#"} codepen
+
+    %p
+      Voxel
+      %a{:href => "#"} jsfiddle
+      %a{:href => "#"} jsbin
+      %a{:href => "#"} codepen
        
   .large-1.columns
     &nbsp;
@@ -343,11 +379,10 @@ layout: default
       %b
         Contribute
     %p
-      Certainly, this version falls short of Bret Victor's design and, ultimately, the tool it could be. There are 
-      many things to be done. 
+      Certainly, this version falls short of Bret Victor's original design and, ultimately, the tool it could be. This demo is an early version and there are many bugs to be worked out. That said, even in it's current form we feel it can be really helpful for both novice and experienced programmers. If you'd like to help us, Choc is open-source and MIT licensed.
 
     %p
-      Choc is open-source and MIT licenced. It's currently split into two projects:
+      Choc is split into two projects:
       %tt<
         %a{:href => "https://github.com/fullstackio/choc"}<
           choc
