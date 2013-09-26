@@ -2,3 +2,4 @@ name: Your New Jekyll Site
 markdown: redcarpet
 pygments: false
 keep_files: ['components', 'images', 'scripts', 'styles']
+baseurl: "/choc/"
