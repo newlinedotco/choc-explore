@@ -1,6 +1,6 @@
 # choc-explore
 
-![Choc](https://github.com/fullstackio/choc-explore/raw/master/doc/images/choc-parabola-preview.png)
+![Choc](https://github.com/fullstackio/choc-explore/raw/master/doc/images/parabola-demo-1.gif)
 
 This project holds the [Choc](#) website and example projects.
 

@@ -26,7 +26,11 @@ header
   text-align: center
   background-color: $lightest-blue
   margin-bottom: 1em
-  padding: 1.5em 1em 1em 1em
+  padding: 1.7em 1em 1.7em 1em
+  background-color: #EFFDFD
+  // @include filter-gradient(#8ad8eb, #19aacf, horizontal)
+  // @include background-image(linear-gradient( left bottom, rgba(138,216,235,1) 0%, rgba(25,170,207,1) 100%))
+
 
 h2
   width: 100%
@@ -56,9 +60,10 @@ blockquote
 #title
   font-family: "open sans"
   font-weight: 800
-  color: #868686
   margin: 0
   text-transform: uppercase
+  color: #4B4B4B
+  text-shadow: 2px 2px 1px rgba(65, 186, 255, 1)
 
 #subtitle
   color: #868686
@@ -66,9 +71,11 @@ blockquote
   font-size: 0.8em
   font-weight: normal
   font-family: $body-font
-  background-color: $bright-blue
+  background-color: #7BDCF5
   color: white
   padding: 0.1em 0.2em
+  box-shadow: 2px 2px 0px 0px rgba(47, 121, 170, 0.4)
+
 
 p
   font-size: 22px
@@ -281,3 +288,4 @@ ul
 
 .clear
   clear: both
+

@@ -227,7 +227,7 @@ module.exports = function (grunt) {
           stdout: true,
           stderr: true
         },
-        command: 's3cmd sync .tmp/ s3://j0dcwqka8t4jju2.private.choc/ && open "http://j0dcwqka8t4jju2.private.choc.s3-website-us-east-1.amazonaws.com/index.html"'
+        command: 's3cmd sync .tmp/ s3://j0dcwqka8t4jju2.private.choc/ && open "http://j0dcwqka8t4jju2.private.choc.s3-website-us-east-1.amazonaws.com/choc/index.html"'
       }
     }
 
