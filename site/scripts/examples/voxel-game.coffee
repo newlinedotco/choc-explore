@@ -4,7 +4,8 @@ startVoxelDemo = (onLoaded) ->
   container = document.getElementById("game")
   window.game = game = ChocGame(
     container: container
-    playerSkin: "/images/textures/substack.png"
+    texturePath: "/choc/images/textures/"
+    playerSkin: "/choc/images/textures/substack.png"
   )
   game.paused = false
   game.createTree({ 
