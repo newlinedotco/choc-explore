@@ -1,5 +1,5 @@
 ---
-title: Choc 
+title: Choc - Bret Victor's 'Learnable Programming' implemented in Javascript
 layout: default
 ---
 %script{:src => "{{ site.baseurl }}scripts/choc/two-annotations.js"}
@@ -53,7 +53,7 @@ layout: default
     %p
       Choc is different from other "live-coding" environments in that each step
       of the execution is controled by the learner. The first example above
-      shows the most fundimental features of Choc:
+      shows the most fundamental features of Choc:
 
       %ul
         %li
@@ -265,7 +265,7 @@ layout: default
       %p
         %center
           %em
-            Click to load. This demo takes a while to load (but it's worth the wait).
+            Click to load. This demo takes a while to load (but it's worth the wait). Requires WebGL, best with Chrome or Firefox.
 
     .choc-wrapper
       .canvas-container
@@ -334,7 +334,9 @@ layout: default
         Create your own
 
     %p 
-      Choc lessons should be captured in mind-sized bites. Each Choc should be crafted to teach a single concept.
+      Choc lessons should be captured in mind-sized bites. That is, each Choc
+      should be crafted around teaching a single concept that can be
+      explored. We hope you'll find Choc a useful tool for teaching.
 
     %p 
       We've tried to make Choc easy to include into other sites. To that end, here are a few JSFiddle examples you can look at:
@@ -342,29 +344,34 @@ layout: default
     .row.examples
       .large-6.columns
         .example
-          %a{:href => "#", :class => "name"}
+          %a{:href => "http://jsfiddle.net/eigenjoy/HLR85/embedded/result/", :class => "name"}
             Parabola
-          %a{:href => "#"}
+          %a{:href => "http://jsfiddle.net/eigenjoy/HLR85/embedded/result/"}
             %img{:src => "{{ site.baseurl }}images/thumbnails/parabola-thumb.jpg", :class => "thumbnail"}
 
         .example
-          %a{:href => "#", :class => "name"}
+          %a{:href => "http://jsfiddle.net/eigenjoy/smdbd/embedded/result/", :class => "name"}
             Triangle (with Timeline)
-          %a{:href => "#"}
+          %a{:href => "http://jsfiddle.net/eigenjoy/smdbd/embedded/result/"}
             %img{:src => "{{ site.baseurl }}images/thumbnails/triangle-fan-thumb.jpg", :class => "thumbnail"}
 
       .large-6.columns
         .example
-          %a{:href => "#", :class => "name"}
+          %a{:href => "http://jsfiddle.net/eigenjoy/YJSmZ/embedded/result/", :class => "name"}
             Bouncing Ball
-          %a{:href => "#"}
+          %a{:href => "http://jsfiddle.net/eigenjoy/YJSmZ/embedded/result/"}
             %img{:src => "{{ site.baseurl }}images/thumbnails/bouncing-ball-thumb.jpg", :class => "thumbnail"}
 
-        .example
-          %a{:href => "#", :class => "name"}
-            Voxel
-          %a{:href => "#"}
-            %img{:src => "{{ site.baseurl }}images/thumbnails/voxel-thumb.jpg", :class => "thumbnail"}
+        .example.coming-soon
+          .name
+            Voxel (Coming Soon!)
+          %img{:src => "{{ site.baseurl }}images/thumbnails/voxel-thumb.jpg", :class => "thumbnail"}
+ 
+        -# .example
+        -#   %a{:href => "#", :class => "name"}
+        -#     Voxel
+        -#   %a{:href => "#"}
+        -#     %img{:src => "{{ site.baseurl }}images/thumbnails/voxel-thumb.jpg", :class => "thumbnail"}
       
   .large-1.columns
     &nbsp;
@@ -378,7 +385,7 @@ layout: default
       %b
         Contribute
     %p
-      Certainly, this version falls short of Bret Victor's original design and, ultimately, the tool it could be. This demo is an early version and there are many bugs to be worked out. That said, even in it's current form we feel it can be really helpful for both novice and experienced programmers. If you'd like to help us, Choc is open-source and MIT licensed.
+      Certainly, this version falls short of Bret Victor's original design and, ultimately, the tool it could be. This demo is an early version and there are many bugs to be worked out. That said, even in it's current form we feel it can be really helpful for both novice and experienced programmers. If you'd like to contribute, Choc is open-source and MIT licensed.
 
     %p
       Choc is split into two projects:
@@ -403,7 +410,7 @@ layout: default
       %b
         Get notified about new demos
     %p
-      This post is the first of many demos we plan to release with Choc. We built Choc to help teach programming and there are many lessons left to write. If you'd like to keep up to date with what's happening in the Choc community, sign up for the newsletter below (low volume: no more than one email per week).
+      We built Choc to help teach programming and there are many lessons left to write. If you'd like to keep up-to-date with what's happening in the Choc community, sign up for the newsletter below (low volume: no more than one email per week). We'll send you some of the best examples of how-to-teach-programming on the web. 
 
     %p
       / Begin MailChimp Signup Form
@@ -422,6 +429,12 @@ layout: default
 
   .large-1.columns
     &nbsp;
+
+.discuss
+  %p
+    Thoughts? Comments? Come join
+    %a{:href => "https://news.ycombinator.com/item?id=6458424"}
+      the discussion on Hacker News
 
 .credits
   .row
