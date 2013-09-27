@@ -228,6 +228,14 @@ module.exports = function (grunt) {
           stderr: true
         },
         command: 's3cmd sync .tmp/ s3://j0dcwqka8t4jju2.private.choc/ && open "http://j0dcwqka8t4jju2.private.choc.s3-website-us-east-1.amazonaws.com/choc/index.html"'
+        // command: 's3sync sync --verbose .tmp/ j0dcwqka8t4jju2.private.choc:/ && open "http://j0dcwqka8t4jju2.private.choc.s3-website-us-east-1.amazonaws.com/choc/index.html"'
+      },
+      deployProduction: {
+        options: {
+          stdout: true,
+          stderr: true
+        },
+        command: 's3cmd sync .tmp/ s3://www.fullstack.io/ && open "http://fullstack.io/choc/index.html"'
       }
     }
 
@@ -283,5 +291,6 @@ module.exports = function (grunt) {
         'bower:install'
     ]);
 
-    grunt.registerTask('deployBeta', ['shell:deployBeta']);
+    grunt.registerTask('deploy:beta', ['shell:deployBeta']);
+    grunt.registerTask('deploy', ['shell:deployProduction']);
 };
