@@ -4,9 +4,14 @@ GEM
     animation (0.1.alpha.3)
       compass (>= 0.12.0)
       sass (>= 3.2.0.alpha.95)
+    aws-sdk (1.19.0)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4, < 1.6.0)
+      uuidtools (~> 2.1)
     chunky_png (1.2.8)
     classifier (1.3.3)
       fast-stemmer (>= 1.0.0)
+    cmdparse (2.0.5)
     colorator (0.1)
     commander (4.1.5)
       highline (~> 1.6.11)
@@ -36,18 +41,24 @@ GEM
     jekyll-haml (0.1.1)
       haml (>= 3.0.0)
       jekyll (>= 0.10.0)
+    json (1.8.0)
     liquid (2.5.2)
     maruku (0.6.1)
       syntax (>= 1.0.0)
+    nokogiri (1.5.10)
     posix-spawn (0.3.6)
     pygments.rb (0.5.2)
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.1.0)
     redcarpet (2.2.2)
+    s3sync (2.0.0)
+      aws-sdk
+      cmdparse
     safe_yaml (0.7.1)
     sass (3.2.9)
     syntax (1.0.0)
     tilt (1.4.1)
+    uuidtools (2.1.4)
     yajl-ruby (1.1.0)
 
 PLATFORMS
@@ -60,3 +71,4 @@ DEPENDENCIES
   haml
   jekyll (= 1.2.0)
   jekyll-haml (= 0.1.1)
+  s3sync
